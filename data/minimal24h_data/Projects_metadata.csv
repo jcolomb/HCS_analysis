@@ -1,0 +1,2 @@
+experiment ID,experimentator,Folder_path,group_by,video_acquisition,video_folder,video_analysis,raw_data_folder,Comments,lab_ID,light_on,light_off,temperature,cage_type,address,mousebook
+E000002,julien.colomb@fu-berlin.de,Project_exampledata1,genotype + age_category,HCS 3.0,videos,HCS 3.0,HCS_output,GENOTYPE NOT REAL,AOCF_1,,,,,,
