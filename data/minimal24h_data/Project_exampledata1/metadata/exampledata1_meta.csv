@@ -1,4 +1,4 @@
-animal ID,gender,treatment,genotype,date,test cage,real time start,experiment_folder_name,Behavior_sequence,1min_summary,Lab_ID
+animal ID,gender,treatment,genotype,date,test cage,real time start,experiment_folder_name,Behavior_sequence,Onemin_summary,Lab_ID
 7,M,young,test,08.09.2015,1,09:08,20150908_Tarabykin_HCS_groupA,20150908_Tarabykin_HCS_A_animal_Beh_7.xlsx,20150908_Tarabykin_HCS_1min_Aanimal_7.xlsx,AOCF_1
 28,M,young,control,08.09.2015,2,09:08,20150908_Tarabykin_HCS_groupA,20150908_Tarabykin_HCS_A_animal_Beh_28.xlsx,20150908_Tarabykin_HCS_1min_Aanimal_28.xlsx,AOCF_1
 27,M,young,test,08.09.2015,3,09:08,20150908_Tarabykin_HCS_groupA,20150908_Tarabykin_HCS_A_animal_Beh_27.xlsx,20150908_Tarabykin_HCS_1min_Aanimal_27.xlsx,AOCF_1
