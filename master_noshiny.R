@@ -12,12 +12,13 @@ PMeta ="data/minimal24h_data/Projects_metadata.csv"
 
 
 ##project to analyse
-Name_project ="Tarabykin"
+Name_project ="Tarabykin" #must be exactly the same in PMeta
 
 
 #computed variables
 WD = dirname(PMeta)
-dir.create (paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/"))
+Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
+dir.create (Outputs)
 
 ##code
 #read metadata
@@ -26,3 +27,7 @@ source("Rcode/inputdata.r")
 #check data file existence and if the number of file correspond between the folder and the metadata
 #create list of filepath for each animal_ID
 source("Rcode/checkmetadata.r")
+
+#create and save event files (one file for all mice)
+source ("Rcode/create_eventfile.r")
+

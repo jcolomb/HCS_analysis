@@ -41,4 +41,8 @@ for (f in 1:length(files)) {
   
 }
 
+data = data %>% filter(Bin != 'SUM') ##make sure the last row with the summary got removed
+
 write.table(data, paste0(Outputs,'/Min_',Name_project,'.csv'), sep = ';',row.names = FALSE)
+MIN_data = data
+rm(data)

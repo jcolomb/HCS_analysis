@@ -22,7 +22,7 @@ files = as.character(BEH_datafiles[,1])
     
     metadata %>% filter (ID == BEH_datafiles[f,2])
     df= metadata  %>% filter (ID == BEH_datafiles[f,2]) %>% select(ID, animal_ID = 'animal ID', gender, treatment, genotype, date, test.cage='test cage', 
-                            real.time = 'real time start', dark.start = light_off, project.name = Proj_name)
+                            real.time.start = 'real time start', dark.start = light_off, project.name = Proj_name)
     
     
     # df = data.frame(animal_ID = animal_ID, gender = 'male',treatment = 'first',
@@ -43,3 +43,5 @@ write.table(data, paste0(Outputs,'/Events_',Name_project,'.csv'), sep = ';',row.
 
 #progress = 2
 #setTkProgressBar(pp.pb, progress, label=paste( round(progress/5*100, 0),"% done"))
+EVENT_data = data
+rm(data)
