@@ -26,8 +26,8 @@ plot24h <- function (data_d, Title, hour.info2= hour.info, datalenght=12){
   data_d %>% 
     ggplot(aes(x=Bin.dark, y=avg, group=treatment, color= genotype)) +
     geom_rect( aes(xmin = 0, xmax = datalenght, ymin = 0, ymax = Inf), fill = 'lightgrey', alpha = .05)+
-    geom_vline(xintercept=max(hour.info2[,1]),linetype = "dotted")+
-    geom_vline(xintercept=min(hour.info2[,2]),linetype = "dotted")+
+    #geom_vline(xintercept=max(hour.info2[,1]),linetype = "dotted")+
+    #geom_vline(xintercept=min(hour.info2[,2]),linetype = "dotted")+
     geom_point (aes (colour=(genotype), shape=(treatment)), size=2)+
     #geom_line(aes(colour=(genotype)))+
     #facet_grid( genotype~, switch="x") +

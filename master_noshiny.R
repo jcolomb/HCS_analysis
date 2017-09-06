@@ -6,13 +6,15 @@ library (stringr)
 #for plotting
 library(gridExtra)
 library(RGraphics)
+source ("Rcode/functions.r")
+
 #library (tcltk2)
 
 # variables
-
+source ("Rcode/setvariables.r")
 ##project metadata path:
 PMeta ="data/minimal24h_data/Projects_metadata.csv"
-
+PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
 
 ##project to analyse
 Name_project ="Tarabykin" #must be exactly the same in PMeta
@@ -23,7 +25,7 @@ WD = dirname(PMeta)
 Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
 dir.create (Outputs)
 plot.path = Outputs
-
+a=Sys.time()
 ##code
 #read metadata
 source("Rcode/inputdata.r")
@@ -37,7 +39,11 @@ source("Rcode/checkmetadata.r")
 # this is not relevant because the data is cut at 22.5 hours of data.
 
 source ("Rcode/create_eventfile.r") # to be modified: this takes the whole recording
+
 source ("Rcode/create_rawdatafiles.r")
+b=Sys.time()
 source ("Rcode/create_minfile.r")
 
 #event analysis (total time only)
+source ("Rcode/analysis_from_min.R")
+b=Sys.time()

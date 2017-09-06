@@ -52,6 +52,6 @@ behav.dark = data.frame()
 # define time intervall of first hours to analyse later on
 h = 5
 
-pb <- tkProgressBar(title = "HCS analysis ", min = 0,
-                    max = 10, width = 300)
+# pb <- tkProgressBar(title = "HCS analysis ", min = 0,
+#                     max = 10, width = 300)
 
