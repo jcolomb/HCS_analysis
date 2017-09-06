@@ -12,7 +12,7 @@ all_datafiles=rbind(MIN_datafiles,BEH_datafiles)
 
 ###for testing testing
 ###all_datafiles [5,2]= FALSE
-
+#View(all_datafiles)
 #check correpondance between path in metadata and real files.
 
 if (all(all_datafiles$`file.exists(as.character(filepath))`)){
@@ -23,7 +23,10 @@ if (all(all_datafiles$`file.exists(as.character(filepath))`)){
 
 datafolder = metadata %>% transmute(paste(WD,Folder_path, raw_data_folder,  sep= "/"))
 files= list.files(as.character(datafolder[1,1]), recursive = T)
-if (nrow(all_datafiles) < length(files)) print("some files are not grabbed by the metadata, are some animals missing?")
+if (nrow(all_datafiles) < length(files)){
+  print("some files are not grabbed by the metadata, are some animals missing?")
+  View(anti_join( data.frame(filepath=basename(files)), all_datafiles %>% transmute (filepath = basename(filepath))))
+}
 
 
 # check if animal ID in metadata correspond to file name
