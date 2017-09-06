@@ -285,7 +285,9 @@ for (i in c(1:N_behav)){
   dist_d$sd = 0
   Title_plot = names (dist_d) [4]
   names (dist_d) [4:5]= c("avg", "sd")
-  p=plot24h(dist_d, Title_plot)
+  p=plot24h(dist_d, Title_plot,datalenght=-0)+
+    scale_y_continuous(limits = c(-1, 1), breaks = c(-0.5, 0, 0.5))+
+     geom_line(aes(y=0), col=1)
   #print(p)
   pl[[i]]= p
 }
