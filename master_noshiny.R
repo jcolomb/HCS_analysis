@@ -37,6 +37,7 @@ source("Rcode/checkmetadata.r")
 # this is not relevant because the data is cut at 22.5 hours of data.
 
 source ("Rcode/create_eventfile.r") # to be modified: this takes the whole recording
+source ("Rcode/create_rawdatafiles.r")
 source ("Rcode/create_minfile.r")
 
 #event analysis (total time only)
