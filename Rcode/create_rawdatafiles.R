@@ -1,5 +1,10 @@
 #-----------------create rawdata file-----------------#
 
+#this script reads the raw data and add a time start and time end in seconds.
+# the added timing is not perfect, since it does not correspond to the time start indicated in the raw data
+#(after 9h of reocrding, saw 1 min shift)
+#the behavior descriptions given are also much problematic since not corresponding to the categories seen on the minute file.
+
 
 data = data.frame()
 files = as.character(BEH_datafiles[,1])
@@ -7,9 +12,9 @@ files = as.character(BEH_datafiles[,1])
 
 for (f in 1:length(files)) {
   #print(f)
-  behav.raw<-readxl::read_excel (files[f], sheet = 1, skip = 10, col_types =c ("skip","skip", "numeric","text", "skip"))
+  behav.raw<-readxl::read_excel (files[f], sheet = 1, skip = 10, col_types =c ("text","skip", "numeric","text", "skip"))
   #colnames(behav.raw) = c('duration_s','Behavior')
-  behav.raw= behav.raw %>% transmute ( time_start=cumsum(`Length(seconds)`)-`Length(seconds)`, time_end = cumsum(`Length(seconds)`), duration_s = `Length(seconds)`, Behavior = Behavior)
+  behav.raw= behav.raw %>% transmute (timestartori= `From Time`, time_start=cumsum(`Length(seconds)`)-`Length(seconds)`, time_end = cumsum(`Length(seconds)`), duration_s = `Length(seconds)`, Behavior = Behavior)
 
   behav.raw$ID = BEH_datafiles[f,2]
   
