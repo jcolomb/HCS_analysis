@@ -1,5 +1,7 @@
 #--------------create minute file from raw
 
+# work on number of events
+# get total number
 
 tablemin = Rawdata %>% group_by (ID) %>%
    count(Behavior)
@@ -7,7 +9,7 @@ tablemin = Rawdata %>% group_by (ID) %>%
 names(tablemin)[3]= "total"
 
 minmax = floor(max(Rawdata$time_start) /60)
-minmax = 200
+#minmax = 200
 
 for (i in 0:minmax){
   

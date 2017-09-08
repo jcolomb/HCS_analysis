@@ -3,7 +3,8 @@
 #2. The table is used  as the input to a multidimensional analysis
 
 #------------1 Create data
-#1.1 get minute data from csv file (optional), and put different columns together
+#1.1 get minute data from csv file (optional),
+# and put different columns together (group behavior)
 
 #MIN_data = read_csv (paste0(Outputs,'/Min_',Name_project,'.csv'))
 
@@ -11,26 +12,7 @@ Mins <- MIN_data
 
 
 
-#---------------group behaviours---------------#
-
-# adjust column names to enable grouping of behaviours over columns
-names(Mins)[names(Mins)=="Travel(m)"] = 'distance.traveled'
-names(Mins)[names(Mins)=="Drnk(S1)"] = 'Drink.1'
-names(Mins)[names(Mins)=="Drnk(S2)"] = 'Drink.2'
-names(Mins)[names(Mins)=="Drnk(S3)"] = 'Drink.3'
-names(Mins)[names(Mins)=="Eat(Z1)"] = 'Eat.1'
-names(Mins)[names(Mins)=="Eat(Z2)"] = 'Eat.2'
-names(Mins)[names(Mins)=="Eat(Z3)"] = 'Eat.3'
-
-# used information about groups as identified in 4. Hours file
-# got arousal and urinate out (always 0)
-behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = distance.traveled, ComeDown = ComeDown+CDfromPR, hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV,
-                              jump = Jump+ReptJump, immobile=Stationa+Pause+Sleep, rearup = RearUp+RUfromPR+CDtoPR+RUtoPR+RemainPR, digforage=Dig+Forage,
-                              walk = Turn+WalkLeft+WalkRght+WalkSlow+Circle, Groom = Groom, #Urinate = Urinate,
-                              Twitch = Twitch,
-                              #Arousal = Arousal,
-                              Awaken = Awaken,Chew = Chew, Sniffing = Sniff, RemainLow = RemainLw,
-                              Eat = Eat.1+Eat.2+Eat.3, Drink = Drink.1+Drink.2+Drink.3, Stretch = Stretch)
+source ("Rcode/grouping_variables.r")
 
 #1.2 create table of time window in minutes
 
@@ -41,6 +23,7 @@ T2= c("Bintodark", -2,0) # last 2h before light off
 T3 = c("Bintodark", 0,3) # early night
 T4 = c("Bintodark", 9,12) # late night
 T5 = c("Bintodark", 12,15) # early day 2
+T5 = c("Bintodark", 12,13.2) # early day 2: shorter because we miss data in this data set
 
 #create table with numeric values, values being in minutes
 Timewindows = data.frame(rbind(T1,T2,T3,T4,T5))
@@ -58,6 +41,14 @@ get_windowsummary <- function(windowdata) {
   names (temp)[-1]= paste0(names (temp)[-1],i)
   return(temp)
 }
+# ####TODO get sum count of bins to get %age and not values
+# get_windowsummary <- function(windowdata) {
+#   temp= windowdata %>% group_by(ID) %>% 
+#     summarise_if(is.numeric,funs(sum)) %>%
+#     select ( -bintodark)
+#   names (temp)[-1]= paste0(names (temp)[-1],i)
+#   return(temp)
+# }
 
 #1.4 create result table
 
@@ -120,10 +111,77 @@ text.all.d = "plotting the most significant variables"
 
 # all graphs in one plot
 #setwd(plot.path)
-pdf(file = paste0(plot.path,"/100. randomforest_results.pdf"), width = 15, height = 10)
+if (exists ("plot.path")){
+  pdf(file = paste0(plot.path,"/100_randomforest_results.pdf"), width = 15, height = 10)
+  
+  grid.arrange(splitTextGrob(text.all.d),pl.all.discr,
+               ncol=1,heights = c(1,5),
+               top = textGrob('...',gp=gpar(fontsize = 30, font=3)))
+  
+  dev.off()
+}
 
-grid.arrange(splitTextGrob(text.all.d),pl.all.discr,
-             ncol=1,heights = c(1,5),
-             top = textGrob('...',gp=gpar(fontsize = 30, font=3)))
 
-dev.off()
+##plot first 2 discriminants: 
+  Plot = Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:2,1]) ]
+  Plot = cbind(Multi_datainput_m$groupingvar, Plot)
+  Title_plot = paste0(names (Plot) [2],"x",names (Plot) [3])
+  names (Plot) = c("groupingvar","disciminant1", "discriminant2")
+  p=ggplot (Plot, aes (y= disciminant1, x=discriminant2, color= groupingvar))+
+    geom_point()+
+    labs(title = Title_plot)+
+    scale_x_log10() + scale_y_log10()
+
+  # 2.2 ICA on raw data
+
+  Input = Multi_datainput_m   %>% select (-groupingvar)
+  #p=icafast(Input,3,center=T,maxit=100)
+  #p=icaimax(Input,3,center=T,maxit=1000)
+  p=icafast(Input,2,center=T,maxit=100)
+  R= cbind(p$Y, Multi_datainput_m   %>% select (groupingvar))
+  names(R) = c("D1", "D2",  "groupingvar")
+  R %>% ggplot (aes (x=D1, y=D2, color = groupingvar))+
+    geom_point()
+  
+  # 2.3 ICA on random forest chosen subset
+  p=list()
+  for (i in 2:80){
+    numberofvariables = i
+    
+    Input =Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables,1]) ]
+    
+    p=icafast(Input,2,center=T,maxit=100)
+    R= cbind(p$Y, Multi_datainput_m   %>% select (groupingvar))
+    names(R) = c("D1", "D2",  "groupingvar")
+    pls=R %>% ggplot (aes (x=D1, y=D2, color = groupingvar))+
+      geom_point()+
+      labs (title=numberofvariables)+ 
+      scale_colour_grey() + theme_bw()+
+      theme(legend.position='none')
+    pl[[i]]= pls
+  }
+  pl.all.discr <- do.call(grid.arrange,c(pl[2:20],list(ncol = 5)))
+  
+  grid.arrange(splitTextGrob(text.all.d),pl.all.discr,
+               ncol=1,heights = c(1,5),
+               top = textGrob('...',gp=gpar(fontsize = 30, font=3)))
+  
+  # 2.3 SVM: Support Vector Machines
+  
+  #partition the data in two
+  L=levels(Multi_datainput_m$groupingvar)
+  Glass= Multi_datainput_m %>% filter (groupingvar == L[1])
+  Glass2= Multi_datainput_m %>% filter (groupingvar == L[2])
+  
+  if (nrow (Glass) != nrow (Glass2)) stop("the groups do not have the same size !")
+  
+  index     <- 1:nrow(Glass )
+  testindex <- sample(index, trunc(length(index)/3))
+  testset   <- rbind(Glass[testindex,],Glass2[testindex,])
+  trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
+  
+  svm.model <- svm(groupingvar ~ ., data = trainset, cost = 100, gamma = 1)
+  svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+  
+  table(pred = svm.pred, true = testset$groupingvar)
+  
