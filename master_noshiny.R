@@ -3,6 +3,8 @@
 
 ##multidimensional analysis:
 library (randomForest)
+library (ica)
+library (e1071) #svm
 
 library (tidyverse)
 library (stringr)
@@ -21,26 +23,24 @@ source ("Rcode/setvariables.r")
 PMeta ="data/minimal24h_data/Projects_metadata.csv"
 PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
 
-#read main metadata file
-Projects_metadata <- read_csv(PMeta)
-
 ##project to analyse
 Name_project ="Tarabykin" #must be exactly the same in PMeta
 
 
-#computed variables
+#computed variables1
 WD = dirname(PMeta)
 
 
-##code
-#read metadata
-a=Sys.time()
 
 # read metadata from the project metadata file
 source("Rcode/inputdata.r") #output = metadata
+
+#computed variables2
 Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
 dir.create (Outputs)
 plot.path = Outputs
+
+
 #check data file existence and if the number of file correspond between the folder and the metadata
 #create list of filepath for each animal_ID
 source("Rcode/checkmetadata.r") #output BEH_datafiles and MIN_datafiles: list of path
@@ -61,7 +61,7 @@ source ("Rcode/create_minfile.r") # output MIN_data
 
 
 #analysis from the minute file, 
-source ("Rcode/analysis_from_min.R")
+#source ("Rcode/analysis_from_min.R")
 source ("Rcode/multidimensional_analysis.R")
 
 b=Sys.time()
