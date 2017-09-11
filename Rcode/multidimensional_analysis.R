@@ -240,4 +240,37 @@ We trained a SVM on 2/3 of this data, and use it to predict the last third.
   )
 dev.off()
     
+
+##test
+R=c()
+nv=c()
+for (numberofvariables in 2:length(names(Multi_datainput_m))-1){
+  Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:numberofvariables,1]), "groupingvar") ]
+  
+  L=levels(Input$groupingvar)
+  Glass= Input %>% filter (groupingvar == L[1])
+  Glass2= Input %>% filter (groupingvar == L[2])
+  
+  if (nrow (Glass) != nrow (Glass2)) stop("the groups do not have the same size !")
+  
+  index     <- 1:nrow(Glass )
+  testindex <- sample(index, trunc(length(index)/3))
+  testset   <- rbind(Glass[testindex,],Glass2[testindex,])
+  trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
+  
+  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                  tune.control(sampling = "cross"))
+  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma)
+  svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+  
+  SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
+  SVMprediction = as.data.frame(SVMprediction_res)
+  
+  #Accuracy of grouping and plot
+  temp =classAgreement (SVMprediction_res)
+  R= c(R, temp$crand)
+  nv = c(nv,numberofvariables)
+}
+
+cbind (R, nv)
    
