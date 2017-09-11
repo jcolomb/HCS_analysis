@@ -2,6 +2,9 @@
 # 1.3. define global variables
 ####################################
 
+## newcode variables:
+groupingby = "AOCF" # other possibilities follow:
+groupingby = "MITsoft"
 
 # define the plotting themes for the following visual representations
 

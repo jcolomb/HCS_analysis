@@ -19,6 +19,7 @@ source ("Rcode/functions.r")
 
 # variables
 source ("Rcode/setvariables.r")
+
 ##project metadata path:
 PMeta ="data/minimal24h_data/Projects_metadata.csv"
 PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
@@ -45,6 +46,7 @@ plot.path = Outputs
 #create list of filepath for each animal_ID
 source("Rcode/checkmetadata.r") #output BEH_datafiles and MIN_datafiles: list of path
 
+
 #create and save event and minute files (one file for all mice): returns EVENT_data and MIN_data
 # some warnings appear because the last line of the minute data is the sum.
 # this is not relevant because the data is cut at 22.5 hours of data.
@@ -52,8 +54,10 @@ source("Rcode/checkmetadata.r") #output BEH_datafiles and MIN_datafiles: list of
 #source ("Rcode/create_eventfile.r") # output EVENT_data, note this takes the whole recording and is therefore not very useful
 source ("Rcode/create_minfile.r") # output MIN_data
 
-
-
+#filter for repeated tests:
+metadata = metadata %>% filter (genotype != "exclude")
+MIN_data =MIN_data%>% filter (genotype != "exclude")
+summary (as.factor(metadata$`animal ID`))
 #the raw data have too much problems, timing and categories should be worked out before we can work with it
 #source ("Rcode/create_rawdatafiles.r")
 
@@ -64,4 +68,3 @@ source ("Rcode/create_minfile.r") # output MIN_data
 #source ("Rcode/analysis_from_min.R")
 source ("Rcode/multidimensional_analysis.R")
 
-b=Sys.time()

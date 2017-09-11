@@ -18,3 +18,16 @@ behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = di
                               #Arousal = Arousal,
                               Awaken = Awaken,Chew = Chew, Sniffing = Sniff, RemainLow = RemainLw,
                               Eat = Eat.1+Eat.2+Eat.3, Drink = Drink.1+Drink.2+Drink.3, Stretch = Stretch)
+
+behav_jhuang <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,
+                                Distance_traveled = distance.traveled,
+                                Hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV,
+                                Unknown_behavior = Jump+ReptJump+Dig+Forage+Urinate,
+                                Rest=Stationa+Sleep,
+                                Rear = RearUp+RUfromPR+CDtoPR+RUtoPR+RemainPR+ComeDown+CDfromPR,
+                                Walk = Turn+WalkLeft+WalkRght+WalkSlow+Circle,
+                                Groom = Groom,
+                                Micro_move = Awaken+Pause+RemainLw+Sniff+Twitch,
+                                Eat = Chew+Eat.1+Eat.2+Eat.3,
+                                Drink = Drink.1+Drink.2+Drink.3)
+
