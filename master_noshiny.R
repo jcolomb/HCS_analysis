@@ -68,3 +68,4 @@ summary (as.factor(metadata$`animal ID`))
 #source ("Rcode/analysis_from_min.R")
 source ("Rcode/multidimensional_analysis.R")
 
+save.image("Reports/multidim.rdata")

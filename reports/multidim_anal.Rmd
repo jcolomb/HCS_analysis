@@ -1,0 +1,45 @@
+---
+title: "multidimens_tarabikin"
+output: html_document
+---
+
+
+I am using the tarabiking data to test the multidimensional data.
+
+The data is grouped by age, and I excluded mice tested only once. We end up with 34 mice per group, genotype of the mice is unknown
+
+```{r, evaluate =FALSE}
+load("multidim.rdata")
+summary (as.factor(metadata$treatment))
+
+```
+
+
+We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-3` x `r nrow (Timewindows)` = `r (length(names(behav_gp))-3)* nrow (Timewindows)` variables :
+
+```{r, results='asis'}
+pander::pandoc.table(Timewindows)
+```
+Note that the last window might be truncated if not all dataset is achieving 900 min after light on.
+
+We then run a random forest to get the variables in order of importance to distinguish the groups.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
