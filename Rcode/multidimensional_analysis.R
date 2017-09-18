@@ -98,16 +98,20 @@ Multi_datainput_m = Multi_datainput_m %>%
   mutate (groupingvar = as.factor(treatment))%>%
   select (-ID, -treatment)
 
+class(Multi_datainput_m$groupingvar)
 # 2.1 multidimensional analysis: random forest
 
 set.seed(71)
+#tuneRF(Multi_datainput_m%>% select (-groupingvar),Multi_datainput_m$groupingvar, ntreeTry=50, stepFactor=2, improve=0.05,
+#       trace=TRUE, plot=TRUE, doBest=FALSE)
+
 HCS.rf <- randomForest(groupingvar ~ ., data=Multi_datainput_m, importance=TRUE,
-                        proximity=TRUE)
+                        proximity=TRUE, mtry= 21, ntree =1500)
 print(HCS.rf)
 ## Look at variable importance:
-R =round(importance(HCS.rf), 2)
+R =round(importance(HCS.rf, type=2), 2)
 R2=data.frame(row.names (R),R)  %>% arrange(-MeanDecreaseGini)
-R2 [1:numberofvariables,]
+R2 [1:7,]
 
 #Plot = Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:20,1]) ]
 #Plot = cbind(Multi_datainput_m$groupingvar, Plot)
@@ -272,5 +276,7 @@ for (numberofvariables in 2:length(names(Multi_datainput_m))-1){
   nv = c(nv,numberofvariables)
 }
 
-cbind (R, nv)
-   
+svm_acc=data.frame(cbind ( nv, R))
+names(svm_acc)= c("number of variables", "SVM accuracy")
+plot(svm_acc)   
+boxplot(svm_acc$`SVM accuracy`) 

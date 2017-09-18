@@ -2,6 +2,18 @@
 title: "multidimens_tarabikin"
 output: html_document
 ---
+```{r, include =FALSE}
+library (randomForest)
+library (ica)
+library (e1071) #svm
+
+library (tidyverse)
+library (stringr)
+#for plotting
+library(gridExtra)
+library(RGraphics)
+#source ("Rcode/functions.r")
+```
 
 
 I am using the tarabiking data to test the multidimensional data.
@@ -24,16 +36,151 @@ Note that the last window might be truncated if not all dataset is achieving 900
 
 We then run a random forest to get the variables in order of importance to distinguish the groups.
 
+We tried to tune the mtry parameter, but the function "tuneRF" gives different minima each time we run it, so we decided to keep the default value (sqrt(p), here p = `r (length(names(behav_gp))-3)* nrow (Timewindows)` ).
+
+```{r}
+tuneRF(Multi_datainput_m%>% select (-groupingvar),Multi_datainput_m$groupingvar, ntreeTry=50, stepFactor=2, improve=0.05,
+       trace=TRUE, plot=TRUE, doBest=FALSE)
+
+tuneRF(Multi_datainput_m%>% select (-groupingvar),Multi_datainput_m$groupingvar, ntreeTry=50, stepFactor=2, improve=0.05,
+       trace=TRUE, plot=TRUE, doBest=FALSE)
+```
+
+
+
+We therefore used the random forest and plot here the table of variables ordered by weight:
+```{r}
+HCS.rf <- randomForest(groupingvar ~ ., data=Multi_datainput_m, importance=TRUE,
+                        proximity=TRUE, mtry= 21, ntree =1500)
+
+R =round(importance(HCS.rf, type=2), 2)
+R2=data.frame(row.names (R),R)  %>% arrange(-MeanDecreaseGini)
+
+pander::pandoc.table(R2)
+varImpPlot(HCS.rf)
+```
+
+
+let's try to get only the 20 first variables and run the random forest again:
+
+```{r}
+numberofvariables =20
+
+
+Input =Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables,1]) ]
+Input$groupingvar =Multi_datainput_m$groupingvar
+
+HCS.rf2 <- randomForest(groupingvar ~ ., data=Input, importance=TRUE,
+                        proximity=TRUE, mtry= 21, ntree =1500)
+varImpPlot(HCS.rf2)
+```
+
+Let's take a teshold of of importance import_treshold and get all variables giving a MeanDecreaseGini over it (NB: THIS VARIABLE MIGHT NEED TO BE SET FOR EACH DATA):
+
+```{r}
+ import_treshold =0.95
+
+R3=data.frame(row.names (R),R)  %>% 
+  filter(MeanDecreaseGini > import_treshold)
+numberofvariables =nrow (R3)
+
+Input =Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables,1]) ]
+Input$groupingvar =Multi_datainput_m$groupingvar
+
+HCS.rf2 <- randomForest(groupingvar ~ ., data=Input, importance=TRUE,
+                        proximity=TRUE, mtry= 21, ntree =1500)
+varImpPlot(HCS.rf2)
+```
+
+#Plotting
+
+Now is the time to plot the main components. For this, we will make an ICA on the reduced data and plot the first two components:
+
+```{r}
+ p=icafast(Input%>% select (-groupingvar),2,center=T,maxit=100)
+
+R= cbind(p$Y, Input   %>% select (groupingvar))
+    names(R) = c("D1", "D2",  "groupingvar")
+    pls=R %>% ggplot (aes (x=D1, y=D2, color = groupingvar))+
+      geom_point()+
+      labs (title=nv)+ 
+      scale_colour_grey() + theme_bw()+
+      theme(legend.position='none')
+print(pls)    
+```
 
 
 
 
 
+#SVM
+ 
+We perform a SVM on the total data or the reduced data and compare the results. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy as the output.
+(the optimization of the parameters is computer intensive and may take time).
 
+```{r}
+##data input
+Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:numberofvariables,1]), "groupingvar") ]
 
+##data splitting  
+  L=levels(Input$groupingvar)
+  Glass= Input %>% filter (groupingvar == L[1])
+  Glass2= Input %>% filter (groupingvar == L[2])
+  
+  if (nrow (Glass) != nrow (Glass2)) stop("the groups do not have the same size !")
+  
+  index     <- 1:nrow(Glass )
+  testindex <- sample(index, trunc(length(index)/3))
+  testset   <- rbind(Glass[testindex,],Glass2[testindex,])
+  trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
+##tuning and performing svm  
+  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                  tune.control(sampling = "cross"))
+  
+  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma)
+  svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+  
+  SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
+  SVMprediction = as.data.frame(SVMprediction_res)
+  
+  #Accuracy of grouping and plot
+  temp =classAgreement (SVMprediction_res)
+  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):",temp$crand)
+  
+  print(Accuracy)
+```
 
-
-
+```{r}
+set.seed(71
+##data input)
+Input =Multi_datainput_m 
+##data splitting  
+  L=levels(Input$groupingvar)
+  Glass= Input %>% filter (groupingvar == L[1])
+  Glass2= Input %>% filter (groupingvar == L[2])
+  
+  if (nrow (Glass) != nrow (Glass2)) stop("the groups do not have the same size !")
+  
+  index     <- 1:nrow(Glass )
+  testindex <- sample(index, trunc(length(index)/3))
+  testset   <- rbind(Glass[testindex,],Glass2[testindex,])
+  trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
+##tuning and performing svm  
+  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                  tune.control(sampling = "cross"))
+  
+  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel="linear")
+  svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+  
+  SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
+  SVMprediction = as.data.frame(SVMprediction_res)
+  
+  #Accuracy of grouping and plot
+  temp =classAgreement (SVMprediction_res)
+  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):",temp$crand)
+  
+  print(Accuracy)
+```
 
 
 
