@@ -151,7 +151,7 @@ Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:nu
 ```
 
 ```{r}
-set.seed(71
+#set.seed(71)
 ##data input)
 Input =Multi_datainput_m 
 ##data splitting  
@@ -166,8 +166,7 @@ Input =Multi_datainput_m
   testset   <- rbind(Glass[testindex,],Glass2[testindex,])
   trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
 ##tuning and performing svm  
-  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
-                  tune.control(sampling = "cross"))
+  #obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),tune.control(sampling = "cross"))
   
   svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel="linear")
   svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
@@ -181,6 +180,8 @@ Input =Multi_datainput_m
   
   print(Accuracy)
 ```
+We will now use permutation to see if the computer can tell the two groups apart. What it does is permute the elements in random groups, calculate an accuracy score, then we will see if the accuracy we have is meaning that the two groups can actually be separated.
+
 
 
 
