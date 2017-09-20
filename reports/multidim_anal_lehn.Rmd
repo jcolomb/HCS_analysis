@@ -24,6 +24,7 @@ The data is grouped by age, and I excluded mice tested only once. We end up with
 load("multidim_lehnardt_my88.rdata")
 summary (as.factor(metadata$groupingvar))
 
+
 ```
 
 
@@ -72,6 +73,11 @@ Input$groupingvar =Multi_datainput_m$groupingvar
 
 HCS.rf2 <- randomForest(groupingvar ~ ., data=Input, importance=TRUE,
                         proximity=TRUE, ntree =1500)
+R =round(importance(HCS.rf2, type=2), 2)
+R2=data.frame(row.names (R),R)  %>% arrange(-MeanDecreaseGini)
+
+pander::pandoc.table(R2)
+
 varImpPlot(HCS.rf2)
 ```
 
@@ -93,6 +99,24 @@ varImpPlot(HCS.rf2)
 ```
 
 #Plotting
+First, lets plot the 2 most discriminative variables following the random forest:
+
+```{r}
+
+
+ Plot = Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:2,1]) ]
+  Plot = cbind(Multi_datainput_m$groupingvar, Plot)
+  Title_plot = paste0(names (Plot) [2],"x",names (Plot) [3])
+  names (Plot) = c("groupingvar","disciminant1", "discriminant2")
+  p=ggplot (Plot, aes (y= disciminant1, x=discriminant2, color= groupingvar))+
+    geom_point()+
+    labs(title = Title_plot)+
+    #scale_x_log10() + scale_y_log10()+
+    scale_colour_grey() + theme_bw()+
+      theme(legend.position='none')
+print(p)  
+```
+
 
 Now is the time to plot the main components. For this, we will make an ICA on the reduced data and plot the first two components:
 
@@ -153,7 +177,7 @@ Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:nu
 ```{r}
 #set.seed(71)
 ##data input)
-Input =Multi_datainput_m %>% select (-ID)
+Input =Multi_datainput_m #%>% select (-ID)
 ##data splitting  
   L=levels(Input$groupingvar)
   Glass= Input %>% filter (groupingvar == L[1])
