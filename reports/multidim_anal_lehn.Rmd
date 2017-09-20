@@ -142,6 +142,8 @@ print(pls)
 We perform a SVM on the total data or the reduced data and compare the results. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy as the output.
 (the optimization of the parameters is computer intensive and may take time).
 
+!!!WHAT KERNEL TO USE; USE ALL DATA OR ONLY A SUBSET; P VALUE 
+
 ```{r}
 ##data input
 Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:numberofvariables,1]), "groupingvar") ]
@@ -190,7 +192,8 @@ Input =Multi_datainput_m #%>% select (-ID)
   testset   <- rbind(Glass[testindex,],Glass2[testindex,])
   trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
 ##tuning and performing svm  
-  #obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),tune.control(sampling = "cross"))
+  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),tune.control(sampling = "cross"), 
+                kernel = "linear")
   
   svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel="linear")
   svm.pred <- predict(svm.model, testset %>% select(-groupingvar))

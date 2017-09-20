@@ -38,12 +38,14 @@ daylenght =(LIGHT_OFF-LIGHT_ON)/60
 T1 = c("Bin", 0,2) # 2 first hours of recording
 T2= c("Bintodark", -2,0) # last 2h before light off
 T3 = c("Bintodark", 0,3) # early night
+T35 =c("Bintodark", 3,daylenght-3) #middle day
 T4 = c("Bintodark", daylenght-3,daylenght) # late night
 #T5 = c("Bintodark", 12,15) # early day 2
 T5 = c("Bintodark", daylenght,min ((daylenght+3),MAXTIME)) # early day 2: 3h or maximal time with all mice included
 
 #create table with numeric values, values being in minutes
-Timewindows = data.frame(rbind(T1,T2,T3,T4,T5))
+#Timewindows = data.frame(rbind(T1,T2,T3,T4,T5)) #original split
+Timewindows = data.frame(rbind(T1,T2,T3,T35,T4,T5))
 colnames (Timewindows) = c("time_reference", "windowstart", "windowend")
 
 Timewindows =Timewindows %>%
