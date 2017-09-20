@@ -13,7 +13,8 @@ library(gridExtra)
 library(RGraphics)
 source ("Rcode/functions.r")
 
-
+#TODO
+## light on is defined as light off +12 h, change that to something which reads the metadata.
 
 #library (tcltk2)
 
@@ -24,9 +25,13 @@ source ("Rcode/setvariables.r")
 PMeta ="data/minimal24h_data/Projects_metadata.csv"
 PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
 
+# #read main metadata file
+# Projects_metadata <- read_csv(PMeta)
+# Projects_metadata$Proj_name
+
 ##project to analyse
 Name_project ="Tarabykin" #must be exactly the same in PMeta
-
+Name_project ="lehnardt_my88"
 
 #computed variables1
 WD = dirname(PMeta)
@@ -46,6 +51,8 @@ plot.path = Outputs
 #create list of filepath for each animal_ID
 source("Rcode/checkmetadata.r") #output BEH_datafiles and MIN_datafiles: list of path
 
+source ("Rcode/animal_groups.r")
+
 
 #create and save event and minute files (one file for all mice): returns EVENT_data and MIN_data
 # some warnings appear because the last line of the minute data is the sum.
@@ -57,7 +64,7 @@ source ("Rcode/create_minfile.r") # output MIN_data
 #filter for repeated tests:
 metadata = metadata %>% filter (genotype != "exclude")
 MIN_data =MIN_data%>% filter (genotype != "exclude")
-summary (as.factor(metadata$`animal ID`))
+summary (as.factor(metadata$animal_ID))
 #the raw data have too much problems, timing and categories should be worked out before we can work with it
 #source ("Rcode/create_rawdatafiles.r")
 
@@ -66,6 +73,6 @@ summary (as.factor(metadata$`animal ID`))
 
 #analysis from the minute file, 
 #source ("Rcode/analysis_from_min.R")
-source ("Rcode/multidimensional_analysis.R")
-
+source ("Rcode/multidimensional_analysis_prep.R")
+source ("Rcode/multidimensional_analysis_RFsvm.R")
 save.image("Reports/multidim.rdata")

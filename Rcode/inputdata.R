@@ -6,7 +6,7 @@ Projects_metadata = Projects_metadata %>% filter (Proj_name == Name_project)
 # get additional metadata
 animal_meta= read_csv(paste(WD,Projects_metadata$Folder_path, Projects_metadata$animal_metadata, sep = "/"),
                       col_names =T,cols(
-                        `animal ID` = col_character(),
+                        animal_ID = col_character(),
                         gender = col_character(),
                         treatment = col_character(),
                         genotype = col_character(),

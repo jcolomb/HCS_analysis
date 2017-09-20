@@ -7,7 +7,7 @@ for (f in 1:length(files)) {
   
   behav<- readxl::read_excel(files[f],sheet = 1)
   behav = behav[1:1320,1:46] ## -> only keep first 22 hours! only include full hours for all animals (minimal amount 22.5 hours for group D animals 6 & 9)
-  
+  behav = behav[-nrow(behav),1:46] ## -> keep all data, excluding data come later.
   
   # temp <- behav.1 %>% ungroup %>% group_by(Behavior) %>% summarise (duration.s = sum(Duration))
   
@@ -15,7 +15,7 @@ for (f in 1:length(files)) {
   behav$ID = MIN_datafiles[f,2]
   
   metadata %>% filter (ID == MIN_datafiles[f,2])
-  df= metadata  %>% filter (ID == MIN_datafiles[f,2]) %>% select(ID, animal_ID = 'animal ID', gender, treatment, genotype, date, test.cage='test cage', 
+  df= metadata  %>% filter (ID == MIN_datafiles[f,2]) %>% select(ID, animal_ID = animal_ID, gender, treatment, genotype, date, test.cage='test cage', 
                                                                  real.time = 'real time start', dark.start = light_off, project.name = Proj_name)
   
   
