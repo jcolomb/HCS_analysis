@@ -7,7 +7,7 @@ Multi_datainput_m = left_join(Multi_datainput, metadata %>% select (ID, grouping
 
 Multi_datainput_m = Multi_datainput_m %>% 
   #mutate (groupingvar = as.factor(treatment))%>%
-  select (-ID, -treatment)
+  select (-ID)
 
 class(Multi_datainput_m$groupingvar)
 # 2.1 multidimensional analysis: random forest

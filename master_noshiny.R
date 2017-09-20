@@ -13,8 +13,6 @@ library(gridExtra)
 library(RGraphics)
 source ("Rcode/functions.r")
 
-#TODO
-## light on is defined as light off +12 h, change that to something which reads the metadata.
 
 #library (tcltk2)
 
@@ -75,4 +73,4 @@ summary (as.factor(metadata$animal_ID))
 #source ("Rcode/analysis_from_min.R")
 source ("Rcode/multidimensional_analysis_prep.R")
 source ("Rcode/multidimensional_analysis_RFsvm.R")
-save.image("Reports/multidim.rdata")
+save.image(paste0("Reports/multidim_",Name_project,".rdata"))
