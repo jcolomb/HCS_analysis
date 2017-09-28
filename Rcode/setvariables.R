@@ -4,7 +4,7 @@
 
 ## newcode variables:
 groupingby = "AOCF" # other possibilities follow:
-groupingby = "MITsoft"
+#groupingby = "MITsoft"
 
 # define the plotting themes for the following visual representations
 

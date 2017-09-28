@@ -29,7 +29,7 @@ PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
 
 ##project to analyse
 Name_project ="Tarabykin" #must be exactly the same in PMeta
-Name_project ="lehnardt_my88"
+#Name_project ="lehnardt_my88"
 
 #computed variables1
 WD = dirname(PMeta)
@@ -72,5 +72,5 @@ summary (as.factor(metadata$animal_ID))
 #analysis from the minute file, 
 #source ("Rcode/analysis_from_min.R")
 source ("Rcode/multidimensional_analysis_prep.R")
-source ("Rcode/multidimensional_analysis_RFsvm.R")
+#source ("Rcode/multidimensional_analysis_RFsvm.R")
 save.image(paste0("Reports/multidim_",Name_project,".rdata"))

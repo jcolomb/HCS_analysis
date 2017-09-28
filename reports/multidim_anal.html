@@ -366,7 +366,7 @@ print(pls)    </code></pre>
 </div>
 <div id="svm" class="section level1">
 <h1>SVM</h1>
-<p>We perform a SVM on the total data or the reduced data and compare the results. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy as the output.</p>
+<p>We perform a SVM on the total data or the reduced data and compare the results. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy as the output. (the optimization of the parameters is computer intensive and may take time).</p>
 <pre class="r"><code>##data input
 Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:numberofvariables,1]), &quot;groupingvar&quot;) ]
 
@@ -383,9 +383,9 @@ Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:nu
   trainset  &lt;- rbind(Glass[-testindex,],Glass2[-testindex,])
 ##tuning and performing svm  
   obj &lt;- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
-                  tune.control(sampling = &quot;cross&quot;))
+                  tune.control(sampling = &quot;cross&quot;),kernel = &quot;sigmoid&quot;)
   
-  svm.model &lt;- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma)
+  svm.model &lt;- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel = &quot;sigmoid&quot;)
   svm.pred &lt;- predict(svm.model, testset %&gt;% select(-groupingvar))
   
   SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
@@ -393,11 +393,12 @@ Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:nu
   
   #Accuracy of grouping and plot
   temp =classAgreement (SVMprediction_res)
-  Accuracy =paste0(numberofvariables,&quot; variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):&quot;,temp$crand)
+  Accuracy =paste0(ncol(Input)-1,&quot; variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):&quot;,temp$crand)
   
   print(Accuracy)</code></pre>
-<pre><code>## [1] &quot;9 variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):0.166942148760331&quot;</code></pre>
-<pre class="r"><code>##data input
+<pre><code>## [1] &quot;9 variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):0.26270136307311&quot;</code></pre>
+<pre class="r"><code>#set.seed(71)
+##data input)
 Input =Multi_datainput_m 
 ##data splitting  
   L=levels(Input$groupingvar)
@@ -411,21 +412,21 @@ Input =Multi_datainput_m
   testset   &lt;- rbind(Glass[testindex,],Glass2[testindex,])
   trainset  &lt;- rbind(Glass[-testindex,],Glass2[-testindex,])
 ##tuning and performing svm  
-  obj &lt;- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
-                  tune.control(sampling = &quot;cross&quot;))
+  #obj &lt;- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),tune.control(sampling = &quot;cross&quot;))
   
-  svm.model &lt;- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma)
-  svm.pred &lt;- predict(svm.model, testset %&gt;% select(-groupingvar))
+  svm.model &lt;- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel = &quot;sigmoid&quot;)
+  svm.pred &lt;- predict(svm.model, testset %&gt;% select(-groupingvar),kernel = &quot;sigmoid&quot;)
   
   SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
   SVMprediction = as.data.frame(SVMprediction_res)
   
   #Accuracy of grouping and plot
   temp =classAgreement (SVMprediction_res)
-  Accuracy =paste0(numberofvariables,&quot; variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):&quot;,temp$crand)
+  Accuracy =paste0(ncol(Input)-1,&quot; variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):&quot;,temp$crand)
   
   print(Accuracy)</code></pre>
-<pre><code>## [1] &quot;9 variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):0.375206611570248&quot;</code></pre>
+<pre><code>## [1] &quot;50 variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):0.379310344827586&quot;</code></pre>
+<p>We will now use permutation to see if the computer can tell the two groups apart. What it does is permute the elements in random groups, calculate an accuracy score, then we will see if the accuracy we have is meaning that the two groups can actually be separated.</p>
 </div>
 
 
