@@ -3,7 +3,7 @@ title: "Create your Metadata"
 output: html_document
 ---
 
-This document aims at providing a walkthrough for all users when creating their metadata file. It contains instruction on how to do it for new and for old projects.
+This document aims at providing a walkthrough for users creating their metadata file. It contains instruction on how to do it for new and for old projects.
 
 #  Project_metadata.csv file
 
@@ -16,13 +16,13 @@ This document aims at providing a walkthrough for all users when creating their 
 # Add your data
 
 - create a folder in the folder containing the Project_metadata.csv file and name it according to the information given in the Project_metadata.csv file
-- Either use the template provided, or make sure there is a experiment metadata file and a lab metadata file found at the path given in the Project_metadata.csv file
-- Put the videos in the video folders (this is optional, we do not need the videos to run the analysis)
-- Put the data in one videoanalysis_output folder. If the data was analysed with different software, add one folder per software. Note that only one output may be analysed at a time. If you have different data folder, you should create a new row in the  Project_metadata.csv file.
+- Either use the template provided, or make sure there is a experiment metadata file and a lab metadata file found at the path given in the Project_metadata.csv file.
+- Put the videos in the video folders (this is optional, we do not need the videos to run the analysis).
+- Put the data in one videoanalysis_output folder. If the data was analysed with different software, add one folder per software (for example HCS3_output and HCS4_output). Note that only one output may be analysed at a time. If you have used different analysis software, you should create a new row in the Project_metadata.csv file for each.
 
 # Create a lab metadata
 
-- Fill the lab metadata information. only time of light on and light off are necessary entries.
+- Fill the lab metadata information. Only time of light on and light off are necessary entries.
 
 # Build the experiment metadata file
 
