@@ -103,7 +103,7 @@ R= cbind(p$Y, Input   %>% select (groupingvar))
     names(R) = c("D1", "D2",  "groupingvar")
     pls=R %>% ggplot (aes (x=D1, y=D2, color = groupingvar))+
       geom_point()+
-      labs (title=nv)+ 
+      labs (title=numberofvariables)+ 
       scale_colour_grey() + theme_bw()+
       theme(legend.position='none')
 print(pls)    
@@ -135,9 +135,9 @@ Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:nu
   trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
 ##tuning and performing svm  
   obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
-                  tune.control(sampling = "cross"))
+                  tune.control(sampling = "cross"),kernel = "sigmoid")
   
-  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma)
+  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel = "sigmoid")
   svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
   
   SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
@@ -168,8 +168,8 @@ Input =Multi_datainput_m
 ##tuning and performing svm  
   #obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),tune.control(sampling = "cross"))
   
-  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel="linear")
-  svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel = "sigmoid")
+  svm.pred <- predict(svm.model, testset %>% select(-groupingvar),kernel = "sigmoid")
   
   SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
   SVMprediction = as.data.frame(SVMprediction_res)

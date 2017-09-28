@@ -16,9 +16,9 @@ library(RGraphics)
 ```
 
 
-I am using the tarabiking data to test the multidimensional data.
+I am using the lehard data to test the multidimensional data.
 
-The data is grouped by age, and I excluded mice tested only once. We end up with 34 mice per group, genotype of the mice is unknown
+
 
 ```{r, evaluate =FALSE}
 load("multidim_lehnardt_my88.rdata")
@@ -26,6 +26,11 @@ summary (as.factor(metadata$groupingvar))
 
 
 ```
+The data is grouped by `r Projects_metadata$group_by `.
+Data transformation: `r calcul_text`.
+
+
+---
 
 
 We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-3` x `r nrow (Timewindows)` = `r (length(names(behav_gp))-3)* nrow (Timewindows)` variables :
@@ -39,7 +44,7 @@ We then run a random forest to get the variables in order of importance to disti
 
 We tried to tune the mtry parameter, but the function "tuneRF" gives different minima each time we run it, so we decided to keep the default value (sqrt(p), here p = `r (length(names(behav_gp))-3)* nrow (Timewindows)` ).
 
-```{r}
+```{r, eval=FALSE}
 tuneRF(Multi_datainput_m%>% select (-groupingvar),Multi_datainput_m$groupingvar, ntreeTry=50, stepFactor=2, improve=0.05,
        trace=TRUE, plot=TRUE, doBest=FALSE)
 
@@ -49,10 +54,10 @@ tuneRF(Multi_datainput_m%>% select (-groupingvar),Multi_datainput_m$groupingvar,
 
 
 
-We therefore used the random forest and plot here the table of variables ordered by weight:
+We therefore used the random forest using the default mtry value and plot here the table of variables ordered by weight:
 ```{r}
 HCS.rf <- randomForest(groupingvar ~ ., data=Multi_datainput_m, importance=TRUE,
-                        proximity=TRUE, mtry= 21, ntree =1500)
+                        proximity=TRUE, ntree =1500)
 
 R =round(importance(HCS.rf, type=2), 2)
 R2=data.frame(row.names (R),R)  %>% arrange(-MeanDecreaseGini)
@@ -81,7 +86,7 @@ pander::pandoc.table(R2)
 varImpPlot(HCS.rf2)
 ```
 
-Let's take a teshold of of importance import_treshold and get all variables giving a MeanDecreaseGini over it (NB: THIS VARIABLE MIGHT NEED TO BE SET FOR EACH DATA):
+Let's take a teshold of of importance import_treshold and get all variables giving a MeanDecreaseGini over it (NB: THIS VARIABLE MIGHT NEED TO BE SET FOR EACH DATA), at least 6 data points:
 
 ```{r}
  import_treshold =0.95
@@ -171,7 +176,22 @@ Input =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:nu
   
   #Accuracy of grouping and plot
   temp =classAgreement (SVMprediction_res)
-  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):",temp$crand)
+  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction with default kernel (Corrected Rand index: 0 denotes chance level, maximum is 1):",temp$crand)
+  
+  print(Accuracy)
+  
+  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                  tune.control(sampling = "cross"),kernel="linear")
+  
+  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel="linear")
+  svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+  
+  SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
+  SVMprediction = as.data.frame(SVMprediction_res)
+  
+  #Accuracy of grouping and plot
+  temp =classAgreement (SVMprediction_res)
+  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction with linear kernel (Corrected Rand index: 0 denotes chance level, maximum is 1):",temp$crand)
   
   print(Accuracy)
 ```
@@ -187,13 +207,29 @@ Input =Multi_datainput_m #%>% select (-ID)
   
   if (nrow (Glass) != nrow (Glass2)) stop("the groups do not have the same size !")
   
-  index     <- 1:nrow(Glass )
-  testindex <- sample(index, trunc(length(index)/3))
+  #index     <- 1:nrow(Glass )
+  #testindex <- sample(index, trunc(length(index)/3))
+  #we take the same data as for the previous run
   testset   <- rbind(Glass[testindex,],Glass2[testindex,])
   trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
 ##tuning and performing svm  
-  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),tune.control(sampling = "cross"), 
-                kernel = "linear")
+  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                  tune.control(sampling = "cross"),kernel = "sigmoid")
+  
+  svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel = "sigmoid")
+  svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+  
+  SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
+  SVMprediction = as.data.frame(SVMprediction_res)
+  
+  #Accuracy of grouping and plot
+  temp =classAgreement (SVMprediction_res)
+  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction with default kernel (Corrected Rand index: 0 denotes chance level, maximum is 1):",temp$crand)
+  
+  print(Accuracy)
+  
+  obj <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                  tune.control(sampling = "cross"),kernel="linear")
   
   svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma,kernel="linear")
   svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
@@ -203,7 +239,7 @@ Input =Multi_datainput_m #%>% select (-ID)
   
   #Accuracy of grouping and plot
   temp =classAgreement (SVMprediction_res)
-  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction (Corrected Rand index: 0 denotes chance level, maximum is 1):",temp$crand)
+  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction with linear kernel (Corrected Rand index: 0 denotes chance level, maximum is 1):",temp$crand)
   
   print(Accuracy)
 ```

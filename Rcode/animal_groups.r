@@ -7,7 +7,7 @@ if (length(groups) ==1){
   metadata$groupingvar <- as.factor(temp$groupingvar)
 }else{
   ## this need to be worked, workaround here for tarabikin:
-  metadata$groupingvar = metadata %>% select (treatment)
+  metadata$groupingvar = metadata$treatment
   message("grouping via treatment only")
 }
 

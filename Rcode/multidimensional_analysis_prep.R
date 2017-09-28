@@ -2,9 +2,7 @@
 #1. % time spent on each behavior calculated for each time window, output is one table with one raw being one test (one animal tested)
 #2. The table is used  as the input to a multidimensional analysis
 #------------REmarks---------------------------------------------------
-Remarks = "modification of T5: tarabikin got a different T5, because some recording are not going until lightoff+15"
-# set number of variables to be chosen after the randomforest:
-numberofvariables =20
+
 
 #------------1 Create data---------------------------------------------------
 
@@ -74,7 +72,7 @@ Timewindows =Timewindows %>%
 calcul = function (x){
   sqrt(mean (x)/60)
 }
-
+calcul_text = "data (%age of time spent doing the behavior) transformed using the square root method."
 
 ## use calcul fonction and get values for one window:
 get_windowsummary <- function(windowdata) {
@@ -133,5 +131,5 @@ write.table(Multi_datainput, paste0(Outputs,'/timedwindowed_',groupingby,"_",Nam
 Multi_datainput_m = left_join(Multi_datainput, metadata %>% select (ID, groupingvar), by= "ID")
 
 Multi_datainput_m = Multi_datainput_m %>% 
-  #mutate (groupingvar = as.factor(treatment))%>%
+  mutate (groupingvar = as.factor(groupingvar))%>%
   select (-ID)

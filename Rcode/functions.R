@@ -37,3 +37,36 @@ plot24h <- function (data_d, Title, hour.info2= hour.info, datalenght=12){
     #scale_colour_manual(values = cols)+ ###Stop here if want to save as pdf
     theme.mr
 }
+
+## tune the svm over different kernels
+
+tune.svm2 <- function(trainset,gropingvar){
+  objS <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = "sigmoid")
+  S=min(objS$performances$error)
+  
+  objR <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = "radial")
+  R=min(objR$performances$error)
+  
+  objP <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = "polynomial")
+  P=min(objP$performances$error)
+  
+  objL <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = "linear")
+  L=min(objL$performances$error)
+  
+  choice=data.frame ("S"=S, "R"=R, "P"=P, "L"=L)
+  Min =choice %>% transmute (C=min(S,R,P,L))
+  choice=cbind(data.frame (t(choice)), kernel=c("sigmoid","radial","polynomial","linear"))
+  
+  #choice %>% filter (t.choice. ==Min [1,1])
+  KERNEL=as.character(choice [choice$t.choice ==Min [1,1],2])
+  obj=NA
+  obj= ifelse (KERNEL == "sigmoid",objS, obj)
+  obj= ifelse (KERNEL == "radial",objR, obj)
+  obj= ifelse (KERNEL == "poliynomial",objP, obj)
+  obj= ifelse (KERNEL == "linear",objL, obj)
+  return (c(KERNEL,obj))
+}
