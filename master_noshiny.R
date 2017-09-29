@@ -31,6 +31,7 @@ PMeta ="data/minimal24h_data/Projects_metadata.csv"
 ##project to analyse
 Name_project ="Tarabykin" #must be exactly the same in PMeta
 #Name_project ="lehnardt_my88"
+Name_project ="Schmidt2017svm"
 
 #computed variables1
 WD = dirname(PMeta)
@@ -74,10 +75,10 @@ summary (as.factor(metadata$animal_ID))
 #source ("Rcode/analysis_from_min.R")
 source ("Rcode/multidimensional_analysis_prep.R")
 #source ("Rcode/multidimensional_analysis_RFsvm.R")
-save.image(paste0("Reports/multidim_",Name_project,".rdata"))
+#save.image(paste0("Reports/multidim_",Name_project,".rdata"))
 
 NOSTAT=F
 rmarkdown::render ("reports/multidim_anal_variable.Rmd")
   
-file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis.html"), 
+file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis.html"), overwrite=TRUE,
           copy.mode = TRUE, copy.date = FALSE)  
