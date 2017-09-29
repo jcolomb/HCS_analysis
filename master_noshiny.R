@@ -5,6 +5,7 @@
 library (randomForest)
 library (ica)
 library (e1071) #svm
+require(Hmisc)   #binomial confidence 
 
 library (tidyverse)
 library (stringr)
@@ -21,7 +22,7 @@ source ("Rcode/setvariables.r")
 
 ##project metadata path:
 PMeta ="data/minimal24h_data/Projects_metadata.csv"
-PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
+#PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
 
 # #read main metadata file
 # Projects_metadata <- read_csv(PMeta)
@@ -74,3 +75,9 @@ summary (as.factor(metadata$animal_ID))
 source ("Rcode/multidimensional_analysis_prep.R")
 #source ("Rcode/multidimensional_analysis_RFsvm.R")
 save.image(paste0("Reports/multidim_",Name_project,".rdata"))
+
+NOSTAT=F
+rmarkdown::render ("reports/multidim_anal_variable.Rmd")
+  
+file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis.html"), 
+          copy.mode = TRUE, copy.date = FALSE)  

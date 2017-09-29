@@ -70,3 +70,24 @@ tune.svm2 <- function(trainset,gropingvar){
   obj= ifelse (KERNEL == "linear",objL, obj)
   return (c(KERNEL,obj))
 }
+
+permutate_trainset <- function(LIST) {
+  # list must be a list of factors, with 2 levels
+  
+  #get combination of n/2 number in a list of n
+  n= length(LIST)
+  
+  x=combn (n,n/2)
+  x=x[,1:(ncol(x)/2)]
+  
+  # create initial list with all elements of first level
+  P = rep(levels (LIST)[1], n)
+  # for each permutation, change the element of position x to the element of second level
+  perm= c()
+  for (i in c(1:ncol(x))){
+    Px= P
+    Px[x[,i]]= levels (LIST)[2]
+    perm= rbind(perm,Px)
+  }
+  perm
+}
