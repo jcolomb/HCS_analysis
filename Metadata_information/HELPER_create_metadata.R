@@ -32,13 +32,14 @@ meta1=read.csv ("eachfile.csv")
 Tarabykin_HP1TKO_1_HCS_All_old <- read_csv("C:/Users/cogneuro/Desktop/Project_exampledata1/metadata/metadata/Tarabykin_HP1TKO.1_HCS_All_old.csv")
 Lookup_Lehnardt_MyD88_1_all <- read_excel("D:/HCSdata/Lookup_Lehnardt_MyD88.1_all.xlsx",sheet = 2)
 
+data <- Schmidt_Metadata_HCS_All
                                           
 #merging:
 
-Lookup_Lehnardt_MyD88_1_all$animal_ID <- Lookup_Lehnardt_MyD88_1_all$`animal ID`
-Lookup_Lehnardt_MyD88_1_all$animal_ID <- Lookup_Lehnardt_MyD88_1_all$`id cohort.2`
+data$animal_ID <- data$`animal ID`
+#data$animal_ID <- data$`id cohort.2`
 
-a =left_join(Lookup_Lehnardt_MyD88_1_all,meta1, by = "animal_ID")
+a =left_join(data,meta1, by = "animal_ID")
 #View(a)
 write.csv(a, "metadata3.csv")
 
