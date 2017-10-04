@@ -1,6 +1,6 @@
 # here is the master file where packages are loaded and other functions are called,
 # this is to be replaced by a shiny app or tcltk2 at the end.
-
+setwd("analysis")
 ##multidimensional analysis:
 library (randomForest)
 library (ica)
@@ -23,6 +23,7 @@ source ("Rcode/setvariables.r")
 ##project metadata path:
 PMeta ="data/minimal24h_data/Projects_metadata.csv"
 #PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
+PMeta ="D:/HCSdata/Sharable/Projects_metadata.csv"
 
 # #read main metadata file
 # Projects_metadata <- read_csv(PMeta)
@@ -32,6 +33,7 @@ PMeta ="data/minimal24h_data/Projects_metadata.csv"
 Name_project ="Tarabykin" #must be exactly the same in PMeta
 #Name_project ="lehnardt_my88"
 Name_project ="Schmidt2017svm"
+Name_project = "Meisel_2017"
 
 #computed variables1
 WD = dirname(PMeta)
@@ -77,7 +79,7 @@ source ("Rcode/multidimensional_analysis_prep.R")
 #source ("Rcode/multidimensional_analysis_RFsvm.R")
 #save.image(paste0("Reports/multidim_",Name_project,".rdata"))
 
-NOSTAT=F
+NOSTAT=T
 rmarkdown::render ("reports/multidim_anal_variable.Rmd")
   
 file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis.html"), overwrite=TRUE,
