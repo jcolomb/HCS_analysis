@@ -13,6 +13,12 @@ filesb2 = data.frame(dir=dirname(filesb$f), basename (filesb$f))
 
 meta1= cbind(filese2, filesb2)
 meta1$animal_ID =NA
+names (meta1) = c("experiment_folder_name","Onemin_summary", "dir" ,              
+                  "Behavior_sequence", "animal_ID")
+meta1=meta1 %>% select (experiment_folder_name,Behavior_sequence,Onemin_summary, animal_ID)
+
+#, Behavior_sequence" = basename.filese.f. ,	"Onemin_summary" =basename.filesb.f)
+
 View(meta1) # you should have all files listed in a square dataframe (no NA)
 write.csv(meta1, "eachfile2.csv")
 
@@ -31,14 +37,18 @@ meta1=read.csv ("eachfile.csv")
 # read old metadata files gotten from melissa, 
 Tarabykin_HP1TKO_1_HCS_All_old <- read_csv("C:/Users/cogneuro/Desktop/Project_exampledata1/metadata/metadata/Tarabykin_HP1TKO.1_HCS_All_old.csv")
 Lookup_Lehnardt_MyD88_1_all <- read_excel("D:/HCSdata/Lookup_Lehnardt_MyD88.1_all.xlsx",sheet = 2)
+LookUp_Meisel_EAMG_HCS_all <- read_excel("D:/HCSdata/LookUp_Meisel_EAMG_HCS_all.xlsx",
+sheet = "Sheet2", col_types = c("text",
+"text", "text", "text", "text", "numeric",
+"numeric", "numeric", "text", "text"))
 
                                           
 #merging:
 
 Lookup_Lehnardt_MyD88_1_all$animal_ID <- Lookup_Lehnardt_MyD88_1_all$`animal ID`
 Lookup_Lehnardt_MyD88_1_all$animal_ID <- Lookup_Lehnardt_MyD88_1_all$`id cohort.2`
-
-a =left_join(Lookup_Lehnardt_MyD88_1_all,meta1, by = "animal_ID")
+LookUp_Meisel_EAMG_HCS_all$animal_ID <- LookUp_Meisel_EAMG_HCS_all$`animal ID`
+a =left_join(LookUp_Meisel_EAMG_HCS_all,meta1, by = "animal_ID")
 #View(a)
 write.csv(a, "metadata3.csv")
 
