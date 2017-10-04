@@ -18,10 +18,10 @@ testset   <- rbind(Glass[testindex,],Glass2[testindex,])
 trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
 ##tuning and performing svm  on trainset
 bestk= tune.svm2(trainset,groupingvar)
-obj= NA
-obj$best.parameters = bestk[[2]]
 
-svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma, kernel = bestk[[1]])
+best.parameters = bestk[[2]]
+
+svm.model <- svm(groupingvar ~ ., data = trainset, cost = best.parameters$cost, gamma = best.parameters$gamma, kernel = bestk[[1]])
 svm.pred <- predict(svm.model, trainset %>% select(-groupingvar))
 
 SVMprediction_res =table(pred = svm.pred, true = trainset$groupingvar)
@@ -50,11 +50,10 @@ testset   <- rbind(Glass[testindex,],Glass2[testindex,])
 trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
 ##tuning and performing svm  
 bestk= tune.svm2(trainset,groupingvar)
-obj=NA
-obj$best.parameters = bestk[[2]]
+best.parameters = bestk[[2]]
 
 
-svm.model <- svm(groupingvar ~ ., data = trainset, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma, kernel = bestk[[1]])
+svm.model <- svm(groupingvar ~ ., data = trainset, cost = best.parameters$cost, gamma = best.parameters$gamma, kernel = bestk[[1]])
 
 svm.pred <- predict(svm.model, trainset %>% select(-groupingvar))
 
@@ -68,10 +67,11 @@ allmodel=svm.model
 
 if (allcrand>  subsetcrand) {
   #nothing to change
-}else {# get subset model insteadSVM
+}else {# get subset model insteadSVM also train and test sets
   svm.model = subsetmodel
   Input  =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:numberofvariables,1]), "groupingvar") ]
   Glass= Input %>% filter (groupingvar == L[1])
   Glass2= Input %>% filter (groupingvar == L[2])
   testset   <- rbind(Glass[testindex,],Glass2[testindex,])
+  trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
 }

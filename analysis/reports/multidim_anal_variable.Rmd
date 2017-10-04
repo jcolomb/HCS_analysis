@@ -172,7 +172,7 @@ source ("../Rcode/Tuning_svm.r")
   print(Accuracy)
 }
 
-  
+ save.image(file= "thisisatest.rdata") 
   
 ```
 
@@ -217,6 +217,7 @@ abline(v = Accuracyreal, col="Red")
                                  # Exports `binconf`
 k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
 zapsmall(binconf(k, length(Acc_sampled), method='exact')) # 95% CI by default
+ save.image() 
 }
 ```
 
