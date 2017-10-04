@@ -19,7 +19,7 @@ meta1=meta1 %>% select (experiment_folder_name,Behavior_sequence,Onemin_summary,
 
 #, Behavior_sequence" = basename.filese.f. ,	"Onemin_summary" =basename.filesb.f)
 
-View(meta1) # you should have all files listed in a square dataframe (no NA)
+#View(meta1) # you should have all files listed in a square dataframe (no NA)
 write.csv(meta1, "eachfile2.csv")
 
 #modification on the csv by hand: check animal ID is the same for 2 files, write animal ID
@@ -31,6 +31,7 @@ write.csv(meta1, "eachfile2.csv")
 
 #now we will read the file again 
 meta1=read.csv ("eachfile.csv")
+meta1$animal_ID = as.character(meta1$animal_ID)
 
 ### manual entries here!
 # We will now merge it with  the old metadata file (AOCF only):
@@ -42,13 +43,20 @@ sheet = "Sheet2", col_types = c("text",
 "text", "text", "text", "text", "numeric",
 "numeric", "numeric", "text", "text"))
 
+Rosendmund_VGlut1_1_HCS_all_ML_24112016 <- read_excel("D:/HCSdata/Rosendmund_VGlut1.1_HCS_all_ML_24112016.xlsx",
+col_types = c("text", "text", "text",
+"text", "text", "numeric", "numeric",
+"numeric", "numeric", "text"))
+
+
                                           
 #merging:
 
 Lookup_Lehnardt_MyD88_1_all$animal_ID <- Lookup_Lehnardt_MyD88_1_all$`animal ID`
 Lookup_Lehnardt_MyD88_1_all$animal_ID <- Lookup_Lehnardt_MyD88_1_all$`id cohort.2`
 LookUp_Meisel_EAMG_HCS_all$animal_ID <- LookUp_Meisel_EAMG_HCS_all$`animal ID`
-a =left_join(LookUp_Meisel_EAMG_HCS_all,meta1, by = "animal_ID")
+Rosendmund_VGlut1_1_HCS_all_ML_24112016$animal_ID <- Rosendmund_VGlut1_1_HCS_all_ML_24112016$`animal ID`
+a =left_join(Rosendmund_VGlut1_1_HCS_all_ML_24112016,meta1, by = c("animal_ID", "treatment"))
 #View(a)
 write.csv(a, "metadata3.csv")
 
