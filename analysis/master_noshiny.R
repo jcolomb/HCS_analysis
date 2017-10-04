@@ -34,6 +34,7 @@ Name_project ="Tarabykin" #must be exactly the same in PMeta
 #Name_project ="lehnardt_my88"
 Name_project ="Schmidt2017svm"
 Name_project = "Meisel_2017"
+Name_project = "Rosenmund2015"
 
 #computed variables1
 WD = dirname(PMeta)
@@ -43,6 +44,7 @@ WD = dirname(PMeta)
 # read metadata from the project metadata file
 source("Rcode/inputdata.r") #output = metadata
 
+metadata= metadata %>% filter (!is.na(Onemin_summary ))
 #computed variables2
 Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
 dir.create (Outputs)
@@ -71,7 +73,7 @@ summary (as.factor(metadata$animal_ID))
 #source ("Rcode/create_rawdatafiles.r")
 
 
-
+metadata$groupingvar = metadata$treatment
 
 #analysis from the minute file, 
 #source ("Rcode/analysis_from_min.R")
