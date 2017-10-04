@@ -176,7 +176,7 @@ This will take very long, 1h for 80 permutations.
 
 ```{r}
 
-Npermutation = 100
+Npermutation = 45
 if (NOSTAT) Npermutation=1
 
 Npermutation

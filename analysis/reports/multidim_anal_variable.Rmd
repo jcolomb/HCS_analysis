@@ -140,6 +140,20 @@ We perform a SVM on the total data or the reduced data and compare the results. 
 
 
 ```{r}
+Input =Multi_datainput_m 
+
+##data splitting  
+#split by variable
+L=levels(Input$groupingvar)
+Glass= Input %>% filter (groupingvar == L[1])
+Glass2= Input %>% filter (groupingvar == L[2])
+if (nrow (Glass) != nrow (Glass2)) print("the groups do not have the same size !")
+# split each randomly
+index     <- 1:nrow(Glass )
+testindex <- sample(index, trunc(length(index)/3))
+testset   <- rbind(Glass[testindex,],Glass2[testindex,])
+trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
+
 if (nrow(trainset)< 20) {print("the sample size is not sufficient to produce a svm analysis, you need at least 15 animals per group")
   NOSTAT=TRUE
 }else{
