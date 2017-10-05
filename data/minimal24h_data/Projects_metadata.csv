@@ -2,3 +2,4 @@ experiment ID,Proj_name,experimentator,Folder_path,group_by,video_acquisition,vi
 E000002,Tarabykin,julien.colomb@fu-berlin.de,Project_exampledata1,genotype + age_category,HCS 3.0,videos,HCS 3.0,HCS_output,GENOTYPE NOT REAL,metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
 E000003,Schmidt2017,julien.colomb@fu-berlin.de,schmidt2017,genotype + age_category,HCS 3.0,videos,HCS 3.0,HCS3_output,,metadata/schmidt2017_meta.csv,metadata/Lab_metadata.csv
 E000003,Schmidt2017svm,julien.colomb@fu-berlin.de,schmidt2017,genotype,HCS 3.0,videos,HCS 3.0,HCS3_output,,metadata/schmidt2017_meta.csv,metadata/Lab_metadata.csv
+E000004,Meisel_2017,julien.colomb@fu-berlin.de,meisel,treatment,HCS 3.0,videos,HCS 3.0,HCS3_output,"3 groups, few data",metadata/meisel2017_meta.csv,metadata/Lab_metadata.csv

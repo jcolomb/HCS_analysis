@@ -1,0 +1,226 @@
+---
+title: "multidimens_tarab"
+output: html_document
+---
+```{r, include =FALSE}
+library (randomForest)
+library (ica)
+library (e1071) #svm
+require(Hmisc)   #binomial confidence 
+
+library (tidyverse)
+library (stringr)
+#for plotting
+library(gridExtra)
+library(RGraphics)
+source ("../Rcode/functions.r")
+```
+
+
+I am using the lehard data to test the multidimensional data.
+
+
+
+```{r, evaluate =FALSE}
+load("multidim_Tarabykin.rdata")
+summary (as.factor(metadata$groupingvar))
+
+numberofvariables = (length(names(behav_gp))-3)* nrow (Timewindows)
+numberofvariables = trunc(numberofvariables/3)
+NOSTAT=TRUE
+
+```
+The data is grouped by `r Projects_metadata$group_by `.
+Data transformation: `r calcul_text`.
+
+
+---
+
+
+We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-3` x `r nrow (Timewindows)` = `r (length(names(behav_gp))-3)* nrow (Timewindows)` variables :
+
+```{r, results='asis'}
+pander::pandoc.table(Timewindows)
+```
+Note that the last window might be truncated if not all dataset is achieving 900 min after light on.
+
+We then run a random forest to get the variables in order of importance to distinguish the groups.
+
+We tried to tune the mtry parameter, but the function "tuneRF" gives different minima each time we run it, so we decided to keep the default value (sqrt(p), here p = `r (length(names(behav_gp))-3)* nrow (Timewindows)` ).
+
+```{r, eval=FALSE}
+tuneRF(Multi_datainput_m%>% select (-groupingvar),Multi_datainput_m$groupingvar, ntreeTry=50, stepFactor=2, improve=0.05,
+       trace=TRUE, plot=TRUE, doBest=FALSE)
+
+tuneRF(Multi_datainput_m%>% select (-groupingvar),Multi_datainput_m$groupingvar, ntreeTry=50, stepFactor=2, improve=0.05,
+       trace=TRUE, plot=TRUE, doBest=FALSE)
+```
+
+
+
+We therefore used the random forest using the default mtry value and plot here the table of variables ordered by weight:
+```{r}
+HCS.rf <- randomForest(groupingvar ~ ., data=Multi_datainput_m, importance=TRUE,
+                        proximity=TRUE, ntree =1500)
+
+R =round(importance(HCS.rf, type=2), 2)
+R2=data.frame(row.names (R),R)  %>% arrange(-MeanDecreaseGini)
+
+#pander::pandoc.table(R2)
+varImpPlot(HCS.rf)
+```
+
+
+let's try to get only the `r numberofvariables` first variables and run the random forest again:
+
+```{r}
+
+
+Input =Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables,1]) ]
+Input$groupingvar =Multi_datainput_m$groupingvar
+
+HCS.rf2 <- randomForest(groupingvar ~ ., data=Input, importance=TRUE,
+                        proximity=TRUE, ntree =1500)
+R =round(importance(HCS.rf2, type=2), 2)
+R2=data.frame(row.names (R),R)  %>% arrange(-MeanDecreaseGini)
+
+#pander::pandoc.table(R2)
+
+varImpPlot(HCS.rf2)
+```
+
+Let's take a teshold of of importance import_treshold and get all variables giving a MeanDecreaseGini over it (NB: THIS VARIABLE MIGHT NEED TO BE SET FOR EACH DATA), at least 6 data points:
+
+```{r}
+ import_treshold =0.95
+
+R3=data.frame(row.names (R),R)  %>% 
+  filter(MeanDecreaseGini > import_treshold)
+numberofvariables =max (nrow (R3), 6)
+
+Input =Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables,1]) ]
+Input$groupingvar =Multi_datainput_m$groupingvar
+
+HCS.rf2 <- randomForest(groupingvar ~ ., data=Input, importance=TRUE,
+                        proximity=TRUE, ntree =1500)
+varImpPlot(HCS.rf2)
+```
+
+#Plotting
+First, lets plot the 2 most discriminative variables following the random forest:
+
+```{r}
+
+
+ Plot = Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:2,1]) ]
+  Plot = cbind(Multi_datainput_m$groupingvar, Plot)
+  Title_plot = paste0(names (Plot) [2],"x",names (Plot) [3])
+  names (Plot) = c("groupingvar","disciminant1", "discriminant2")
+  p=ggplot (Plot, aes (y= disciminant1, x=discriminant2, color= groupingvar))+
+    geom_point()+
+    labs(title = Title_plot)+
+    #scale_x_log10() + scale_y_log10()+
+    scale_colour_grey() + theme_bw()+
+      theme(legend.position='none')
+print(p)  
+```
+
+
+Now is the time to plot the main components. For this, we will make an ICA on the reduced data and plot the first two components:
+
+```{r}
+ p=icafast(Input%>% select (-groupingvar),2,center=T,maxit=100)
+
+R= cbind(p$Y, Input   %>% select (groupingvar))
+    names(R) = c("D1", "D2",  "groupingvar")
+    pls=R %>% ggplot (aes (x=D1, y=D2, color = groupingvar))+
+      geom_point()+
+      labs (title=numberofvariables)+ 
+      scale_colour_grey() + theme_bw()+
+      theme(legend.position='none')
+print(pls)    
+```
+
+
+
+
+
+#SVM
+ 
+We perform a SVM on the total data or the reduced data and compare the results. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy as the output.
+(the optimization of the parameters is computer intensive and may take time).
+
+
+```{r}
+#tuning: choose best kernel (error rate minimal), all data or only a subset (accuracy on trainset maximal, use all if identical), this takes time!
+source ("../Rcode/Tuning_svm.r")
+# run model on test data
+  svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+  
+  SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
+  SVMprediction = as.data.frame(SVMprediction_res)
+  Accuracyreal= temp$crand
+  #Accuracy of grouping and plot
+  temp =classAgreement (SVMprediction_res)
+  Accuracy =paste0(ncol(Input)-1," variables: Accuracy of the prediction with ",bestk[[1]]," kernel (Corrected Rand index: 0 denotes chance level, maximum is 1):",Accuracyreal)
+  
+  print(Accuracy)
+  
+  
+```
+
+We will now use permutation to see if the computer can tell the two groups apart. What it does is permute the elements in random groups in the training data, tune a svm and apply it to the (non-randomised) test set, its prediction (accuracy score) is saved.
+We then plot the distribution of these scores adding a vertical line at the Score obtained using the real groups. We use a Binomial confidence interval to calculate a p value. 
+
+This will take very long, 1h for 80 permutations.
+
+```{r}
+
+Npermutation = 45
+if (NOSTAT) Npermutation=1
+
+Npermutation
+  trainsetp=trainset
+Acc_sampled= c()
+b=Sys.time()
+for (i in 1:Npermutation){
+
+#permute trainset:
+
+trainsetp$groupingvar=sample (trainset$groupingvar)
+#create svm model: we tune only in one kernel:
+obj <- tune.svm(groupingvar~., data = trainsetp, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = bestk[[1]])
+
+svm.model <- svm(groupingvar ~ ., data = trainsetp, cost = obj$best.parameters$cost, gamma = obj$best.parameters$gamma, kernel = bestk[[1]])
+
+svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
+SVMprediction_res =table(pred = svm.pred, true = testset$groupingvar)
+SVMprediction = as.data.frame(SVMprediction_res)
+
+#Accuracy of grouping and plot
+temp =classAgreement (SVMprediction_res)
+Acc_sampled = c(Acc_sampled, temp$crand)
+}
+
+Sys.time()-b
+
+hist(Acc_sampled, breaks=c(-10:10)/10)
+abline(v = Accuracyreal, col="Red")
+
+                                 # Exports `binconf`
+k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
+zapsmall(binconf(k, length(Acc_sampled), method='exact')) # 95% CI by default
+
+```
+
+
+
+
+
+
+
+
+
+
+

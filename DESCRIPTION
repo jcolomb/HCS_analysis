@@ -1,0 +1,16 @@
+Package: HCS_analysis
+Title: Behavioral sequence of mouse
+Version: 0.0.0.1
+Authors@R: person("Julien", "Colomb", email = "julien.colomb@fu-berlin.de", role = c("aut", "cre"))
+Description: Code and example data to analyse HCS data (and other)
+Depends: R (>= 3.4.1),
+randomForest,
+ica,
+e1071,
+Hmisc,
+
+tidyverse,
+stringr,
+gridExtra,
+RGraphics
+License: MIT
