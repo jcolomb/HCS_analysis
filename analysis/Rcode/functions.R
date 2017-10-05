@@ -40,7 +40,7 @@ plot24h <- function (data_d, Title, hour.info2= hour.info, datalenght=12){
 
 ## tune the svm over different kernels
 
-tune.svm2 <- function(trainset,gropingvar){
+tune.svm2 <- function(trainset,groupingvar){
   objS <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
                    tune.control(sampling = "cross"),kernel = "sigmoid")
   S=min(objS$performances$error)
@@ -62,7 +62,7 @@ tune.svm2 <- function(trainset,gropingvar){
   choice=cbind(data.frame (t(choice)), kernel=c("sigmoid","radial","polynomial","linear"))
   
   #choice %>% filter (t.choice. ==Min [1,1])
-  KERNEL=as.character(choice [choice$t.choice ==Min [1,1],2])
+  KERNEL=as.character(choice [choice$t.choice ==Min [1,1],2])[length(choice)]
   obj=NA
   obj= ifelse (KERNEL == "sigmoid",objS, obj)
   obj= ifelse (KERNEL == "radial",objR, obj)
