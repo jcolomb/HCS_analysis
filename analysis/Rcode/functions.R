@@ -62,7 +62,7 @@ tune.svm2 <- function(trainset,groupingvar){
   choice=cbind(data.frame (t(choice)), kernel=c("sigmoid","radial","polynomial","linear"))
   
   #choice %>% filter (t.choice. ==Min [1,1])
-  KERNEL=as.character(choice [choice$t.choice ==Min [1,1],2])[length(choice)]
+  KERNEL=as.character(choice [choice$t.choice ==Min [1,1],2])[1]
   obj=NA
   obj= ifelse (KERNEL == "sigmoid",objS, obj)
   obj= ifelse (KERNEL == "radial",objR, obj)
