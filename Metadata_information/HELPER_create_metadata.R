@@ -12,6 +12,7 @@ filese2 = data.frame(dir=dirname(filese$f), basename (filese$f))
 filesb2 = data.frame(dir=dirname(filesb$f), basename (filesb$f))
 
 meta1= cbind(filese2, filesb2)
+#meta1= cbind(filese2, "filesb2"=filese2) #spec vida
 meta1$animal_ID =NA
 names (meta1) = c("experiment_folder_name","Onemin_summary", "dir" ,              
                   "Behavior_sequence", "animal_ID")
@@ -42,6 +43,9 @@ LookUp_Meisel_EAMG_HCS_all <- read_excel("D:/HCSdata/LookUp_Meisel_EAMG_HCS_all.
 sheet = "Sheet2", col_types = c("text",
 "text", "text", "text", "text", "numeric",
 "numeric", "numeric", "text", "text"))
+data <- read_excel("D:/HCSdata/Prüß_MNDAREoff.2_HCS_all.xlsx",
+sheet = "Sheet2")
+
 
 Rosendmund_VGlut1_1_HCS_all_ML_24112016 <- read_excel("D:/HCSdata/Rosendmund_VGlut1.1_HCS_all_ML_24112016.xlsx",
 col_types = c("text", "text", "text",
@@ -50,10 +54,11 @@ col_types = c("text", "text", "text",
 
 
 data <- Schmidt_Metadata_HCS_All
+
                                           
 #merging:
 
-data$animal_ID <- data$`animal ID`
+data$animal_ID <- as.character(data$`animal ID`)
 #data$animal_ID <- data$`id cohort.2`
 
 a =left_join(data,meta1, by = "animal_ID")

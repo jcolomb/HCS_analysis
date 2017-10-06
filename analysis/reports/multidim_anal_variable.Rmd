@@ -177,7 +177,7 @@ if (nrow(trainset) < 20) {
   NOSTAT = TRUE
 } else{
   #tuning: choose best kernel (error rate minimal), all data or only a subset (accuracy on trainset maximal, use all if identical), this takes time!
-  source ("Rcode/Tuning_svm2.r")
+  source ("../Rcode/Tuning_svm2.r")
   # run model on test data
   svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
   SVMprediction_res = table(pred = svm.pred, true = testset$groupingvar)
