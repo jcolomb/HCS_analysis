@@ -29,8 +29,9 @@ if (nrow(all_datafiles) < length(files)){
 }
 
 
-# check if animal ID in metadata correspond to file name
-#todo
+#put something in genotype and treatment fields if it is NA.
+metadata$genotype=ifelse(is.na (metadata$genotype), "unknown",metadata$genotype)
+metadata$treatment=ifelse(is.na (metadata$treatment), "none",metadata$treatment)
 
 # add animal ID to table
 BEH_datafiles=cbind(BEH_datafiles$filepath, metadata$ID)

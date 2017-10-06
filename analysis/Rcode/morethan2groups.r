@@ -3,7 +3,7 @@ if (length(unique(metadata$groupingvar))==3) {
   Multi_datainput_m_ori = Multi_datainput_m
   
   print("we need to choose grouping variables")
-  metadata$groupingvar = as.factor(metadata$groupingvar)
+  metadata_ori$groupingvar = as.factor(metadata_ori$groupingvar)
   
   
   metadataRest= metadata_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[1:2],]
@@ -33,3 +33,7 @@ if (length(unique(metadata$groupingvar))==3) {
    Multi_datainput_m =Multi_datainput_m_ori 
    metadata =metadata_ori
 }
+print(pls)
+p1
+p2
+p3

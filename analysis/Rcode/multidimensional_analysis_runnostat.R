@@ -58,8 +58,8 @@ p = ggplot (Plot, aes (y = disciminant1, x = discriminant2, color = groupingvar)
   geom_point() +
   labs(title = Title_plot) +
   #scale_x_log10() + scale_y_log10()+
-  scale_colour_grey() + theme_bw() +
-  theme(legend.position = 'none')
+  #scale_colour_grey() + theme_bw() +
+  theme(legend.position = 'side')
 print(p)
 p = icafast(Input %>% select (-groupingvar),
             2,
@@ -69,9 +69,9 @@ R = cbind(p$Y, Input   %>% select (groupingvar))
 names(R) = c("D1", "D2",  "groupingvar")
 pls = R %>% ggplot (aes (x = D1, y = D2, color = groupingvar)) +
   geom_point() +
-  labs (title = numberofvariables) +
-  scale_colour_grey() + theme_bw() +
-  theme(legend.position = 'none')
+  labs (title = numberofvariables) #+
+  #scale_colour_grey() + theme_bw() +
+  #theme(legend.position = 'none')
 print(pls)
 Input = Multi_datainput_m
 ##data splitting
@@ -119,9 +119,11 @@ if (nrow(trainset) < 20) {
   svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
   SVMprediction_res = table(pred = svm.pred, true = testset$groupingvar)
   SVMprediction = as.data.frame(SVMprediction_res)
-  Accuracyreal = temp$crand
+  
   #Accuracy of grouping and plot
   temp = classAgreement (SVMprediction_res)
+  Accuracyreal = temp$crand
+  
   Accuracy = paste0(
     ncol(Input) - 1,
     " variables: Accuracy of the prediction with ",

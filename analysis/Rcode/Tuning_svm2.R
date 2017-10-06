@@ -47,10 +47,8 @@ allmodel=svm.model
 if (allcrand<  subsetcrand) {
   # get subset model insteadSVM also train and test sets
   svm.model = subsetmodel
-  Input  =Multi_datainput_m [,names(Multi_datainput_m) %in% c(as.character(R2 [1:numberofvariables,1]), "groupingvar") ]
-  Glass= Input %>% filter (groupingvar == L[1])
-  Glass2= Input %>% filter (groupingvar == L[2])
-  testset   <- rbind(Glass[testindex,],Glass2[testindex,])
-  trainset  <- rbind(Glass[-testindex,],Glass2[-testindex,])
-}
+  testset   <- testset2
+  trainset  <- trainset2
+
+  }
 
