@@ -53,22 +53,23 @@ col_types = c("text", "text", "text",
 "numeric", "numeric", "text"))
 
 
-data <- Schmidt_Metadata_HCS_All
+data <- Lookup_Lehnardt_MyD88_1_all
 
                                           
 #merging:
 
 data$animal_ID <- as.character(data$`animal ID`)
+#data$animal_ID <- as.character(data$animal_ID)
 #data$animal_ID <- data$`id cohort.2`
 
 a =left_join(data,meta1, by = "animal_ID")
 
-#Lookup_Lehnardt_MyD88_1_all$animal_ID <- Lookup_Lehnardt_MyD88_1_all$`animal ID`
+#Lookup_Lehnardt_MyD88_1_all$animal_ID <- as.character(Lookup_Lehnardt_MyD88_1_all$`animal ID`)
 #Lookup_Lehnardt_MyD88_1_all$animal_ID <- Lookup_Lehnardt_MyD88_1_all$`id cohort.2`
 #LookUp_Meisel_EAMG_HCS_all$animal_ID <- LookUp_Meisel_EAMG_HCS_all$`animal ID`
 #Rosendmund_VGlut1_1_HCS_all_ML_24112016$animal_ID <- Rosendmund_VGlut1_1_HCS_all_ML_24112016$`animal ID`
 #a =left_join(Rosendmund_VGlut1_1_HCS_all_ML_24112016,meta1, by = c("animal_ID", "treatment"))
 #View(a)
-write.csv(a, "metadata3.csv")
+write.csv(a, "metadata4.csv")
 
 # now modify this by hand to get the right column names.
