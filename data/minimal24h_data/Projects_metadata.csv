@@ -1,2 +1,3 @@
 experiment ID,Proj_name,experimentator,Folder_path,group_by,video_acquisition,video_folder,video_analysis,raw_data_folder,Comments,animal_metadata,lab_metadata
 E000002,Tarabykin,julien.colomb@fu-berlin.de,Project_exampledata1,genotype + age_category,HCS 3.0,videos,HCS 3.0,HCS_output,GENOTYPE NOT REAL,metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
+E100002,test_online,julien.colomb@fu-berlin.de,raw.githubusercontent.com/jcolomb/HCS_data_1/master/Project_exampledata1,genotype + age_category,HCS 3.0,videos,HCS 3.0,HCS_output,GENOTYPE NOT REAL,metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv

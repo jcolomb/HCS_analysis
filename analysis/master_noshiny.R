@@ -21,8 +21,9 @@ source ("Rcode/functions.r")
 source ("Rcode/setvariables.r")
 
 ##project metadata path:
-PMeta ="data/minimal24h_data/Projects_metadata.csv"
-#PMeta ="C:/Users/cogneuro/Desktop/Marion_work/Projects_metadata.csv"
+
+#These files are on my USB stick, the data cannot be put on github without the formal agreements of the 
+#people who did the experiments:
 PMeta ="D:/HCSdata/Sharable/Projects_metadata.csv"
 
 # #read main metadata file
@@ -40,9 +41,14 @@ Name_project = "Pruess_2016"
 Name_project = "Vida_2015"
 Name_project = "Lehnard_2016"
 
+Name_project ="test_online"
+
 #computed variables1
 WD = dirname(PMeta)
 
+# these files are available on github
+PMeta ="../data/minimal24h_data/Projects_metadata.csv" #test data available on github
+WD = "https:/"
 
 
 # read metadata from the project metadata file
@@ -52,8 +58,8 @@ source("Rcode/inputdata.r") #output = metadata
 #metadata= metadata %>% filter (!is.na(Onemin_summary ))
 
 #computed variables2
-Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
-dir.create (Outputs)
+Outputs = paste(dirname(PMeta),Projects_metadata$Folder_path,"Routputs", sep="/")
+dir.create (Outputs, recursive = TRUE)
 plot.path = Outputs
 
 

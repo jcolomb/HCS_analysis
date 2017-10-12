@@ -4,7 +4,10 @@ data = data.frame()
 files = as.character(MIN_datafiles[,1])
 
 for (f in 1:length(files)) {
-  
+  if (WD == "https:/"){
+    download.file(files[f], "tempor.xlsx",  mode="wb")
+    files[f] = "tempor.xlsx"
+  }
   behav<- readxl::read_excel(files[f],sheet = 1)
   behav = behav[-nrow(behav),1:46] ## -> keep all data, excluding data come later.
   
