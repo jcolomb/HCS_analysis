@@ -22,9 +22,13 @@ source ("Rcode/setvariables.r")
 
 ##project metadata path:
 
-#These files are on my USB stick, the data cannot be put on github without the formal agreements of the 
+#These files are on my USB stick, the data cannot be put on github
+#without the formal agreements of the 
 #people who did the experiments:
+
 PMeta ="D:/HCSdata/Sharable/Projects_metadata.csv"
+#computed variables1
+WD = dirname(PMeta)
 
 # #read main metadata file
 # Projects_metadata <- read_csv(PMeta)
@@ -43,8 +47,7 @@ Name_project = "Lehnard_2016"
 
 Name_project ="test_online"
 
-#computed variables1
-WD = dirname(PMeta)
+
 
 # these files are available on github
 PMeta ="../data/minimal24h_data/Projects_metadata.csv" #test data available on github
