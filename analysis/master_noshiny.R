@@ -120,5 +120,5 @@ if (length(unique(metadata$groupingvar))==3) {
 
 
   
-file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis.html"), overwrite=TRUE,
+file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
           copy.mode = TRUE, copy.date = FALSE)  

@@ -16,3 +16,16 @@ if (length(groups) ==1){
   metadata$groupingvar <- interaction(temp,sep="_")
 }
 
+if (!is.na(Projects_metadata$confound_by)){
+  groupc = str_split( as.character(Projects_metadata$confound_by), " ")[[1]]
+  groupc=groupc [groupc!="+"]
+  if (length(groupc) ==1){
+    temp <- metadata %>% select (groupc)
+    names (temp) = "confoundvar"
+    metadata$confoundvar <- as.factor(temp$confoundvar)
+  }else {
+    temp <- metadata %>% select (groupc)
+    metadata$confoundvar <- interaction(temp,sep="_")
+  }
+}
+

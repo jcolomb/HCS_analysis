@@ -91,14 +91,7 @@ get_windowsummary <- function(windowdata) {
   names (temp)[-1]= paste0(names (temp)[-1],i)
   return(temp)
 }
-# ####TODO get sum count of bins to get %age and not values
-# get_windowsummary <- function(windowdata) {
-#   temp= windowdata %>% group_by(ID) %>% 
-#     summarise_if(is.numeric,funs(sum)) %>%
-#     select ( -bintodark)
-#   names (temp)[-1]= paste0(names (temp)[-1],i)
-#   return(temp)
-# }
+
 
 #1.4 create result table
 if (groupingby == "AOCF"){
@@ -128,9 +121,18 @@ for (i in c(1:nrow(Timewindows))){
 
 write.table(Multi_datainput, paste0(Outputs,'/timedwindowed_',groupingby,"_",Name_project,'.csv'), sep = ';',row.names = FALSE)
 
-#add groupingvar
+#add groupingvar 
 Multi_datainput_m = left_join(Multi_datainput, metadata %>% select (ID, groupingvar), by= "ID")
 
 Multi_datainput_m = Multi_datainput_m %>% 
   mutate (groupingvar = as.factor(groupingvar))%>%
   select (-ID)
+
+#add groupingvar + confoundvar
+if (!is.na(Projects_metadata$confound_by)){
+  Multi_datainput_m2 = left_join(Multi_datainput, metadata %>% select (ID, groupingvar, confoundvar), by= "ID")
+
+  Multi_datainput_m2 = Multi_datainput_m2 %>% 
+  mutate (groupingvar = as.factor(groupingvar))%>%
+  select (-ID)
+}
