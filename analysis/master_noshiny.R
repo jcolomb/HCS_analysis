@@ -115,6 +115,7 @@ if (length(unique(metadata$groupingvar))==3) {
   source ("Rcode/morethan2groups.R")
   rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
 }else{
+  #source ("Rcode/multidim_anal_variable.R")
   rmarkdown::render ("reports/multidim_anal_variable.Rmd")
 }
 
