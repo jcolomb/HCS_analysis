@@ -66,7 +66,7 @@ tune.svm2 <- function(trainset,groupingvar){
   obj=NA
   obj= ifelse (KERNEL == "sigmoid",objS, obj)
   obj= ifelse (KERNEL == "radial",objR, obj)
-  obj= ifelse (KERNEL == "poliynomial",objP, obj)
+  obj= ifelse (KERNEL == "polynomial",objP, obj)
   obj= ifelse (KERNEL == "linear",objL, obj)
   return (c(KERNEL,obj))
 }

@@ -1,1 +1,1 @@
-animal_ID,gender,treatment,genotype,date,test cage,real time start,experiment_folder_name,Behavior_sequence,Onemin_summary,Lab_ID
+animal_ID,gender,treatment,genotype,date,test cage,real time start,experiment_folder_name,Behavior_sequence,Onemin_summary,Lab_ID,Exclude_data

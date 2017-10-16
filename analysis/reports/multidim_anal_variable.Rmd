@@ -148,6 +148,7 @@ if (nrow(metadata) < 22) {print("there is not enough data to try to do a svm")
 
 
 ```{r}
+set.seed(74)
 L = levels(Input$groupingvar)
 Glass = Input %>% filter (groupingvar == L[1])
 Glass2 = Input %>% filter (groupingvar == L[2])
@@ -177,42 +178,7 @@ Input = Input[,! names(Input) %in% c(E1,E2) ]
 
 if (nrow(trainset) < 20) {
   print(
-    "the sample size is not sufficient to produce a svm analysis, you need at least 15 animals per group"Show in New WindowClear OutputExpand/Collapse Output
-  old young 
-    4     4 
-Show in New WindowClear OutputExpand/Collapse Output
-
-------------------------------------------
- time_reference   windowstart   windowend 
----------------- ------------- -----------
-      Bin              0           120    
-
-   Bintodark         -120           0     
-
-   Bintodark           0           180    
-
-   Bintodark          180          540    
-
-   Bintodark          540          720    
-
-   Bintodark          720          864    
-------------------------------------------
-
-Show in New WindowClear OutputExpand/Collapse Output
-
-Show in New WindowClear OutputExpand/Collapse Output
-
-Show in New WindowClear OutputExpand/Collapse Output
-
-Show in New WindowClear OutputExpand/Collapse Output
-
-Show in New WindowClear OutputExpand/Collapse Output
-
-Show in New WindowClear OutputExpand/Collapse Output
-[1] TRUE
-Show in New WindowClear OutputExpand/Collapse Output
- Show Traceback
-Error in eval(predvars, data, env) : object 'Distance_traveled1' not found
+    "the sample size is not sufficient to produce a svm analysis, you need at least 15 animals per group"
   )
   NOSTAT = TRUE
 } else{

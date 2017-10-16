@@ -47,6 +47,8 @@ Name_project = "Lehnard_2016"
 
 Name_project ="test_online"
 
+Name_project ="Tarabykin_2015" 
+
 
 
 # these files are available on github
@@ -56,6 +58,10 @@ WD = "https:/"
 
 # read metadata from the project metadata file
 source("Rcode/inputdata.r") #output = metadata
+metadata$Exclude_data[is.na(
+  metadata$Exclude_data)] <- 'include'
+
+metadata = metadata %>% filter (Exclude_data != "exclude")
 
 #filter metadata with no data in the Onemin_summary
 #metadata= metadata %>% filter (!is.na(Onemin_summary ))
@@ -82,11 +88,12 @@ source ("Rcode/animal_groups.r") # output metadata$groupingvar
 #source ("Rcode/create_eventfile.r") # output EVENT_data, note this takes the whole recording and is therefore not very useful
 source ("Rcode/create_minfile.r") # output MIN_data
 
-#filter for repeated tests:
+#filter if data need exclusion:
 
-metadata = metadata %>% filter (genotype != "exclude")
-MIN_data =MIN_data%>% filter (genotype != "exclude")
+
+
 summary (as.factor(metadata$animal_ID))
+summary (as.factor(MIN_data$animal_ID))
 cbind(metadata$animal_ID, metadata$genotype)
 #the raw data have too much problems, timing and categories should be worked out before we can work with it
 #source ("Rcode/create_rawdatafiles.r")
