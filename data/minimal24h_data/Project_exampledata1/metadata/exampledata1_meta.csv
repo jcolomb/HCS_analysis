@@ -1,9 +1,0 @@
-animal_ID,gender,treatment,genotype,date,test cage,real time start,experiment_folder_name,Behavior_sequence,Onemin_summary,Lab_ID
-7,M,young,test,08.09.2015,1,09:08,20150908_Tarabykin_HCS_groupA,20150908_Tarabykin_HCS_A_animal_Beh_7.xlsx,20150908_Tarabykin_HCS_1min_Aanimal_7.xlsx,AOCF_1
-28,M,young,control,08.09.2015,2,09:08,20150908_Tarabykin_HCS_groupA,20150908_Tarabykin_HCS_A_animal_Beh_28.xlsx,20150908_Tarabykin_HCS_1min_Aanimal_28.xlsx,AOCF_1
-27,M,young,test,08.09.2015,3,09:08,20150908_Tarabykin_HCS_groupA,20150908_Tarabykin_HCS_A_animal_Beh_27.xlsx,20150908_Tarabykin_HCS_1min_Aanimal_27.xlsx,AOCF_1
-26,M,young,control,08.09.2015,4,09:08,20150908_Tarabykin_HCS_groupA,20150908_Tarabykin_HCS_A_animal_Beh_26.xlsx,20150908_Tarabykin_HCS_1min_Aanimal_26.xlsx,AOCF_1
-27,M,old,test,06.07.2016,2,10:24,160706_Tarabykin_HP1TKO_HCS_B,160706_Tarabykin_HP1TKO.3_HCS_Beh_27c.xlsx,160706_Tarabykin_HP1TKO.3_HCS_Min_27c.xlsx,AOCF_1
-26,M,old,control,06.07.2016,3,10:24,160706_Tarabykin_HP1TKO_HCS_B,160706_Tarabykin_HP1TKO.3_HCS_Beh_26c.xlsx,160706_Tarabykin_HP1TKO.3_HCS_Min_26c.xlsx,AOCF_1
-28,M,old,control,06.07.2016,4,10:24,160706_Tarabykin_HP1TKO_HCS_B,160706_Tarabykin_HP1TKO.3_HCS_Beh_28c.xlsx,160706_Tarabykin_HP1TKO.3_HCS_Min_28c.xlsx,AOCF_1
-7,M,old,test,07.07.2016,3,10:32,160707_Tarabykin_HP1TKO_HCS_C,160707_Tarabykin_HP1TKO.3_HCS_Beh_7c.xlsx,160707_Tarabykin_HP1TKO.3_HCS_Min_7c.xlsx,AOCF_1

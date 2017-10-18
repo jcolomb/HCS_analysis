@@ -26,7 +26,7 @@ source ("Rcode/setvariables.r")
 #without the formal agreements of the 
 #people who did the experiments:
 
-PMeta ="D:/HCSdata/Sharable/Projects_metadata.csv"
+PMeta ="D:/HCSdata/Sharable/Projects_metadataext.csv"
 #computed variables1
 WD = dirname(PMeta)
 
@@ -51,10 +51,12 @@ Name_project ="Tarabykin_2015"
 
 
 
-# these files are available on github
+# these files are available on github or have a stricked path.
+#still need to distingusish the two.
 PMeta ="../data/minimal24h_data/Projects_metadata.csv" #test data available on github
 WD = "https:/"
-
+WD = "D:"
+Name_project = "Meisel_2017"
 
 # read metadata from the project metadata file
 source("Rcode/inputdata.r") #output = metadata
