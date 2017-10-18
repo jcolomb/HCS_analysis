@@ -1,8 +1,3 @@
----
-title: "Create your Metadata"
-output: html_document
----
-
 This document aims at providing a walkthrough for users creating their metadata file. It contains instruction on how to do it for new and for old projects.
 
 #  Project_metadata.csv file
@@ -15,7 +10,8 @@ This document aims at providing a walkthrough for users creating their metadata 
 
 # Add your data
 
-- create a folder in the folder containing the Project_metadata.csv file and name it according to the information given in the Project_metadata.csv file
+- create a folder and name it according to the information given in the Project_metadata.csv file
+- You can either place the folder in the data folder of your clone of this repository (source_data="this_github"), on another github repository online (source_data="https:/") or anywhere on your drive or an external drive (source_data="USB_stick", the value of STICK must be changed in the R code (in the master_noshiny.r or intered interactively, once the function will exist).
 - Either use the template provided, or make sure there is a experiment metadata file and a lab metadata file found at the path given in the Project_metadata.csv file.
 - Put the videos in the video folders (this is optional, we do not need the videos to run the analysis).
 - Put the data in one videoanalysis_output folder. If the data was analysed with different software, add one folder per software (for example HCS3_output and HCS4_output). Note that only one output may be analysed at a time. If you have used different analysis software, you should create a new row in the Project_metadata.csv file for each.
@@ -31,7 +27,7 @@ This document aims at providing a walkthrough for users creating their metadata 
 - Enter the animal_ID by hand
 - if animals were tested more than once, add a distinction in a new column (treatment for instance).
 - Here you need to merge this information with other information you got in a different format. You may look at the helper code for inspiration, but this step is much dependent on your metadata. Be patient, this step might take some time, but you will get something clean at the end.
-- Check the file for inconstancy and other possible problems.
+- Check the file for inconsistancy and other possible problems.
 
 # You are done
 
