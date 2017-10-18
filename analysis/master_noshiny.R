@@ -19,6 +19,8 @@ source ("Rcode/functions.r")
 
 # variables
 source ("Rcode/setvariables.r")
+# path to the data (if it is on a stick for example)
+STICK= "D:/HCSdata/sharable"
 
 ##project metadata path:
 
@@ -26,37 +28,49 @@ source ("Rcode/setvariables.r")
 #without the formal agreements of the 
 #people who did the experiments:
 
-PMeta ="D:/HCSdata/Sharable/Projects_metadataext.csv"
-#computed variables1
-WD = dirname(PMeta)
-
-# #read main metadata file
-# Projects_metadata <- read_csv(PMeta)
-# Projects_metadata$Proj_name
-
-##project to analyse
-Name_project ="Tarabykin" #must be exactly the same in PMeta
-#Name_project ="lehnardt_my88"
-Name_project ="Schmidt2017svm"
-Name_project = "Meisel_2017"
-Name_project = "Rosenmund2015"
-Name_project = "Rosenmund2015g"
-Name_project = "Pruess_2016"
-Name_project = "Vida_2015"
-Name_project = "Lehnard_2016"
-
-Name_project ="test_online"
-
-Name_project ="Tarabykin_2015" 
+# PMeta ="D:/HCSdata/Sharable/Projects_metadataext.csv"
+# #computed variables1
+# WD = dirname(PMeta)
+# 
+# # #read main metadata file
+# # Projects_metadata <- read_csv(PMeta)
+# # Projects_metadata$Proj_name
+# 
+# ##project to analyse
+# Name_project ="Tarabykin" #must be exactly the same in PMeta
+# #Name_project ="lehnardt_my88"
+# Name_project ="Schmidt2017svm"
+# Name_project = "Meisel_2017"
+# Name_project = "Rosenmund2015"
+# Name_project = "Rosenmund2015g"
+# Name_project = "Pruess_2016"
+# Name_project = "Vida_2015"
+# Name_project = "Lehnard_2016"
+# 
+# Name_project ="test_online"
+# 
+# Name_project ="Tarabykin_2015" 
 
 
 
 # these files are available on github or have a stricked path.
 #still need to distingusish the two.
-PMeta ="../data/minimal24h_data/Projects_metadata.csv" #test data available on github
-WD = "https:/"
-WD = "D:"
-Name_project = "Meisel_2017"
+PMeta ="../data/Projects_metadata.csv" #test data available on github
+#Name_project = "Meisel_2017"
+#Name_project ="test_online"
+#Name_project = "Exampledata"
+# #Name_project ="lehnardt_my88"
+# Name_project ="Schmidt2017svm"
+# Name_project = "Meisel_2017"
+# Name_project = "Rosenmund2015"
+# Name_project = "Rosenmund2015g"
+ Name_project = "Pruess_2016"
+# Name_project = "Vida_2015"
+# Name_project = "Lehnard_2016"
+# Name_project ="Tarabykin_2015" 
+
+
+
 
 # read metadata from the project metadata file
 source("Rcode/inputdata.r") #output = metadata
@@ -69,7 +83,9 @@ metadata = metadata %>% filter (Exclude_data != "exclude")
 #metadata= metadata %>% filter (!is.na(Onemin_summary ))
 
 #computed variables2
-Outputs = paste(dirname(PMeta),Projects_metadata$Folder_path,"Routputs", sep="/")
+Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
+if (WD == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
+
 dir.create (Outputs, recursive = TRUE)
 plot.path = Outputs
 
@@ -112,7 +128,7 @@ source ("Rcode/multidimensional_analysis_prep.R")
 # get output
 #source ("Rcode/multidimensional_analysis_RFsvm.R")
 #save.image(paste0("Reports/multidim_",Name_project,".rdata"))
-NOSTAT =T
+NOSTAT =F
 if (length(unique(metadata$groupingvar))==3) {
   source ("Rcode/morethan2groups.R")
   rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")

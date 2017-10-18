@@ -78,14 +78,14 @@ R2=data.frame(row.names (R),R)  %>% arrange(-MeanDecreaseGini)
 varImpPlot(HCS.rf2)
 ```
 
-Let's take a teshold of of importance import_treshold and get all variables giving a MeanDecreaseGini over it (NB: THIS VARIABLE MIGHT NEED TO BE SET FOR EACH DATA), at least 6 data points:
+Let's take a teshold of of importance import_treshold and get all variables giving a MeanDecreaseGini over it, at least 8 data points:
 
 ```{r}
  import_treshold =0.95
 
 R3=data.frame(row.names (R),R)  %>% 
   filter(MeanDecreaseGini > import_treshold)
-numberofvariables =max (nrow (R3), 6)
+numberofvariables =max (nrow (R3), 8)
 
 Input =Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables,1]) ]
 Input$groupingvar =Multi_datainput_m$groupingvar
@@ -224,7 +224,7 @@ if (nrow(trainset) < 20) {
   NOSTAT = TRUE
 } else{
   #tuning: choose best kernel (error rate minimal), all data or only a subset (accuracy on trainset maximal, use all if identical), this takes time!
-  source ("Rcode/Tuning_svm2.r")
+  source ("../Rcode/Tuning_svm2.r")
   # run model on test data
   svm.pred <- predict(svm.model, testset %>% select(-groupingvar))
   SVMprediction_res = table(pred = svm.pred, true = testset$groupingvar)
@@ -249,10 +249,10 @@ if (nrow(trainset) < 20) {
 We will now use permutation to see if the computer can tell the two groups apart. What it does is permute the elements in random groups in the training data, tune a svm and apply it to the (non-randomised) test set, its prediction (accuracy score) is saved.
 We then plot the distribution of these scores adding a vertical line at the Score obtained using the real groups. We use a Binomial confidence interval to calculate a p value. 
 
-This will take very long, 1h for 80 permutations.
+This will take very long, 2h for 120 permutations.
 
 ```{r}
-Npermutation = 100
+Npermutation = 120
 
 if (!NOSTAT) {
 trainsetp=trainset
@@ -279,15 +279,16 @@ temp =classAgreement (SVMprediction_res)
 Acc_sampled = c(Acc_sampled, temp$crand)
 }
 
-Sys.time()-b
+print("time to perform the analysis:")
+print(Sys.time()-b)
 
 hist(Acc_sampled, breaks=c(-10:10)/10)
 abline(v = Accuracyreal, col="Red")
 
                                  # Exports `binconf`
 k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
-zapsmall(binconf(k, length(Acc_sampled), method='exact')) # 95% CI by default
- save.image() 
+print(zapsmall(binconf(k, length(Acc_sampled), method='exact'))) # 95% CI by default
+  save.image(file= "thisisatest.rdata") 
 }
 ```
 
