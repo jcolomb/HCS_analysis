@@ -7,7 +7,7 @@ This document aims at providing a walkthrough for users creating their metadata 
 
 #  Project_metadata.csv file
 
-- Open the Project_metadata.csv file in excel (or similar)
+- Open the Project_metadata.csv file in excel (or similar sofware, you will find it in the data folder).
 - Select all cells and change its format to "text" to avoid any intervention of the program in what you are typing
 - take the next number available for the experiment ID
 - enter data as requested in each cell, refer to the "explanation_of_metadata.csv" file for desctiption
@@ -38,4 +38,3 @@ This document aims at providing a walkthrough for users creating their metadata 
 You should have gotten clean metadata now and you can try to run the analysis. Some checks are done once uploading the metadata, read warnings carefully and go back to cleaning the metadata if you get problems.
 
 NB: the checker will open a window with the files that are additional to the one used in the metadata, check at that moment whether some animals were tested and not incorporated in the metadata, or if it is only files which are not necessary (for example hour summary files).
-

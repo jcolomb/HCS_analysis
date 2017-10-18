@@ -7,7 +7,7 @@ Projects_metadata = Projects_metadata %>% filter (Proj_name == Name_project)
 #define WD: path to the folder
 WD= NA
 WD = ifelse (Projects_metadata$source_data =="this_github", dirname(PMeta),WD)
-WD = ifelse (Projects_metadata$source_data =="UAS_stick", STICK,WD)
+WD = ifelse (Projects_metadata$source_data =="USB_stick", STICK,WD)
 WD = ifelse (Projects_metadata$source_data =="https:/", "https:/",WD)
 # get additional metadata
 animal_meta= read_csv(paste(WD,Projects_metadata$Folder_path, Projects_metadata$animal_metadata, sep = "/"),
