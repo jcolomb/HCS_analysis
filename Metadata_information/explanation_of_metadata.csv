@@ -2,8 +2,10 @@ Metadata_file,name,explanation,comment_format_examples,Required?
 project_metadata,experiment ID,"""give it a 6 number code""",E+6 number code,y
 project_metadata,Proj_name,"""give your project a unique name""",You may use the name of the PI with a number for the year,y
 project_metadata,experimentator,"""e-mail of the experimentator""",e-mail address of corresponding author(s),n
+project_metadata,source_data,"""where is the data?""","""this_github"" if data is put on the data folder of your clone, ""https:/"" if on another github, ""USB_stick"" if a path to your computer or external drive, path to the data will then be entered in the master R file under STICK variable.",y
 project_metadata,Folder_path,"""path to the Folder of the experiment (containing all data and metadata), path relative to the folder containing the project_metadata.csv file file""",,y
 project_metadata,group_by,"""variable of the animal metadata, which is used to create groups""","genotype, treatment, age_category",y
+project_metadata,confound_by,"""variable of the animal metadata, which is not used to creaate groups but which is important for the data sampling""","gender,…",n
 project_metadata,video_acquisition,"""name of the software used for the video acquisition, indicate version number.""","10F_videocage, HCS3, HSC4",n
 project_metadata,video_folder,"""path to folder containing the videos, relative to Folder_path. Use an name which is explicit about the software used to produce it. Note that multiple folder may exist if the videos were analysed using different software, but this cell can contain only one value.""",Video,n
 project_metadata,video_analysis,"""name of the software used for the video analysis, indicate version number.""",HCS3,y
