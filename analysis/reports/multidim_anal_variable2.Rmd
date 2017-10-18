@@ -45,7 +45,8 @@ print (pls)
 
 #SVM
 
-We splitted the data in binomes, train a svm with 10 data points per group and test the accuracy of the model on the rest of the data. Here we report the accuracy of the model for each binome. A value above 3 is a good indication of a significant difference between the groups.
+We splitted the data in binomes, train a svm with 10 data points per group and test the accuracy of the model on the rest of the data. Here we report the accuracy of the model for each binome. A value above 3 is a good indication of a significant difference between the groups. 
+(Note that variables which are constantly null for the whole training or testing set of data are taken out of the analysis, therefore the number of variables used may change between each results).
  
 
 

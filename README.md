@@ -1,14 +1,23 @@
 # HCS_analysis
-This code analyse data obtained from the homecagescan software (HCS, cleversys Inc.)
+This code analyse data obtained from the homecagescan software (HCS, cleversys Inc.), it is buid to accept data from other single housed animal home cage monitoring systems.
 
-As input, it uses the min summary file exported from the HCS. Attempt to use the raw data were not successful. It also access different metadata file:
+As input, it uses the min summary file exported from the HCS and specific metadata files described in more detail in the "metadata_information" folder. (Attempt to use the raw data were not successful.) In brief, there are different metadata files:
 
-- a project metadata: each project is listed, path toward other metadata file is indicated.
-- a lab metadata: here is stocked information about the room where the experiment was performed (daily light cycle is indicated there)
+- a project metadata: each project is listed in one spreadseets, path toward other metadata file is indicated there.
+- a lab metadata: here is stocked information about the room where the experiment was performed (daily light cycle is indicated there).
 - an experiment metadata: each row represent one test. Information about the animal tested is stored there.
 
-# Development
+# Adding data
 
-We are now seeking a way to have a repository for all data analysed with this software, to get one unique project metadata file for the whole universe is the goal! Please help!
+Please refer to the metadata_information/Readme.md file. Once your data is in a format accepted by the software, you might upload it on github and archive it on zenodo. By indicating the folder as the raw data folder in github, the software can access the data directly on Github.
 
-We hope to make the software flexible enough to analyse data coming for other similar setups.
+We are planning on getting a repository for that data, any help welcome.
+
+
+We hope to make the software flexible enough to analyse data coming for other similar setups. Reach out if you get some.
+
+# Helping with the code
+
+Any contribution in the code is welcome, see the contibuting.md file.
+
+
