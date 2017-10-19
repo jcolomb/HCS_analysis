@@ -28,38 +28,21 @@ STICK= "D:/HCSdata/sharable"
 #without the formal agreements of the 
 #people who did the experiments:
 
-# PMeta ="D:/HCSdata/Sharable/Projects_metadataext.csv"
-# #computed variables1
-# WD = dirname(PMeta)
-# 
-# # #read main metadata file
-# # Projects_metadata <- read_csv(PMeta)
-# # Projects_metadata$Proj_name
-# 
-# ##project to analyse
-# Name_project ="Tarabykin" #must be exactly the same in PMeta
-# #Name_project ="lehnardt_my88"
-# Name_project ="Schmidt2017svm"
-# Name_project = "Meisel_2017"
-# Name_project = "Rosenmund2015"
-# Name_project = "Rosenmund2015g"
-# Name_project = "Pruess_2016"
-# Name_project = "Vida_2015"
-# Name_project = "Lehnard_2016"
-# 
-# Name_project ="test_online"
-# 
-# Name_project ="Tarabykin_2015" 
+
 
 
 
 # these files are available on github or have a stricked path.
 #still need to distingusish the two.
 PMeta ="../data/Projects_metadata.csv" #test data available on github
-#Name_project = "Meisel_2017"
+
 #Name_project ="test_online"
 #Name_project = "Exampledata"
-# #Name_project ="lehnardt_my88"
+#These files are on my USB stick, the data cannot be put on github
+#without the formal agreements of the 
+#people who did the experiments:
+#Name_project = "Meisel_2017"
+# Name_project ="lehnardt_my88"
 # Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
 # Name_project = "Rosenmund2015"
@@ -135,9 +118,12 @@ if (length(unique(metadata$groupingvar))==3) {
 }else{
   #source ("Rcode/multidim_anal_variable.R")
   rmarkdown::render ("reports/multidim_anal_variable.Rmd")
-}
+
+  }
 
 
   
 file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
-          copy.mode = TRUE, copy.date = FALSE)  
+          copy.mode = TRUE, copy.date = FALSE)
+
+beepr::beep()

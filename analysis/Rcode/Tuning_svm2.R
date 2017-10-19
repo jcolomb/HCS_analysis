@@ -20,7 +20,7 @@ SVMprediction_res =table(pred = svm.pred, true = trainset2$groupingvar)
 
 #Accuracy of grouping and save model
 temp =classAgreement (SVMprediction_res)
-subsetcrand=temp$crand
+subsetcrand=temp$kappa
 subsetmodel=svm.model
 
 ##ALL variables:
@@ -41,7 +41,7 @@ SVMprediction_res =table(pred = svm.pred, true = trainset$groupingvar)
 
 #Accuracy of grouping and plot
 temp =classAgreement (SVMprediction_res)
-allcrand=temp$crand
+allcrand=temp$kappa
 allmodel=svm.model
 
 if (allcrand<  subsetcrand) {

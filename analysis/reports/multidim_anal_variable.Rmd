@@ -231,7 +231,7 @@ if (nrow(trainset) < 20) {
   SVMprediction = as.data.frame(SVMprediction_res)
   #Accuracy of grouping and plot
   temp = classAgreement (SVMprediction_res)
-  Accuracyreal = temp$crand
+  Accuracyreal = temp$kappa
   Accuracy = paste0(
     ncol(Input) - 1,
     " variables: Accuracy of the prediction with ",
@@ -252,7 +252,7 @@ We then plot the distribution of these scores adding a vertical line at the Scor
 This will take very long, 2h for 120 permutations.
 
 ```{r}
-Npermutation = 120
+Npermutation = 80
 
 if (!NOSTAT) {
 trainsetp=trainset
@@ -276,7 +276,7 @@ SVMprediction = as.data.frame(SVMprediction_res)
 
 #Accuracy of grouping and plot
 temp =classAgreement (SVMprediction_res)
-Acc_sampled = c(Acc_sampled, temp$crand)
+Acc_sampled = c(Acc_sampled, temp$kappa)
 }
 
 print("time to perform the analysis:")
