@@ -57,10 +57,7 @@ PMeta ="../data/Projects_metadata.csv" #test data available on github
 
 # read metadata from the project metadata file
 source("Rcode/inputdata.r") #output = metadata
-metadata$Exclude_data[is.na(
-  metadata$Exclude_data)] <- 'include'
 
-metadata = metadata %>% filter (Exclude_data != "exclude")
 
 #filter metadata with no data in the Onemin_summary
 #metadata= metadata %>% filter (!is.na(Onemin_summary ))
@@ -90,8 +87,12 @@ source ("Rcode/animal_groups.r") # output metadata$groupingvar
 source ("Rcode/create_minfile.r") # output MIN_data
 
 #filter if data need exclusion:
+metadata$Exclude_data[is.na(
+  metadata$Exclude_data)] <- 'include'
 
+metadata = metadata %>% filter (Exclude_data != "exclude")
 
+MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 
 summary (as.factor(metadata$animal_ID))
 summary (as.factor(MIN_data$animal_ID))
