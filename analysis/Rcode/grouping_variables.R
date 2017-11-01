@@ -9,6 +9,14 @@ names(Mins)[names(Mins)=="Eat(Z1)"] = 'Eat.1'
 names(Mins)[names(Mins)=="Eat(Z2)"] = 'Eat.2'
 names(Mins)[names(Mins)=="Eat(Z3)"] = 'Eat.3'
 
+names(Mins)[names(Mins)=="Travel.m."] = 'distance.traveled'
+names(Mins)[names(Mins)=="Drnk.S1."] = 'Drink.1'
+names(Mins)[names(Mins)=="Drnk.S2."] = 'Drink.2'
+names(Mins)[names(Mins)=="Drnk.S3."] = 'Drink.3'
+names(Mins)[names(Mins)=="Eat.Z1."] = 'Eat.1'
+names(Mins)[names(Mins)=="Eat.Z2."] = 'Eat.2'
+names(Mins)[names(Mins)=="Eat.Z3."] = 'Eat.3'
+
 # used information about groups as identified in 4. Hours file
 # got arousal and urinate out (always 0)
 behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = distance.traveled, ComeDown = ComeDown+CDfromPR, hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV,
