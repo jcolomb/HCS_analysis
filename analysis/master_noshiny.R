@@ -19,28 +19,24 @@ source ("Rcode/functions.r")
 
 # variables
 source ("Rcode/setvariables.r")
-# path to the data (if it is on a stick for example)
+# path to the data if it is on a hard drive (a stick for example), this is the path to the folder countaining all data folders.
+# ignore if the data is online or on the main repo
+
 STICK= "D:/HCSdata/sharable"
+
+RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 
 ##project metadata path:
 
-#These files are on my USB stick, the data cannot be put on github
-#without the formal agreements of the 
-#people who did the experiments:
-
-
-
-
-
-# these files are available on github or have a stricked path.
-#still need to distingusish the two.
 PMeta ="../data/Projects_metadata.csv" #test data available on github
 
-#Name_project ="test_online"
-#Name_project = "Exampledata"
+#Name_project ="test_online" # this is a test with data in a github repo
+#Name_project = "Exampledata" # this is the example data present in this github repository
+
 #These files are on my USB stick, the data cannot be put on github
 #without the formal agreements of the 
 #people who did the experiments:
+
 #Name_project = "Meisel_2017"
 # Name_project ="lehnardt_my88"
 # Name_project ="Schmidt2017svm"
@@ -52,17 +48,16 @@ PMeta ="../data/Projects_metadata.csv" #test data available on github
 # Name_project = "Lehnard_2016"
 # Name_project ="Tarabykin_2015" 
 
-
+#-------------------END of data input
 
 
 # read metadata from the project metadata file
 source("Rcode/inputdata.r") #output = metadata
 
 
-#filter metadata with no data in the Onemin_summary
-#metadata= metadata %>% filter (!is.na(Onemin_summary ))
 
 #computed variables2
+ # folder where outputs will be written:
 Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
 if (WD == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
 
@@ -74,19 +69,17 @@ plot.path = Outputs
 #create list of filepath for each animal_ID
 source("Rcode/checkmetadata.r") #output BEH_datafiles and MIN_datafiles: list of path
 
+# create a new column with the variable that are splitting the data into groups:
 source ("Rcode/animal_groups.r") # output metadata$groupingvar
 
 
-#create and save event and minute files (one file for all mice): returns EVENT_data and MIN_data
-# event file not created anymore: only data for whole recording, which is of different length for each experiment.
-
+#create and save minute files (one file for all mice): returns MIN_data
 # some warnings appear because the last line of the minute data is the sum.
-# that data point is taken out of the MIN_data.
+# that raw is taken out of the MIN_data.
 
-#source ("Rcode/create_eventfile.r") # output EVENT_data, note this takes the whole recording and is therefore not very useful
 source ("Rcode/create_minfile.r") # output MIN_data
 
-#filter if data need exclusion:
+#filter data if data need exclusion:
 metadata$Exclude_data[is.na(
   metadata$Exclude_data)] <- 'include'
 
@@ -94,17 +87,13 @@ metadata = metadata %>% filter (Exclude_data != "exclude")
 
 MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 
-summary (as.factor(metadata$animal_ID))
-summary (as.factor(MIN_data$animal_ID))
-cbind(metadata$animal_ID, metadata$genotype)
-#the raw data have too much problems, timing and categories should be worked out before we can work with it
-#source ("Rcode/create_rawdatafiles.r")
+#tests
+#summary (as.factor(metadata$animal_ID))
+#summary (as.factor(MIN_data$animal_ID))
+#cbind(metadata$animal_ID, metadata$genotype)
 
 
-#metadata$groupingvar = metadata$treatment
 
-#analysis from the minute file, 
-#source ("Rcode/analysis_from_min.R")
 
 #multidimensional analysis, prepare data
 source ("Rcode/multidimensional_analysis_prep.R")
@@ -112,6 +101,7 @@ source ("Rcode/multidimensional_analysis_prep.R")
 # get output
 #source ("Rcode/multidimensional_analysis_RFsvm.R")
 #save.image(paste0("Reports/multidim_",Name_project,".rdata"))
+
 NOSTAT =F
 if (length(unique(metadata$groupingvar))==3) {
   source ("Rcode/morethan2groups.R")
@@ -128,3 +118,13 @@ file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analy
           copy.mode = TRUE, copy.date = FALSE)
 
 beepr::beep()
+
+#other codes to be checked and maybe used.
+
+#source ("Rcode/create_eventfile.r") # output EVENT_data, note this takes the whole recording and is therefore not very useful
+
+#analysis (graphs) from the minute file, 
+#source ("Rcode/analysis_from_min.R")
+
+#the raw data have too much problems, timing and categories should be worked out before we can work with it
+#source ("Rcode/create_rawdatafiles.r")
