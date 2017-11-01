@@ -12,7 +12,7 @@ if (file.exists(paste0(Outputs,'/Min_',Name_project,'.csv')) & !RECREATEMINFILE)
       files[f] = "tempor.xlsx"
     }
     behav<- readxl::read_excel(files[f],sheet = 1)
-    behav = behav[-nrow(behav),1:46] ## -> keep all data, excluding data come later.
+    behav = behav[-nrow(behav),1:46] ## -> keep all data (sum columns not taken into account), excluding data come later.
     
     # temp <- behav.1 %>% ungroup %>% group_by(Behavior) %>% summarise (duration.s = sum(Duration))
     

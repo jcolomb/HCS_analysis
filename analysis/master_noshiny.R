@@ -43,10 +43,10 @@ PMeta ="../data/Projects_metadata.csv" #test data available on github
 # Name_project = "Meisel_2017"
 # Name_project = "Rosenmund2015"
 # Name_project = "Rosenmund2015g"
- Name_project = "Pruess_2016"
+# Name_project = "Pruess_2016"
 # Name_project = "Vida_2015"
 # Name_project = "Lehnard_2016"
-# Name_project ="Tarabykin_2015" 
+ Name_project ="Tarabykin_2015" 
 
 #-------------------END of data input
 
@@ -77,7 +77,7 @@ source ("Rcode/animal_groups.r") # output metadata$groupingvar
 # some warnings appear because the last line of the minute data is the sum.
 # that raw is taken out of the MIN_data.
 
-source ("Rcode/create_minfile.r") # output MIN_data
+source ("Rcode/create_minfile.r") # output MIN_data, work probably only with HCS data
 
 #filter data if data need exclusion:
 metadata$Exclude_data[is.na(
