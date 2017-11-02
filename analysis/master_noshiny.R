@@ -31,7 +31,7 @@ PMeta ="../data/Projects_metadata.csv"
 
 RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 
-NOSTAT =F # if true no permutation will be made (this step takes hours)
+NOSTAT =T # if true no permutation will be made (this step takes hours)
 
 ###--------------------------------- Give Variables that change-------------
 
@@ -54,8 +54,8 @@ STICK= "D:/HCSdata/sharable"
 # Name_project = "Rosenmund2015g"
 # Name_project = "Pruess_2016"
 # Name_project = "Vida_2015"
-# Name_project = "Lehnard_2016"
- Name_project ="Tarabykin_2015" 
+ Name_project = "Lehnard_2016"
+# Name_project ="Tarabykin_2015" 
 
 #-------------------compute metadata and MIN_data----------------------------
 
@@ -106,6 +106,9 @@ MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 
 #multidimensional analysis, prepare data
 source ("Rcode/multidimensional_analysis_prep.R")
+
+#multidimensional analysis, Random forest in 2 rounds
+source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
 
 # get output
 #source ("Rcode/multidimensional_analysis_RFsvm.R")
