@@ -48,7 +48,7 @@ Name_project ="permutated_1" # this is a test with data in a github repo, using 
 #people who did the experiments:
 
 #Name_project = "Meisel_2017"
-# Name_project ="lehnardt_my88"
+ Name_project ="Lehnard_2016"
 # Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
 # Name_project = "Rosenmund2015"

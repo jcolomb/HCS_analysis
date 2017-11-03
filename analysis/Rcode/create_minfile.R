@@ -4,7 +4,7 @@ if ( !RECREATEMINFILE){
   MIN_data = try(read.csv2(paste0(onlinemin,'/Min_',Name_project,'.csv'),dec = ".")
   ,T)
   
-}else if (!exists ("MIN_data")){
+}else if (class(MIN_data)=="try-error"){
   data = data.frame()
   files = as.character(MIN_datafiles[,1])
   
