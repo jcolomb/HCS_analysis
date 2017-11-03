@@ -12,7 +12,7 @@ HCS.rf <-
 R = round(importance(HCS.rf, type = 2), 2)
 R2 = data.frame(row.names (R), R)  %>% arrange(-MeanDecreaseGini)
 
-Input = Multi_datainput_m [, names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables, 1])]
+Input = Multi_datainput_m [, names(Multi_datainput_m) %in% as.character(R2 [1:20, 1])]
 Input$groupingvar = Multi_datainput_m$groupingvar
 
 # second round
@@ -39,3 +39,4 @@ numberofvariables = max (nrow (R3), 8)
 Input = Multi_datainput_m [, names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables, 1])]
 Input$groupingvar = Multi_datainput_m$groupingvar
 RF_selec = Input
+

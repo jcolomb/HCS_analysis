@@ -39,7 +39,8 @@ STICK= "D:/HCSdata/sharable"
 
 
 
-#Name_project ="test_online" # this is a test with data in a github repo
+Name_project ="test_online" # this is a test with data in a github repo
+Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
 #Name_project = "Exampledata" # this is the example data present in this github repository
 
 #These files are on my USB stick, the data cannot be put on github
@@ -54,7 +55,7 @@ STICK= "D:/HCSdata/sharable"
 # Name_project = "Rosenmund2015g"
 # Name_project = "Pruess_2016"
 # Name_project = "Vida_2015"
- Name_project = "Lehnard_2016"
+# Name_project = "Lehnard_2016"
 # Name_project ="Tarabykin_2015" 
 
 #-------------------compute metadata and MIN_data----------------------------
@@ -68,6 +69,7 @@ source("Rcode/inputdata.r") #output = metadata
 #computed variables2
  # folder where outputs will be written:
 Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
+onlinemin=Outputs
 if (WD == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
 
 dir.create (Outputs, recursive = TRUE)

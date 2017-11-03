@@ -1,9 +1,10 @@
 #----------------- create minute file
 
-if (file.exists(paste0(Outputs,'/Min_',Name_project,'.csv')) & !RECREATEMINFILE){
-  MIN_data = read.csv2(paste0(Outputs,'/Min_',Name_project,'.csv'),dec = ".")
-  MIN_data$ID = as.factor(MIN_data$ID)
-}else{
+if ( !RECREATEMINFILE){
+  MIN_data = try(read.csv2(paste0(onlinemin,'/Min_',Name_project,'.csv'),dec = ".")
+  ,T)
+  
+}else if (!exists ("MIN_data")){
   data = data.frame()
   files = as.character(MIN_datafiles[,1])
   
@@ -56,7 +57,7 @@ if (file.exists(paste0(Outputs,'/Min_',Name_project,'.csv')) & !RECREATEMINFILE)
   rm(data)
 }
   
-  
+MIN_data$ID = as.factor(MIN_data$ID)  
 
 
 
