@@ -8,7 +8,7 @@ RF_selec = RF_selec[order(RF_selec$groupingvar),]
 
 xx= as.matrix(RF_selec %>% select (-groupingvar))
 yy = as.numeric(RF_selec$groupingvar)-1
-pp  <- rep(NA, length(yy))
+#pp  <- rep(NA, length(yy))
 
 #num_per_class <- nrow(RF_selec)/2
 
@@ -32,7 +32,8 @@ fit <- glmpath(x=xx, y=yy, family=binomial, max.arclength=1)
 fit$df
 bestdex <- which.min(fit$bic)
 if (bestdex==1) {bestdex <- 2}  ## break ties by avoiding degenerate classifiers 
-bestdex=19
+#bestdex=19
+bestdex
 bestlambda <- fit$lambda[bestdex]
 
 #pred <- predict(fit, newx=xx, type="coefficients", mode="step") 
