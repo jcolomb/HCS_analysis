@@ -40,7 +40,7 @@ STICK= "D:/HCSdata/sharable"
 
 
 Name_project ="test_online" # this is a test with data in a github repo
-Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
+# Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
 #Name_project = "Exampledata" # this is the example data present in this github repository
 
 #These files are on my USB stick, the data cannot be put on github
@@ -48,10 +48,10 @@ Name_project ="permutated_1" # this is a test with data in a github repo, using 
 #people who did the experiments:
 
 #Name_project = "Meisel_2017"
- Name_project ="Lehnard_2016"
+# Name_project ="Lehnard_2016"
 # Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
-# Name_project = "Rosenmund2015"
+ Name_project = "Rosenmund2015"
 # Name_project = "Rosenmund2015g"
 # Name_project = "Pruess_2016"
 # Name_project = "Vida_2015"
@@ -104,35 +104,36 @@ MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 #cbind(metadata$animal_ID, metadata$genotype)
 
 
-#-------------------Run the analysis              ----------------------------
+# #-------------------Run the analysis              ----------------------------
+# 
+# #multidimensional analysis, prepare data
+# source ("Rcode/multidimensional_analysis_prep.R")
+# 
+# #multidimensional analysis, Random forest in 2 rounds
+# source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
+# 
+# # get output
+# #source ("Rcode/multidimensional_analysis_RFsvm.R")
+# #save.image(paste0("Reports/multidim_",Name_project,".rdata"))
+# 
+# 
+# if (length(unique(metadata$groupingvar))==3) {
+#   source ("Rcode/morethan2groups.R")
+#   rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
+# }else{
+#   #source ("Rcode/multidim_anal_variable.R")
+#   rmarkdown::render ("reports/multidim_anal_variable.Rmd")
+# 
+#   }
+# 
+# 
+# # save reports in the correct output folder.  
+# file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
+#           copy.mode = TRUE, copy.date = FALSE)
+# 
+# beepr::beep()
 
-#multidimensional analysis, prepare data
-source ("Rcode/multidimensional_analysis_prep.R")
-
-#multidimensional analysis, Random forest in 2 rounds
-source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
-
-# get output
-#source ("Rcode/multidimensional_analysis_RFsvm.R")
-#save.image(paste0("Reports/multidim_",Name_project,".rdata"))
-
-
-if (length(unique(metadata$groupingvar))==3) {
-  source ("Rcode/morethan2groups.R")
-  rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
-}else{
-  #source ("Rcode/multidim_anal_variable.R")
-  rmarkdown::render ("reports/multidim_anal_variable.Rmd")
-
-  }
-
-
-# save reports in the correct output folder.  
-file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
-          copy.mode = TRUE, copy.date = FALSE)
-
-beepr::beep()
-
+#-------------------------------Other code not used ------------------
 #other codes to be checked and maybe used.
 
 #source ("Rcode/create_eventfile.r") # output EVENT_data, note this takes the whole recording and is therefore not very useful
@@ -142,3 +143,22 @@ beepr::beep()
 
 #the raw data have too much problems, timing and categories should be worked out before we can work with it
 #source ("Rcode/create_rawdatafiles.r")
+
+
+#-------------------------------testing code ------------------
+metadata = metadata %>% filter (genotype == "wt")
+MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
+
+metadata$groupingvar=as.factor(metadata$groupingvar)
+metadata$groupingvar =as.numeric(sample(metadata$groupingvar))
+### test for one TW
+#multidimensional analysis, prepare data
+source ("Rcode/multidimensional_analysis_prep.R")
+#only one TW
+#source ("Rcode/testscode/multidimensional_analysis_prep_oneTW.R")
+
+#multidimensional analysis, Random forest in 2 rounds
+source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
+source ("Rcode/testscode/L1_reg_plotting.R")
+
+plot
