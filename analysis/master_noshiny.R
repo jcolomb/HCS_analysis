@@ -21,7 +21,7 @@ source ("Rcode/functions.r")
 #library (tcltk2)
 
 # variables
-source ("Rcode/setvariables.r")
+#source ("Rcode/setvariables.r")
 # path to the data if it is on a hard drive (a stick for example), this is the path to the folder countaining all data folders.
 # ignore if the data is online or on the main repo
 
@@ -31,13 +31,21 @@ PMeta ="../data/Projects_metadata.csv"
 
 RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 
-NOSTAT =T # if true no permutation will be made (this step takes hours)
+
+# variable grouping, only working with HCS data at the moment.
+groupingby = "MITsoft" # other possibilities: "AOCF"
+
+Npermutation = 240 # number of permutation to perform. set to 1 if testing (42 s per run with AOCF designation,30s with MIT)
+
 
 ###--------------------------------- Give Variables that change-------------
 
+# 1. data location if on HD
 STICK= "D:/HCSdata/sharable"
 
 
+
+# 2. Choose project to analyse:
 
 Name_project ="test_online" # this is a test with data in a github repo
 # Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
@@ -104,34 +112,46 @@ MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 #cbind(metadata$animal_ID, metadata$genotype)
 
 
-# #-------------------Run the analysis              ----------------------------
-# 
-# #multidimensional analysis, prepare data
-# source ("Rcode/multidimensional_analysis_prep.R")
-# 
-# #multidimensional analysis, Random forest in 2 rounds
-# source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
-# 
-# # get output
-# #source ("Rcode/multidimensional_analysis_RFsvm.R")
-# #save.image(paste0("Reports/multidim_",Name_project,".rdata"))
-# 
-# 
-# if (length(unique(metadata$groupingvar))==3) {
-#   source ("Rcode/morethan2groups.R")
-#   rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
-# }else{
-#   #source ("Rcode/multidim_anal_variable.R")
-#   rmarkdown::render ("reports/multidim_anal_variable.Rmd")
-# 
-#   }
-# 
-# 
-# # save reports in the correct output folder.  
-# file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
-#           copy.mode = TRUE, copy.date = FALSE)
-# 
-# beepr::beep()
+#-------------------Run the analysis              ----------------------------
+
+
+# get output
+#source ("Rcode/multidimensional_analysis_RFsvm.R")
+#save.image(paste0("Reports/multidim_",Name_project,".rdata"))
+
+
+if (length(unique(metadata$groupingvar))==3) {
+  source ("Rcode/morethan2groups.R")
+  rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
+}else{
+  #source ("Rcode/multidim_anal_variable.R")
+  #multidimensional analysis, prepare data
+  source ("Rcode/multidimensional_analysis_prep.R") # return Multi_datainput_m or Multi_datainput_m2
+  
+  #multidimensional analysis, Random forest in 2 rounds
+  source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
+  source ("Rcode/ICA.R") # return plot called pls
+  
+  source ("Rcode/multidimensional_analysis_svm.R") # returns Accuracy (text), Accuracyreal = kappa of result of svm prediction on the test data
+  
+  Acc_sampled= c() # set 
+  set.seed(87)
+  source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
+  
+  
+  
+  rmarkdown::render ("reports/multidim_anal_variable.Rmd")
+  file.copy("reports/results.rdata", paste0(Outputs,"/multidim_analysis_",groupingby,".Rdata"), overwrite=TRUE,
+            copy.mode = TRUE, copy.date = FALSE)
+  }
+
+
+# save reports in the correct output folder.
+file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
+          copy.mode = TRUE, copy.date = FALSE)
+
+
+beepr::beep()
 
 #-------------------------------Other code not used ------------------
 #other codes to be checked and maybe used.
@@ -145,20 +165,20 @@ MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 #source ("Rcode/create_rawdatafiles.r")
 
 
-#-------------------------------testing code ------------------
-metadata = metadata %>% filter (genotype == "wt")
-MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
-
-metadata$groupingvar=as.factor(metadata$groupingvar)
-metadata$groupingvar =as.numeric(sample(metadata$groupingvar))
-### test for one TW
-#multidimensional analysis, prepare data
-source ("Rcode/multidimensional_analysis_prep.R")
-#only one TW
-#source ("Rcode/testscode/multidimensional_analysis_prep_oneTW.R")
-
-#multidimensional analysis, Random forest in 2 rounds
-source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
-source ("Rcode/testscode/L1_reg_plotting.R")
-
-plot
+# #-------------------------------testing code ------------------
+# metadata = metadata %>% filter (genotype == "wt")
+# MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
+# 
+# metadata$groupingvar=as.factor(metadata$groupingvar)
+# metadata$groupingvar =as.numeric(sample(metadata$groupingvar))
+# ### test for one TW
+# #multidimensional analysis, prepare data
+# source ("Rcode/multidimensional_analysis_prep.R")
+# #only one TW
+# #source ("Rcode/testscode/multidimensional_analysis_prep_oneTW.R")
+# 
+# #multidimensional analysis, Random forest in 2 rounds
+# source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
+# source ("Rcode/testscode/L1_reg_plotting.R")
+# 
+# plot

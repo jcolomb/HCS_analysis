@@ -106,7 +106,7 @@ if (nrow(trainset) < 20) {
     ncol(Input) - 1,
     " variables: Accuracy of the prediction with ",
     bestk[[1]],
-    " kernel (Corrected Rand index: 0 denotes chance level, maximum is 1):",
+    " kernel (Kappa index: 0 denotes chance level, maximum is 1):",
     Accuracyreal
   )
   print(Accuracy)

@@ -11,3 +11,4 @@ E000010,Vida_2015,julien.colomb@fu-berlin.de,USB_stick,vida,gender,,HCS 3.0,vide
 E000011,Lehnard_2016,julien.colomb@fu-berlin.de,USB_stick,lehnardt,genotype,,HCS 3.0,videos,HCS 3.0,HCS3_output,myd88,metadata/lehnard_2016_meta.csv,metadata/Lab_metadata.csv
 E000012,Tarabykin_2015,julien.colomb@fu-berlin.de,USB_stick,tarabykin,genotype + age_category,,HCS 3.0,videos,HCS 3.0,HCS3_output,GENOTYPE NOT REAL,metadata/tarabykin_2015_meta.csv,metadata/Lab_metadata.csv
 E000013,permutated_1,julien.colomb@fu-berlin.de,https:/,raw.githubusercontent.com/jcolomb/HCS_data_1/master/Project_exampledata1,treatment,,HCS 3.0,videos,HCS 3.0,HCS_output,"real anonyme genotype, no raw data",metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
+E000014,Steele07_HD,andydsteele@gmail.com,this_github,Steele07_HD,genotype,,HCS 3.0,videos,HCS 3.0,HCS3_output,only hourly data,metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
