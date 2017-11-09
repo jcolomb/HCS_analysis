@@ -2,21 +2,22 @@ Npermutation = 1000
 
 
   
-  Acc_sampled= c()
+  #Acc_sampled= c()
   b=Sys.time()
   for (i in 1:Npermutation){
     print(i)
     #metadata$groupingvar=as.factor(metadata$groupingvar)
-    metadata$groupingvar =as.numeric(sample(metadata$groupingvar))
+    #metadata$groupingvar =as.numeric(sample(metadata$groupingvar))
     ### test for one TW
     #multidimensional analysis, prepare data
     #source ("Rcode/multidimensional_analysis_prep.R")
     #only one TW
-    source ("Rcode/testscode/multidimensional_analysis_prep_oneTW.R")
+    #source ("Rcode/testscode/multidimensional_analysis_prep_oneTW.R")
     
     #multidimensional analysis, Random forest in 2 rounds
-    source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
-    RF_selec = Input
+    #source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
+    Multi_datainput_m$groupingvar =as.numeric(sample(Multi_datainput_m$groupingvar))
+    RF_selec = Multi_datainput_m
     # reorder
     RF_selec = RF_selec[order(RF_selec$groupingvar),] 
     
@@ -52,11 +53,14 @@ Npermutation = 1000
   print(Sys.time()-b)
   
   hist(Acc_sampled, breaks=c(0:20)/20)
-  abline(v = 1, col="Red")
+  abline(v = 17/22, col="Red")
   abline(v = 0.5, col="blue")
   
-  Accuracyreal=1
+  Accuracyreal=17/22
   # Exports `binconf`
-  k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
+  k <- sum(abs(Acc_sampled-0.5) >= abs(Accuracyreal-0.5))   # Two-tailed test
+  
+  k <- sum(Acc_sampled >= Accuracyreal)   # One-tailed test
   print(zapsmall(binconf(k, length(Acc_sampled), method='exact'))) # 95% CI by default
+  print(zapsmall(binconf(k, length(Acc_sampled), method='all')))
   save.image(file= "thisisatest.rdata") 
