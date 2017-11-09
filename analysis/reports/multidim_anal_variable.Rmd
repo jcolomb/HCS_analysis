@@ -67,10 +67,11 @@ print(p)
 ```
 
 
-Here, we plot the first two components obtained after a ICAperformed on the reduced data:
+Here, we plot the first two or threecomponents obtained after a ICAperformed on the reduced data:
 
 ```{r, echo=FALSE}
-print(pls)    
+print(pls)  
+pls2
 ```
 
 

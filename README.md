@@ -20,4 +20,7 @@ We hope to make the software flexible enough to analyse data coming for other si
 
 Any contribution in the code is welcome, see the contibuting.md file.
 
+#License
+This work is distributed under a MIT license, apart from the files present in the data folder.
+The files present in the data folder are distributed under the more permissive CC0 license.
 
