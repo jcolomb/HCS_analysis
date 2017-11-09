@@ -19,20 +19,24 @@ names(Mins)[names(Mins)=="Eat.Z3."] = 'Eat.3'
 
 # used information about groups as identified in 4. Hours file
 # got arousal and urinate out (always 0)
-behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = distance.traveled, ComeDown = ComeDown+CDfromPR, hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV,
-                              jump = Jump+ReptJump, immobile=Stationa+Pause+Sleep, rearup = RearUp+RUfromPR+CDtoPR+RUtoPR+RemainPR, digforage=Dig+Forage,
-                              walk = Turn+WalkLeft+WalkRght+WalkSlow+Circle, Groom = Groom, #Urinate = Urinate,
+behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = distance.traveled,
+                              ComeDown = ComeDown+CDfromPR,
+                              hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV+LandVert,
+                              jump = Jump+ReptJump, immobile=Stationa+Pause+Sleep, 
+                              rearup = RearUp+RUfromPR+CDtoPR+RUtoPR+RemainPR+RemainRU,
+                              digforage=Dig+Forage,
+                              walk = Turn+WalkLeft+WalkRght+WalkSlow+Circle, Groom = Groom, 
                               Twitch = Twitch,
-                              #Arousal = Arousal,
+                              Unknown = Unknown + Urinate , # urinate always(?) 0
                               Awaken = Awaken,Chew = Chew, Sniffing = Sniff, RemainLow = RemainLw,
                               Eat = Eat.1+Eat.2+Eat.3, Drink = Drink.1+Drink.2+Drink.3, Stretch = Stretch)
 
 behav_jhuang <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,
                                 Distance_traveled = distance.traveled,
                                 Hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV,
-                                Unknown_behavior = Jump+ReptJump+Dig+Forage+Urinate,
+                                Unknown_behavior = Jump+ReptJump+Dig+Forage+Urinate + Unknown,
                                 Rest=Stationa+Sleep,
-                                Rear = RearUp+RUfromPR+CDtoPR+RUtoPR+RemainPR+ComeDown+CDfromPR,
+                                Rear = RearUp+RUfromPR+CDtoPR+RUtoPR+RemainPR+ComeDown+CDfromPR+RemainRU+LandVert+Stretch,
                                 Walk = Turn+WalkLeft+WalkRght+WalkSlow+Circle,
                                 Groom = Groom,
                                 Micro_move = Awaken+Pause+RemainLw+Sniff+Twitch,
