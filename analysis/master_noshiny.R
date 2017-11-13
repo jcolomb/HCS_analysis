@@ -10,6 +10,9 @@ library (ica)
 library (e1071) #svm
 require(Hmisc)   #binomial confidence 
 
+library(osfr) ##access to osf
+
+#normal libraries:
 library (tidyverse)
 library (stringr)
 #for plotting
@@ -27,7 +30,8 @@ source ("Rcode/functions.r")
 
 ##project metadata path:
 
-PMeta ="../data/Projects_metadata.csv"
+#PMeta ="../data/Projects_metadata.csv"
+PMeta = osfr::path_file("myxcv")
 
 RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 
@@ -35,7 +39,7 @@ RECREATEMINFILE= F # set to true if you want to recreate an existing min file, o
 # variable grouping, only working with HCS data at the moment.
 groupingby = "MITsoft" # other possibilities: "AOCF"
 
-Npermutation = 240 # number of permutation to perform. set to 1 if testing (42 s per run with AOCF designation,30s with MIT)
+Npermutation = 1 # number of permutation to perform. set to 1 if testing (42 s per run with AOCF designation,30s with MIT)
 
 
 ###--------------------------------- Give Variables that change-------------
@@ -49,7 +53,7 @@ STICK= "D:/HCSdata/sharable"
 
 Name_project ="test_online" # this is a test with data in a github repo
 # Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
-#Name_project = "Exampledata" # this is the example data present in this github repository
+Name_project = "Exampledata" # this is the example data present in this github repository
 
 #These files are on my USB stick, the data cannot be put on github
 #without the formal agreements of the 
@@ -59,7 +63,7 @@ Name_project ="test_online" # this is a test with data in a github repo
 # Name_project ="Lehnard_2016"
 # Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
- Name_project = "Rosenmund2015"
+# Name_project = "Rosenmund2015"
 # Name_project = "Rosenmund2015g"
 # Name_project = "Pruess_2016"
 # Name_project = "Vida_2015"
@@ -77,7 +81,8 @@ source("Rcode/inputdata.r") #output = metadata
 #computed variables2
  # folder where outputs will be written:
 Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
-onlinemin=Outputs
+onlinemin=Outputs 
+#for online projects, outputs are written on disk:
 if (WD == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
 
 dir.create (Outputs, recursive = TRUE)
