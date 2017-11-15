@@ -11,14 +11,14 @@ As input, it uses the min summary file exported from the HCS and specific metada
 
 Please refer to the metadata_information/Readme.md file. Once your data is in a format accepted by the software, you might upload it on github and archive it on zenodo. By indicating the folder as the raw data folder in github, the software can access the data directly on Github.
 
-We are planning on getting a repository for that data, any help welcome.
+We are using the osf to create a "repository" for the data (the master metadata file is hosted there because we can read and update it from R).
 
 
 We hope to make the software flexible enough to analyse data coming for other similar setups. Reach out if you get some.
 
 # Helping with the code
 
-Any contribution in the code is welcome, see the contibuting.md file.
+Any contribution in the code is welcome.
 
 #License
 This work is distributed under a MIT license, apart from the files present in the data folder.
