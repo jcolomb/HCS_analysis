@@ -295,7 +295,7 @@ ui <- fluidPage(
                         'test_online')
         ,actionButton("goButton", "Go!")
         
-        ,includeHTML("reports/multidim_anal_variable.html")
+        ,htmlOutput("includeHTML")
         , textOutput("test")
         
         
@@ -308,7 +308,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   volumes= getVolumes(c("(C:)"))
   values <- reactiveValues()
-  values$Outputshtml <- "reports/multidim_anal_variable.html"
+  values$Outputshtml <- "reports/empty.html"
   values$message = "analyis not started"
   
   shinyDirChoose(input, 'STICK', roots=volumes, session = session,restrictions=system.file(package='base'))
@@ -323,6 +323,7 @@ server <- function(input, output, session) {
     # session$sendCustomMessage(type = 'testmessage',
     #                          message = 'this may take some time, plese wait')
    dataoutput()
+  includeHTML1()
   })
   
   dataoutput <- reactive({
@@ -335,7 +336,7 @@ server <- function(input, output, session) {
     values$message <- "analyis started"
     #source <- function (x,...){source (x, local=TRUE,...)}
     source("master_shiny.R")
-    values$Outputshtml=paste0(values$Outputs,"/multidim_analysis_",values$groupingby,".html")
+    values$Outputshtml="reports/multidim_anal_variable.html"
     
   })
 
@@ -343,6 +344,12 @@ server <- function(input, output, session) {
     values$Outputshtml
   })
 
+  includeHTML1<- reactive({
+
+    paste(readLines(values$Outputshtml), collapse="\n") 
+  })
+  
+  output$includeHTML<-renderText(includeHTML1())
 
    output$test <- renderPrint({
      input$Name_project

@@ -2,10 +2,8 @@
 
 
 set.seed(74)
-if (nrow(metadata) < 22) {
-  stop ("there is not enough data to try to do a svm")
-  #knitr::knit_exit()
-}
+if (!nrow(metadata) < 22) {
+  
 
 set.seed(74)
 
@@ -107,7 +105,9 @@ if (nrow(trainset) < 20) {
     " variables: Accuracy of the prediction with ",
     bestk[[1]],
     " kernel (Kappa index: 0 denotes chance level, maximum is 1):",
-    Accuracyreal
+    Accuracyreal?stoüp
   )
   print(Accuracy)
 }  
+
+}
