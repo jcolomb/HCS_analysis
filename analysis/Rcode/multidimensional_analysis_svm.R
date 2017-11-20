@@ -105,7 +105,7 @@ if (nrow(trainset) < 20) {
     " variables: Accuracy of the prediction with ",
     bestk[[1]],
     " kernel (Kappa index: 0 denotes chance level, maximum is 1):",
-    Accuracyreal?stoüp
+    Accuracyreal
   )
   print(Accuracy)
 }  

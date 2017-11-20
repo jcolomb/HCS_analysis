@@ -49,15 +49,19 @@ MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 #save.image(paste0("Reports/multidim_",Name_project,".rdata"))
 
 if (nrow(metadata) < 22) {
+  print("not enough data for svm")
   Accuracyreal=NA
   Acc_sampled =NA
   calcul_text =NA
+  source ("Rcode/multidimensional_analysis_prep.R")
+  source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
+  source ("Rcode/ICA.R")
   rmarkdown::render ("reports/multidim_anal_variable.Rmd")
   file.copy("reports/results.rdata", paste0(Outputs,"/multidim_analysis_",groupingby,".Rdata"), overwrite=TRUE,
             copy.mode = TRUE, copy.date = FALSE)
   file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
             copy.mode = TRUE, copy.date = FALSE)
-  print("not enough data for svm")
+  
 }else{
   if (length(unique(metadata$groupingvar))==3) {
     source ("Rcode/morethan2groups.R")
