@@ -30,7 +30,7 @@ source ("Rcode/functions.r")
 
 ##project metadata path:
 
-#PMeta ="../data/Projects_metadata.csv"
+#PMeta ="../data/Projects_metadata2.csv"
 PMeta = osfr::path_file("myxcv")
 
 RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
@@ -54,7 +54,7 @@ STICK= "D:/HCSdata/sharable"
 Name_project ="test_online" # this is a test with data in a github repo
 # Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
 Name_project = "Exampledata" # this is the example data present in this github repository
-
+Name_project ="Ro_testdata"
 #These files are on my USB stick, the data cannot be put on github
 #without the formal agreements of the 
 #people who did the experiments:

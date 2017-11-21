@@ -1,0 +1,3 @@
+experiment ID,Proj_name,experimentator,source_data,Folder_path,group_by,confound_by,video_acquisition,video_folder,video_analysis,raw_data_folder,Comments,animal_metadata,lab_metadata
+F0001,Ro_testdata,julien.colomb@fu-berlin.de,this_github,Ro_testdata,treatment,,HCS 3.0,videos,HCS 3.0,HCS3_output,test data wt tested twice,metadata/Ro_testdata_meta.csv,metadata/Lab_metadata.csv
+test ,lfajfipoew,,,,,,,,,,,,
