@@ -1,66 +1,5 @@
-#randomforest
-#if (nrow(metadata) < 22) stop("there is not enough data to try to do a svm")
+#plot with color
 
-# get rid of variables with constant values (not scalable)
-
-
-
-summary (as.factor(metadata$groupingvar))
-numberofvariables = (length(names(behav_gp)) - 3) * nrow (Timewindows)
-numberofvariables = trunc(numberofvariables / 3)
-#pander::pandoc.table(Timewindows)
-HCS.rf <-
-  randomForest(
-    groupingvar ~ .,
-    data = Multi_datainput_m,
-    importance = TRUE,
-    proximity = TRUE,
-    ntree = 1500
-  )
-R = round(importance(HCS.rf, type = 2), 2)
-R2 = data.frame(row.names (R), R)  %>% arrange(-MeanDecreaseGini)
-#pander::pandoc.table(R2)
-varImpPlot(HCS.rf)
-Input = Multi_datainput_m [, names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables, 1])]
-Input$groupingvar = Multi_datainput_m$groupingvar
-HCS.rf2 <-
-  randomForest(
-    groupingvar ~ .,
-    data = Input,
-    importance = TRUE,
-    proximity = TRUE,
-    ntree = 1500
-  )
-R = round(importance(HCS.rf2, type = 2), 2)
-R2 = data.frame(row.names (R), R)  %>% arrange(-MeanDecreaseGini)
-#pander::pandoc.table(R2)
-varImpPlot(HCS.rf2)
-import_treshold = 0.95
-R3 = data.frame(row.names (R), R)  %>%
-  filter(MeanDecreaseGini > import_treshold)
-numberofvariables = max (nrow (R3), 6)
-Input = Multi_datainput_m [, names(Multi_datainput_m) %in% as.character(R2 [1:numberofvariables, 1])]
-Input$groupingvar = Multi_datainput_m$groupingvar
-HCS.rf2 <-
-  randomForest(
-    groupingvar ~ .,
-    data = Input,
-    importance = TRUE,
-    proximity = TRUE,
-    ntree = 1500
-  )
-varImpPlot(HCS.rf2)
-Plot = Multi_datainput_m [, names(Multi_datainput_m) %in% as.character(R2 [1:2, 1])]
-Plot = cbind(Multi_datainput_m$groupingvar, Plot)
-Title_plot = paste0(names (Plot) [2], "x", names (Plot) [3])
-names (Plot) = c("groupingvar", "disciminant1", "discriminant2")
-p = ggplot (Plot, aes (y = disciminant1, x = discriminant2, color = groupingvar)) +
-  geom_point() +
-  labs(title = Title_plot) +
-  #scale_x_log10() + scale_y_log10()+
-  #scale_colour_grey() + theme_bw() +
-  theme(legend.position = 'side')
-print(p)
 p = icafast(Input %>% select (-groupingvar),
             2,
             center = T,
@@ -73,6 +12,19 @@ pls = R %>% ggplot (aes (x = D1, y = D2, color = groupingvar)) +
 #scale_colour_grey() + theme_bw() +
 #theme(legend.position = 'none')
 print(pls)
+
+p=icafast(Input%>% select (-groupingvar),3,center=T,maxit=100)
+
+ICA= cbind(p$Y, Input   %>% select (groupingvar),metadata   %>% select (animal_ID))
+names(ICA) = c("Component_1", "Component_2", "Component_3","groupingvar","animal_ID")
+ICA$groupingvar=as.factor(ICA$groupingvar)
+pls2= plotly::plot_ly(data = ICA, x=~Component_1, y=~Component_2,
+                      z=~Component_3, color=~groupingvar,
+                      colors = c("blue", "violet", "green"),
+                      text = ~paste ("animal: ",animal_ID),
+                      type ="scatter3d", mode= "markers") 
+
+
 Input = Multi_datainput_m
 ##data splitting
 #split by variable
@@ -91,7 +43,12 @@ if (length(unique(metadata$groupingvar))==3) {
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
   # make svm!
   source ("Rcode/multidimensional_analysis_svm.R")
-  p1=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy))
+  Acc_sampled= c() # set 
+  source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
+  k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
+  R=binconf(k, length(Acc_sampled), method='exact')
+  p1=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy,
+                   ". doing ",length(Acc_sampled) , " permutations, we find the p value lies between ", R[2], " and ", R[3]))
   
   
   metadataRest= metadata_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[2:3],]
@@ -100,7 +57,12 @@ if (length(unique(metadata$groupingvar))==3) {
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
   # make svm!
   source ("Rcode/multidimensional_analysis_svm.R")
-  p2=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy))
+  Acc_sampled= c() # set 
+  source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
+  k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
+  R=binconf(k, length(Acc_sampled), method='exact')
+   p2=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy,
+                   ". doing ",length(Acc_sampled) , " permutations, we find the p value lies between ", R[2], " and ", R[3]))
   
   metadataRest= metadata_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[c(1,3)],]
   metadata=droplevels(metadataRest)
@@ -108,9 +70,14 @@ if (length(unique(metadata$groupingvar))==3) {
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
   # make svm!
   source ("Rcode/multidimensional_analysis_svm.R")
-  p3=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy))
-   Multi_datainput_m =Multi_datainput_m_ori 
-   metadata =metadata_ori
+  Acc_sampled= c() # set 
+  source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
+  k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
+  R=binconf(k, length(Acc_sampled), method='exact')
+  p3=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy,
+                   ". doing ",length(Acc_sampled) , " permutations, we find the p value lies between ", R[2], " and ", R[3]))
+  
+
 }
 print(pls)
 p1

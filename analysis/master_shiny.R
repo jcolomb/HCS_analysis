@@ -64,6 +64,8 @@ if (nrow(metadata) < 22) {
   
 }else{
   if (length(unique(metadata$groupingvar))==3) {
+    source ("Rcode/multidimensional_analysis_prep.R")
+    source ("Rcode/RF_selection_2rounds.R")
     source ("Rcode/morethan2groups.R")
     rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
   }else{
