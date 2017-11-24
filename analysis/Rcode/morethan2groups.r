@@ -1,5 +1,5 @@
 #randomforest
-if (nrow(metadata) < 22) print("there is not enough data to try to do a svm")
+#if (nrow(metadata) < 22) stop("there is not enough data to try to do a svm")
 
 # get rid of variables with constant values (not scalable)
 
@@ -90,7 +90,7 @@ if (length(unique(metadata$groupingvar))==3) {
   Multi_datainput_mREST = Multi_datainput_m_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[1:2],]
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
   # make svm!
-  source ("Rcode/multidimensional_analysis_runnostat.R")
+  source ("Rcode/multidimensional_analysis_svm.R")
   p1=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy))
   
   
@@ -99,7 +99,7 @@ if (length(unique(metadata$groupingvar))==3) {
   Multi_datainput_mREST = Multi_datainput_m_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[2:3],]
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
   # make svm!
-  source ("Rcode/multidimensional_analysis_runnostat.R")
+  source ("Rcode/multidimensional_analysis_svm.R")
   p2=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy))
   
   metadataRest= metadata_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[c(1,3)],]
@@ -107,7 +107,7 @@ if (length(unique(metadata$groupingvar))==3) {
   Multi_datainput_mREST = Multi_datainput_m_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[c(1,3)],]
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
   # make svm!
-  source ("Rcode/multidimensional_analysis_runnostat.R")
+  source ("Rcode/multidimensional_analysis_svm.R")
   p3=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy))
    Multi_datainput_m =Multi_datainput_m_ori 
    metadata =metadata_ori

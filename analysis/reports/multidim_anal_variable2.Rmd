@@ -8,35 +8,70 @@ output: html_document
 #This is an analysis of the `r Name_project` project
 
 
+The data is grouped by `r Projects_metadata$group_by `.
+Data transformation: `r calcul_text`.
 
-```{r, echo=FALSE}
+```{r, evaluate =FALSE, echo = FALSE}
 
 summary (as.factor(metadata$groupingvar))
 
-numberofvariables = (length(names(behav_gp))-3)* nrow (Timewindows)
-numberofvariables = trunc(numberofvariables/3)
-
-
 ```
-The data is grouped by `r Projects_metadata$group_by `.
-Data transformation: `r calcul_text`.
+
 
 
 ---
 
 
-We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-3` x `r nrow (Timewindows)` = `r (length(names(behav_gp))-3)* nrow (Timewindows)` variables :
+We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-3` x `r nrow (Timewindows)` **=
+`r (length(names(behav_gp))-3)* nrow (Timewindows)` variables** :
 
 ```{r, results='asis', echo=FALSE}
 pander::pandoc.table(Timewindows)
 ```
 Note that the last window might be truncated if not all dataset is achieving 900 min after light on.
 
-To plot the data, we ran a random forest to choose variables and an ica on these most important variables
+We then run a random forest to get the variables in order of importance to distinguish the groups. We then take the best 20 and run the random forest again (such that the Gini scores obtained will not depend on the initial number of variables). We plot here the table of variables ordered by weight:
+```{r, echo=FALSE}
 
+varImpPlot(HCS.rf)
+```
+
+
+
+Let's take a teshold of importance (Gini > `r import_treshold`) and get all variables satisfying the filter, or at least 8 variables:
+
+```{r, echo=FALSE}
+
+pander::pander(Variables_list)
+
+
+```
+
+#Plotting
+First, lets plot the 2 most discriminative variables following the random forest:
 
 ```{r}
-print (pls)
+
+
+ Plot = Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:2,1]) ]
+  Plot = cbind(Multi_datainput_m$groupingvar, Plot)
+  Title_plot = paste0(names (Plot) [2],"x",names (Plot) [3])
+  names (Plot) = c("groupingvar","disciminant1", "discriminant2")
+  p=ggplot (Plot, aes (y= disciminant1, x=discriminant2, color= groupingvar))+
+    geom_point()+
+    labs(title = Title_plot)+
+    #scale_x_log10() + scale_y_log10()+
+    scale_colour_grey() + theme_bw()+
+      theme(legend.position='none')
+print(p)  
+```
+
+
+Here, we plot the first two or threecomponents obtained after a ICAperformed on the reduced data:
+
+```{r, echo=FALSE}
+print(pls)  
+pls2
 ```
 
 
@@ -45,7 +80,8 @@ print (pls)
 
 #SVM
 
-We splitted the data in binomes, train a svm with 10 data points per group and test the accuracy of the model on the rest of the data. Here we report the accuracy of the model for each binome. A value above 3 is a good indication of a significant difference between the groups. 
+We splitted the data in binomes, train a svm with 10 data points per group and test the accuracy of the model on the rest of the data. Here we report the accuracy of the model for each binome. 
+
 (Note that variables which are constantly null for the whole training or testing set of data are taken out of the analysis, therefore the number of variables used may change between each results).
  
 

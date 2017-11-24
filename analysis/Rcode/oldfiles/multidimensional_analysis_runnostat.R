@@ -63,7 +63,6 @@ if (nrow(metadata) < 22) {
   knitr::knit_exit()
 }
 
-set.seed(74)
 
 ## Determine the trainset and testset of data, more complex if there is a confounding factor.
 
