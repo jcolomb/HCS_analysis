@@ -1,8 +1,8 @@
 Metadata_file,name,explanation,comment_format_examples,Required?
 project_metadata,experiment ID,"""give it a 6 number code""",E+6 number code,y
 project_metadata,Proj_name,"""give your project a unique name""",You may use the name of the PI with a number for the year,y
-project_metadata,experimentator,"""e-mail of the experimentator""",e-mail address of corresponding author(s),n
-project_metadata,source_data,"""where is the data?""","""this_github"" if data is put on the data folder of your clone, ""https:/"" if on another github, ""USB_stick"" if a path to your computer or external drive, path to the data will then be entered in the master R file under STICK variable.",y
+project_metadata,author_email,"""e-mail of the experimentators, comma is separating emails""",e-mail address of corresponding author(s),n
+project_metadata,source_data,"""where is the data? Either this_github, https:/ or USB_stick “","""this_github"" if data is put on the data folder of your clone, ""https:/"" if on another github, ""USB_stick"" if a path to your computer or external drive, path to the data will then be entered in the master R file under STICK variable.",y
 project_metadata,Folder_path,"""path to the Folder of the experiment (containing all data and metadata), path relative to the folder containing the project_metadata.csv file file""",,y
 project_metadata,group_by,"""variable of the animal metadata, which is used to create groups""","genotype, treatment, age_category",y
 project_metadata,confound_by,"""variable of the animal metadata, which is not used to creaate groups but which is important for the data sampling""","gender,…",n
@@ -13,17 +13,9 @@ project_metadata,raw_data_folder,"""path to folder containing the data, relative
 project_metadata,Comments,"""free text comment for this experiment""",,n
 project_metadata,animal_metadata,"""path to file containing the metadata for each experiment""",default: metadata/ -Proj_name-_metadata.csv ,y
 project_metadata,lab_metadata,"""path to file containing the metadata for each lab""",default: metadata/Lab_metadata.csv,y
-Experiment_metadata,animal_ID,"""animal ID as entered in the mouse book""",,y
-Experiment_metadata,animal_birthdate,"""Birth date of the animal""",Read from mouse book,n
-Experiment_metadata,treatment,"""Indicate groups distinguished by a different treatment""","PBS Vs drug, sleep deprived vs control,… (Read from mouse book?)",y
-Experiment_metadata,genotype,"""Indicate animal genotype, use MGI number if possible""",Read from mouse book,y
-Experiment_metadata,date,"""date of the experiment start""",,y
-Experiment_metadata,test cage,"""position of cage in setup""","1,2,3,4 in HCS",n
-Experiment_metadata,real time start,"""indicate the real time of start of the experiment""","""HH:MM:SS""",y
-Experiment_metadata,experiment_folder_name,"""name of folder containing all the data""",see HELPER_create_metadata.R,y
-Experiment_metadata,Behavior_sequence,"""path to file containing the behavior sequence""",see HELPER_create_metadata.R,y
-Experiment_metadata,Onemin_summary,"""path to file containing the minute summary data""",see HELPER_create_metadata.R,y
-Experiment_metadata,Lab_ID,"""indicate the ID of the lab, corresponding to the ID given in the Lab_metadata file""",This allows to have enter lab information only once,y
+project_metadata,author_orcidid,“orcid iD number of authors”,,
+project_metadata,author_fullname,“full name of authors”,,
+project_metadata,funding_source,“indicate the funding source paying for this experiement to be done”,,
 Lab_metadata,Lab_ID,"""give it a 5 number code""",L+5 number code,y
 Lab_metadata,light_on,"""time of day when the light is on in the room (ZT0 time), format is HH:mm:ss""",HH:mm:ss,y
 Lab_metadata,light_off,"""time of day when the light is off , format is HH:mm:ss""",HH:mm:ss,y
@@ -35,3 +27,18 @@ Lab_metadata,daylight_intensity_lux,"""measure light intensity 1 h after light o
 Lab_metadata,daylight_spectrum,"""what is the color spectrum of the daylight""",,n
 Lab_metadata,nightlight_intensity_lux,"""measure light intensity 1 h after light off""",,n
 Lab_metadata,nightlight_change curve,"""How is the light intensity changing at light off""","sharp, linear over 10s, exponential over 5s,…",n
+Experiment_metadata,animal_ID,"""animal ID as entered in the mouse book""",,y
+Experiment_metadata,animal_birthdate,"""Birth date of the animal""",Read from mouse book,n
+Experiment_metadata,treatment,"""Indicate groups distinguished by a different treatment""","PBS Vs drug, sleep deprived vs control,… (Read from mouse book?)",y
+Experiment_metadata,genotype,"""Indicate animal genotype, use MGI number if possible""",Read from mouse book,y
+Experiment_metadata,date,"""date of the experiment start""",,y
+Experiment_metadata,test cage,"""position of cage in setup""","1,2,3,4 in HCS",n
+Experiment_metadata,real time start,"""indicate the real time of start of the experiment""","""HH:MM:SS""",y
+Experiment_metadata,Lab_ID,"""indicate the ID of the lab, corresponding to the ID given in the Lab_metadata file""",This allows to have enter lab information only once,y
+Experiment_metadata,comment,“comments on the data for example: cage not positioned correctly”,,
+Experiment_metadata,experiment_folder_name,"""name of folder containing all the data""",,
+Experiment_metadata,Behavior_sequence,"""path to file containing the behavior sequence""",,
+Experiment_metadata,Onemin_summary,"""path to file containing the minute summary data""",,
+Experiment_metadata,Onehour_summary,"""path to file containing the hour summary data""",,
+Experiment_metadata,primary_behav_sequence,"""path to file containing the primary sequence data, the mbr file in HCS""",,
+Experiment_metadata,primary_position_time,"""path to file containing the primary position through time data""",,

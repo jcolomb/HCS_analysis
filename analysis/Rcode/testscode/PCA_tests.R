@@ -9,6 +9,24 @@ expl.var <- cumsum(input.pca$sdev^2/sum(input.pca$sdev^2)*100)
 Input= data.frame(input.pca$x[,expl.var < 95])
 Input$groupingvar = Multi_datainput_m$groupingvar
 
+##do statistics on pc1:
+Moddata=as.data.frame(input.pca$x)
+Moddata$groupingvar = Multi_datainput_m$groupingvar
+
+
+boxplot(PC1 ~ groupingvar, data = Moddata)
+wilcox.test(PC1 ~ groupingvar, data = Moddata)
+wilcox.test(PC2 ~ groupingvar, data = Moddata)
+
+plspca=Moddata %>% ggplot (aes (x=PC1, y=PC2, color = groupingvar))+
+  geom_point()+
+  labs (title="PCA results")+ 
+  scale_colour_grey() + theme_bw()#+
+  #theme(legend.position='none')
+print(plspca)  
+
+
+#follow by ica
 
 p=icafast(Input%>% select (-groupingvar),2,center=T,maxit=100)
 
@@ -16,7 +34,7 @@ R= cbind(p$Y, Input   %>% select (groupingvar))
 names(R) = c("D1", "D2",  "groupingvar")
 pls=R %>% ggplot (aes (x=D1, y=D2, color = groupingvar))+
   geom_point()+
-  labs (title=nv)+ 
+  labs (title="PICA")+ 
   scale_colour_grey() + theme_bw()+
   theme(legend.position='none')
 print(pls)    

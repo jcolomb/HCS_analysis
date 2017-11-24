@@ -1,5 +1,5 @@
 #randomforest
-if (nrow(metadata) < 22) stop("there is not enough data to try to do a svm")
+if (nrow(metadata) < 22) print("there is not enough data to try to do a svm")
 
 # get rid of variables with constant values (not scalable)
 

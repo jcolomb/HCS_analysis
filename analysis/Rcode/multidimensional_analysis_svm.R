@@ -35,13 +35,13 @@ if (!is.na(Projects_metadata$confound_by)) {
   Glass2_2 = Glass2 %>% filter (confoundvar == L2[2])
   
   index     <- 1:indexl
-  trainlength = max(5,  trunc(length(index) / 3))
+  trainlength = max(4,  trunc(length(index) / 3))
   indexl2 = min(nrow(Glass_1),
                 nrow(Glass_2),
                 nrow(Glass2_1),
                 nrow(Glass2_2))
   index     <- 1:indexl2
-  trainindex <- sample(index, max(5, trainlength))
+  trainindex <- sample(index, max(4, trainlength))
   
   
   trainset  <-
@@ -67,7 +67,7 @@ if (!is.na(Projects_metadata$confound_by)) {
     ))
   # split each randomly
   index     <- 1:indexl
-  trainindex <- sample(index, max(10, 2 * trunc(length(index) / 3)))
+  trainindex <- sample(index, max(8, 2 * trunc(length(index) / 3)))
   
   trainset  <- rbind(Glass[trainindex,], Glass2[trainindex,])
   
