@@ -64,3 +64,74 @@ Npermutation = 1000
   print(zapsmall(binconf(k, length(Acc_sampled), method='exact'))) # 95% CI by default
   print(zapsmall(binconf(k, length(Acc_sampled), method='all')))
   save.image(file= "thisisatest.rdata") 
+  
+  
+  ###-------------------------------------------------------------one time window svm
+  source ("Rcode/testscode/multidimensional_analysis_prep_oneTW.R")
+  set.seed(66)
+  
+  
+  RF_selec=Multi_datainput_m
+  xx= as.matrix(RF_selec %>% select (-groupingvar))
+  yy = as.numeric(RF_selec$groupingvar)-1
+  pp  <- rep(NA, length(yy))
+  ppsvm  <- rep(NA, length(yy))
+  ppsvm_L  <- rep(NA, length(yy))
+  
+  num_per_class <- nrow(RF_selec)/2
+  before <- Sys.time()
+  for (k in 1:num_per_class) {
+    hold_out = c(k, k+num_per_class) ## hold out one pos and one neg examples so samples are still balanced
+    fit <- glmpath::glmpath(x=xx[-hold_out,], y=yy[-hold_out], family=binomial, max.arclength=1)
+    bestdex <- which.min(fit$bic)
+    if (bestdex==1) {bestdex <- 2}  ## break ties by avoiding degenerate classifiers
+    bestlambda <- fit$lambda[bestdex]
+    pred <- predict(fit, newx=xx[hold_out,], s=bestlambda, type="link", mode="lambda")
+    pp[hold_out] = pred
+    
+    #svm
+    ##ALL variables:
+    ###
+    
+    ##tuning and performing svm  
+    #bestk=NA
+    bestk= tune.svm3(RF_selec[-hold_out,],as.data.frame(yy[-hold_out]))
+    
+    
+    best.parameters = bestk[[2]]
+    best.parameters_L = bestk[[11]]
+    
+    
+    svm.model <- svm(yy[-hold_out] ~ ., data = xx[-hold_out,], cost = best.parameters$cost, gamma = best.parameters$gamma, kernel = bestk[[1]])
+    svm.model_L <- svm(yy[-hold_out] ~ ., data = xx[-hold_out,], cost = best.parameters_L$cost, gamma = best.parameters_L$gamma, kernel = "linear")
+    
+    #svm.pred <- predict(svm.model, xx[hold_out,])
+    ppsvm[hold_out] = predict(svm.model, xx[hold_out,])
+    ppsvm_L[hold_out] = predict(svm.model_L, xx[hold_out,])
+    
+    
+  }
+  duration = Sys.time()-before
+  
+  true_class <- sign(yy - 0.5)
+  pred_class <- sign(pp);
+  pred_classsvm <- sign(ppsvm);
+  pred_classsvm_L <- sign(ppsvm_L);
+  
+  prediction_res1=table(true_class, pred_class)
+  prediction_res2=table(true_class, pred_classsvm)
+  prediction_res3=table(true_class, pred_classsvm_L)
+  
+  #Accuracy of grouping and plot
+  ACURRACY=NA
+  temp =classAgreement (prediction_res1)
+  ACURRACY = c(ACURRACY, temp$diag)
+  temp =classAgreement (prediction_res2)
+  ACURRACY = c(ACURRACY, temp$diag)
+  temp =classAgreement (prediction_res3)
+  ACURRACY = c(ACURRACY, temp$diag)
+  ACURRACY
+  duration
+
+  
+  

@@ -219,7 +219,7 @@ for (i in 1:Npermutation){
     
     groupingvar =as.data.frame(yy[-hold_out])
     
-    objL <- tune.svm(groupingvar~., data = RF_selec[-hold_out], gamma = 4^(-5:5), cost = 4^(-5:5),
+    objL <- tune.svm(groupingvar~., data = RF_selec[-hold_out,], gamma = 4^(-5:5), cost = 4^(-5:5),
                      tune.control(sampling = "cross"),kernel = "radial")
     
     #best.parameters = bestk[[2]]
@@ -255,7 +255,7 @@ for (i in 1:Npermutation){
   temp =classAgreement (prediction_res3)
   ACURRACY = c(ACURRACY, temp$kappa)
   
-   = rbind(Acc_sampled, ACURRACY[-1])
+  Acc_sampled = rbind(Acc_sampled, ACURRACY[-1])
 }
 
 beepr::beep()
