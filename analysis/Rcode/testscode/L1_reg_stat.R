@@ -229,18 +229,32 @@ Npermutation = 200
   ## plot and test
   require(Hmisc)
   
+<<<<<<< HEAD
   hist(as.numeric(Acc_sampled[-1,1]), breaks=c(-10:10)/10)
   abline(v = ACURRACYreal[2], col="Red")
   abline(v = 0, col="blue")
   
   hist(as.numeric(Acc_sampled[-1,2]), breaks=c(-20:20)/20)
   abline(v = ACURRACYreal[4], col="Red")
+=======
+  hist(as.numeric(Acc_sampled[-1,1]), breaks=c(-20:20)/20)
+  abline(v = ACURRACY[2], col="Red")
+  abline(v = 0, col="blue")
+  
+  hist(as.numeric(Acc_sampled[-1,2]), breaks=c(-20:20)/20)
+  abline(v = ACURRACY[3], col="Red")
+>>>>>>> d3731c497e411cc8b9a1b2306208d414333d43de
   abline(v = 0, col="blue")
   
 
   
+<<<<<<< HEAD
   k1 <- sum(as.numeric(Acc_sampled[-1,1]) >= ACURRACYreal[2])   # One-tailed test
   k2 <- sum(as.numeric(Acc_sampled[-1,2]) >= ACURRACYreal[4])   # One-tailed test
+=======
+  k1 <- sum(as.numeric(Acc_sampled[-1,1]) >= ACURRACY[2])   # One-tailed test
+  k2 <- sum(as.numeric(Acc_sampled[-1,1]) >= ACURRACY[2])   # One-tailed test
+>>>>>>> d3731c497e411cc8b9a1b2306208d414333d43de
   print(zapsmall(binconf(k1, nrow(Acc_sampled)-1, method='all'))) # 95% CI by default
   print(zapsmall(binconf(k2, nrow(Acc_sampled)-1, method='all')))
   
