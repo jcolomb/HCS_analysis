@@ -297,7 +297,11 @@ ui <- fluidPage(
       , tags$hr()
       ,actionButton("goButton2", "If everything is correct, click here to create the min file.")
       , tags$hr()
-      ,actionButton("goButton3", "Push the project into the master metadata file (on osf) for analysis. You might think of making the data open first.")
+      ,tags$p( "Push the project into the master metadata file (on osf) for analysis.
+                    
+      You might think of making the data open first:
+      ")
+      ,actionButton("goButton3", "Push it")
       ,tableOutput("outputtable3")
     )
   )
@@ -417,7 +421,9 @@ server <- function(input, output, session) {
     
     if (Name_project %in% Projects_metadata_o$Proj_name){
       values$message2="This project name is already taken, you need to change it."
-    }else{
+    }else if (!Projects_metadata$source_data %in% c("this_github","http:/", "USB_stick")){
+      values$message2="Your descritption of the source data is incorrect."
+    }else {
         newmaster= rbind (Projects_metadata_o,Projects_metadata %>% filter (Proj_name == Name_project))
         osfr::login("i3sOvWDaZD0Xz9vJudKSn4ZHIJuAIDelnOxwUhMv9mqmTOf63sKvQwy4yDISuCgObOxVzO")
         write.csv(newmaster, file ='temp.csv')
