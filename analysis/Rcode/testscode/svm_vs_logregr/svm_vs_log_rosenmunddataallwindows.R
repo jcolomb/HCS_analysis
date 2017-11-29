@@ -405,13 +405,23 @@ for (i in 1:Npermutation){
 
 beepr::beep()
 
-hist(Acc_sampled [,1], breaks=c(0:20)/20)
-abline(v = 17/22, col="Red")
-abline(v = 0.5, col="blue")
+require(Hmisc)
 
-hist(Acc_sampled [,2], breaks=c(0:20)/20)
-abline(v = 17/22, col="Red")
-abline(v = 0.5, col="blue")
+hist(as.numeric(Acc_sampled[-1,1]), breaks=(c(-11:10)/21+0.5/21)*2)
+abline(v = ACURRACYreal[2], col="Red")
+abline(v = 0, col="blue")
+
+hist(as.numeric(Acc_sampled[-1,2]), breaks=(c(-11:10)/21+0.5/21)*2)
+abline(v = ACURRACYreal[4], col="Red")
+
+
+
+
+k1 <- sum(as.numeric(Acc_sampled[-1,1]) >= ACURRACYreal[2])   # One-tailed test
+k2 <- sum(as.numeric(Acc_sampled[-1,2]) >= ACURRACYreal[4])   # One-tailed test
+
+print(zapsmall(binconf(k1, nrow(Acc_sampled)-1, method='all'))) # 95% CI by default
+print(zapsmall(binconf(k2, nrow(Acc_sampled)-1, method='all')))
 
 
 
