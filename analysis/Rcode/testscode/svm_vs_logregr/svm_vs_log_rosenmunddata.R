@@ -1,20 +1,20 @@
 #this script will compare the resluts of the SVM and the L1-logistic regresssion, using the 2out strategy of the Steele 2007 paper, on rosenmund data (wt tested twice)
 tune.svm3 <- function(trainset,groupingvar){
-  #objS <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
-  #                 tune.control(sampling = "cross"),kernel = "sigmoid")
-  #S=min(objS$performances$error)
+  objS <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = "sigmoid")
+  S=min(objS$performances$error)
   
-  objR <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
-                   tune.control(sampling = "cross"),kernel = "radial")
-  R=min(objR$performances$error)
+  #objR <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-8:2), cost = 4^(-8:3),
+  #                 tune.control(sampling = "cross"),kernel = "radial")
+  #R=min(objR$performances$error)
   
-  #objP <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
-  #                 tune.control(sampling = "cross"),kernel = "polynomial")
-  #P=min(objP$performances$error)
+  objP <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = "polynomial")
+  P=min(objP$performances$error)
   
-  objL <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
-                   tune.control(sampling = "cross"),kernel = "linear")
-  L=min(objL$performances$error)
+  #objL <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-8:2), cost = 4^(-8:3),
+  #                 tune.control(sampling = "cross"),kernel = "linear")
+  #L=min(objL$performances$error)
   
   #choice=data.frame ("S"=S, "R"=R, "P"=P, "L"=L)
   #Min =choice %>% transmute (C=min(S,R,P,L))
@@ -28,7 +28,7 @@ tune.svm3 <- function(trainset,groupingvar){
   # obj= ifelse (KERNEL == "polynomial",objP, obj)
   # obj= ifelse (KERNEL == "linear",objL, obj)
   # return (c(KERNEL,objR,objL))
-  return (c("radial",objR,"linear",objL))
+  return (c("radial",objP,"linear",objS))
 }
 
 setwd("analysis")
@@ -53,7 +53,7 @@ PMeta = osfr::path_file("myxcv")
 
 RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 
-groupingby = "MITsoft" # other possibilities: "AOCF"
+groupingby =  "AOCF"# "MITsoft" # other possibilities: "AOCF"# 
 
 Npermutation = 250 # number of permutation to perform. set to 1 if testing (42 s per run with AOCF designation,30s with MIT)
 

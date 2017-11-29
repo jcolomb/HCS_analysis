@@ -11,7 +11,7 @@ Input$groupingvar = Multi_datainput_m$groupingvar
 
 ##do statistics on pc1:
 Moddata=as.data.frame(input.pca$x)
-Moddata$groupingvar = Multi_datainput_m$groupingvar
+Moddata$groupingvar = as.factor(Multi_datainput_m$groupingvar)
 
 
 boxplot(PC1 ~ groupingvar, data = Moddata)
@@ -20,7 +20,7 @@ wilcox.test(PC2 ~ groupingvar, data = Moddata)
 
 plspca=Moddata %>% ggplot (aes (x=PC1, y=PC2, color = groupingvar))+
   geom_point()+
-  labs (title="PCA results")+ 
+  labs (title=paste0("PCA results (",groupingby," variables grouping)"))+ 
   scale_colour_grey() + theme_bw()#+
   #theme(legend.position='none')
 print(plspca)  

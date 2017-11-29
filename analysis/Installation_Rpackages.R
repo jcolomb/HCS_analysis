@@ -12,6 +12,7 @@ install.packages(c(
   "stringr",
   #for plotting
   "gridExtra",
-  "RGraphics"))
+  "RGraphics",
+  "shinyFiles"))
 
 devtools::install_github('jcolomb/osfr')
