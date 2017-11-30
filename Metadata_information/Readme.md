@@ -1,8 +1,11 @@
 This document aims at providing a walkthrough for users creating their metadata file. It contains instruction on how to do it for new and for old projects.
+#  Clone or download this project
+
+Get a version of this software on your desktop!
 
 #  Project_metadata.csv file
 
-- Open the Project_metadata.csv file in excel (or similar sofware, you will find it in the data folder).
+- Open the local Project_metadata.csv file (you will find it in the data folder) in excel (or similar sofware like libreoffice).
 - Select all cells and change its format to "text" to avoid any intervention of the program in what you are typing
 - take the next number available for the experiment ID
 - enter data as requested in each cell, refer to the "explanation_of_metadata.csv" file for desctiption
@@ -29,8 +32,19 @@ This document aims at providing a walkthrough for users creating their metadata 
 - Here you need to merge this information with other information you got in a different format. You may look at the helper code for inspiration, but this step is much dependent on your metadata. Be patient, this step might take some time, but you will get something clean at the end.
 - Check the file for inconsistancy and other possible problems.
 
+# Check and push
+
+- Open the app found in "\analysis\testanduploaddata" (double click the app.r files, and push the run button on Rstudio)
+- indicate in which folder is the data if it is neither online nor in the data folder of the software
+- choose your project in the selection box.
+- push the "test metadata" button.
+- if they are error messages, investigate and modify the data or metadata accordingly, repeat previous steps
+- if they are no error, push the next buttons
+- Push the "push" button, if the final check is good, the metadata information present in the project metadata file is pushed to OSF (the data do not move).
+- Once pushed to the online master metadata file, it cannot be modified. If you made a mistake, you will have to push a new version using a different name.
+
 # You are done
 
-You should have gotten clean metadata now and you can try to run the analysis. Some checks are done once uploading the metadata, read warnings carefully and go back to cleaning the metadata if you get problems.
+You can run the analysis now. Read warnings carefully and go back to cleaning the metadata if you get problems.
 
 NB: the checker will open a window with the files that are additional to the one used in the metadata, check at that moment whether some animals were tested and not incorporated in the metadata, or if it is only files which are not necessary (for example hour summary files).
