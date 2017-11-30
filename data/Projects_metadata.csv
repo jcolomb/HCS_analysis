@@ -1,15 +1,2 @@
-experiment ID,Proj_name,experimentator,source_data,Folder_path,group_by,confound_by,video_acquisition,video_folder,video_analysis,raw_data_folder,Comments,animal_metadata,lab_metadata
-E000002,Exampledata,julien.colomb@fu-berlin.de,this_github,Project_exampledata1,genotype + age_category,,HCS 3.0,videos,HCS 3.0,HCS_output,GENOTYPE NOT REAL,metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
-E000003,test_online,julien.colomb@fu-berlin.de,https:/,raw.githubusercontent.com/jcolomb/HCS_data_1/master/Project_exampledata1,genotype,,HCS 3.0,videos,HCS 3.0,HCS_output,"real anonyme genotype, no raw data",metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
-E000004,Schmidt2017,julien.colomb@fu-berlin.de,USB_stick,schmidt2017,genotype + gender,,HCS 3.0,videos,HCS 3.0,HCS3_output,,metadata/schmidt2017_meta.csv,metadata/Lab_metadata.csv
-E000005,Schmidt2017svm,julien.colomb@fu-berlin.de,USB_stick,schmidt2017,genotype,gender,HCS 3.0,videos,HCS 3.0,HCS3_output,,metadata/schmidt2017_meta.csv,metadata/Lab_metadata.csv
-E000006,Meisel_2017,julien.colomb@fu-berlin.de,USB_stick,meisel,treatment,gender,HCS 3.0,videos,HCS 3.0,HCS3_output,"3 groups, few data",metadata/meisel2017_meta.csv,metadata/Lab_metadata.csv
-E000007,Rosenmund2015,julien.colomb@fu-berlin.de,USB_stick,rosenmund,genotype + age_category,,HCS 3.0,videos,HCS 3.0,HCS3_output,,metadata/rosenmund2015_meta.csv,metadata/Lab_metadata.csv
-E000008,Rosenmund2015g,julien.colomb@fu-berlin.de,USB_stick,rosenmund,genotype,,HCS 3.0,videos,HCS 3.0,HCS3_output,,metadata/rosenmund2015_meta_all.csv,metadata/Lab_metadata.csv
-E000009,Pruess_2016,julien.colomb@fu-berlin.de,USB_stick,pruess,gender,,HCS 3.0,videos,HCS 3.0,HCS3_output,No indication about groups,metadata/pruess_2016_meta.csv,metadata/Lab_metadata.csv
-E000010,Vida_2015,julien.colomb@fu-berlin.de,USB_stick,vida,gender,,HCS 3.0,videos,HCS 3.0,HCS3_output,No indication about groups,metadata/vida_2015_meta.csv,metadata/Lab_metadata.csv
-E000011,Lehnard_2016,julien.colomb@fu-berlin.de,USB_stick,lehnardt,genotype,,HCS 3.0,videos,HCS 3.0,HCS3_output,myd88,metadata/lehnard_2016_meta.csv,metadata/Lab_metadata.csv
-E000012,Tarabykin_2015,julien.colomb@fu-berlin.de,USB_stick,tarabykin,genotype + age_category,,HCS 3.0,videos,HCS 3.0,HCS3_output,GENOTYPE NOT REAL,metadata/tarabykin_2015_meta.csv,metadata/Lab_metadata.csv
-E000013,permutated_1,julien.colomb@fu-berlin.de,https:/,raw.githubusercontent.com/jcolomb/HCS_data_1/master/Project_exampledata1,treatment,,HCS 3.0,videos,HCS 3.0,HCS_output,"real anonyme genotype, no raw data",metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
-E000014,Steele07_HD,andydsteele@gmail.com,this_github,Steele07_HD,genotype,,HCS 3.0,videos,HCS 3.0,HCS3_output,only hourly data,metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
-E000015,test_online_2,julien.colomb@fu-berlin.de,https:/,raw.githubusercontent.com/jcolomb/HCS_data_1/master/Project_exampledata1,genotype,,HCS 3.0,videos,HCS 3.0,HCS_output,testing osf,metadata/exampledata1_meta.csv,metadata/Lab_metadata.csv
+experiment ID,Proj_name,author_email,source_data,Folder_path,group_by,confound_by,video_acquisition,video_folder,video_analysis,raw_data_folder,Comments,animal_metadata,lab_metadata,author_orcidid,author_fullname,funding_source
+F0001,Ro_testdata,julien.colomb@fu-berlin.de,this_github,Ro_testdata,treatment,,HCS 3.0,videos,HCS 3.0,HCS3_output,test data wt tested twice,metadata/Ro_testdata_meta.csv,metadata/Lab_metadata.csv,0000-0002-3127-5520 ,Julien Colomb,
