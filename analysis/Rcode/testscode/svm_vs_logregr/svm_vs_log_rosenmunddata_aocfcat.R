@@ -228,7 +228,7 @@ for (i in 1:Npermutation){
     
     
     #svm.model <- svm(yy[-hold_out] ~ ., data = xx[-hold_out,], cost = best.parameters$cost, gamma = best.parameters$gamma, kernel = bestk[[1]])
-    svm.model_L <- svm(yy[-hold_out] ~ ., data = xx[-hold_out,], cost = best.parameters_L$cost, gamma = best.parameters_L$gamma, kernel = "linear")
+    svm.model_L <- svm(yy[-hold_out] ~ ., data = xx[-hold_out,], cost = best.parameters_L$cost, gamma = best.parameters_L$gamma, kernel = "radial")
     
     #svm.pred <- predict(svm.model, xx[hold_out,])
     #ppsvm[hold_out] = predict(svm.model, xx[hold_out,])
@@ -264,12 +264,12 @@ print("time to perform the analysis:")
 print(Sys.time()-b)
 
 hist(as.numeric(Acc_sampled[-1,1]), breaks=(c(-11:10)/21+0.5/21)*2,
-     main= "AOCF_6smallwindows_L1regLregression")
+     main= "AOCF_6smallwindows_L1regLregression, p<0.08")
 abline(v = ACURRACYreal[2], col="Red")
 abline(v = 0, col="blue")
 
 hist(as.numeric(Acc_sampled[-1,2]), breaks=(c(-11:10)/21+0.5/21)*2,
-     main= "AOCF_6smallwindows_SVMlin")
+     main= "AOCF_6smallwindows_SVMlin, NS")
 abline(v = ACURRACYreal[4], col="Red")
 abline(v = 0, col="blue")
 
