@@ -75,8 +75,27 @@ pls2
 ```
 
 
+#PCA strategy
 
 
+```{r, results='asis', echo=FALSE}
+if (PCA_pval$p.value< .05) {pander::pandoc.strong("The PCA strategy shows that the behavior profile of the two groups of animal are not identical.")
+}else {pander::pandoc.strong("The PCA strategy could not tell the two groups apart.")
+  
+}
+
+
+```
+
+We performed a PCA on the data and tested whether the groups show a difference in their first component score using a Mann-Whitney or a Kruskal-Wallis rank sum test (if more than 2 groups exists).
+We plot here the first component in a boxplot:
+
+```{r, echo=FALSE}
+
+print(boxplotPCA1)
+```
+
+NB: This strategy is pretty good against type I errors. On the other hand, it may well oversee existing differences.
 
 #SVM
  

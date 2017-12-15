@@ -48,13 +48,21 @@ MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 #source ("Rcode/multidimensional_analysis_RFsvm.R")
 #save.image(paste0("Reports/multidim_",Name_project,".rdata"))
 
+#multidimensional analysis, prepare data
+source ("Rcode/multidimensional_analysis_prep.R") # return Multi_datainput_m or Multi_datainput_m2
+
+#multidimensional analysis, Random forest in 2 rounds
+source ("Rcode/RF_selection_2rounds.R")# returns RF_selec = Input
+
+#multidimensional analysis, PCA followed by wilocoxon test on 1st component
+source ("Rcode/PCA_strategy.R")
+
 if (nrow(metadata) < 22) {
   print("not enough data for svm")
   Accuracyreal=NA
   Acc_sampled =NA
   calcul_text =NA
-  source ("Rcode/multidimensional_analysis_prep.R")
-  source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
+  
   source ("Rcode/ICA.R")
   rmarkdown::render ("reports/multidim_anal_variable.Rmd")
   file.copy("reports/results.rdata", paste0(Outputs,"/multidim_analysis_",groupingby,".Rdata"), overwrite=TRUE,
@@ -64,17 +72,13 @@ if (nrow(metadata) < 22) {
   
 }else{
   if (length(unique(metadata$groupingvar))==3) {
-    source ("Rcode/multidimensional_analysis_prep.R")
-    source ("Rcode/RF_selection_2rounds.R")
+
     source ("Rcode/morethan2groups.R")
     rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
   }else{
     #source ("Rcode/multidim_anal_variable.R")
     #multidimensional analysis, prepare data
-    source ("Rcode/multidimensional_analysis_prep.R") # return Multi_datainput_m or Multi_datainput_m2
-    
-    #multidimensional analysis, Random forest in 2 rounds
-    source ("Rcode/RF_selection_2rounds.R") # returns RF_selec = Input
+   
     source ("Rcode/ICA.R") # return plot called pls
     
     source ("Rcode/multidimensional_analysis_svm.R") # returns Accuracy (text), Accuracyreal = kappa of result of svm prediction on the test data
