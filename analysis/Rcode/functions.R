@@ -21,6 +21,16 @@ grab_grob <- function(){
 }
 
 ##plotting 24h data
+theme.mr <- theme (axis.title = element_text(size=11,face="bold"),
+                   axis.line.x = element_line(colour = "black"),
+                   axis.line.y = element_line(colour = "black"),
+                   plot.title = element_text(size=18),
+                   axis.text.y = element_text(angle=0, hjust=-0.25),
+                   axis.text.x = element_text(angle=0, hjust=1), #inclination of text of X axis
+                   legend.title = element_blank(),
+                   legend.text =element_text(size=11))
+
+
 
 plot24h <- function (data_d, Title, hour.info2= hour.info, datalenght=12){
   data_d %>% 
@@ -32,7 +42,7 @@ plot24h <- function (data_d, Title, hour.info2= hour.info, datalenght=12){
     #geom_line(aes(colour=(genotype)))+
     #facet_grid( genotype~, switch="x") +
     geom_errorbar(aes(ymin=avg, ymax=avg+sd, colour=(genotype),linetype=(treatment) ), width=0, position=position_dodge(0.05))+
-    labs(x="Meters",y="", title = Title)+
+    labs(x="time of day",y="%time or meters", title = Title)+
     theme_classic() +
     #scale_colour_manual(values = cols)+ ###Stop here if want to save as pdf
     theme.mr

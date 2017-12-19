@@ -1,11 +1,10 @@
 # #-------------------------SVM
 
 
-set.seed(74)
 if (!nrow(metadata) < 22) {
   
 
-set.seed(74)
+
 
 ## Determine the trainset and testset of data, more complex if there is a confounding factor.
 
@@ -90,7 +89,7 @@ if (nrow(trainset) < 20) {
     "the sample size is not sufficient to produce a svm analysis, you need at least 13 animals per group"
   )
   NOSTAT = TRUE
-} else{
+} 
   #tuning: choose best kernel (error rate minimal), all data or only a subset (accuracy on trainset maximal, use all if identical), this takes time!
   source ("Rcode/Tuning_svm2.r")
   # run model on test data
@@ -108,6 +107,6 @@ if (nrow(trainset) < 20) {
     Accuracyreal
   )
   print(Accuracy)
-}  
+  
 
 }

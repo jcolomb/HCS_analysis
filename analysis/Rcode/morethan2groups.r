@@ -79,7 +79,7 @@ if (length(unique(metadata$groupingvar))==3) {
   
 
 }
-print(pls)
-p1
-p2
-p3
+# print(pls)
+# p1
+# p2
+# p3

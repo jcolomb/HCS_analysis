@@ -81,10 +81,11 @@ if (nrow(metadata) < 22) {
    
     source ("Rcode/ICA.R") # return plot called pls
     
+    set.seed(74)
     source ("Rcode/multidimensional_analysis_svm.R") # returns Accuracy (text), Accuracyreal = kappa of result of svm prediction on the test data
     
     Acc_sampled= c() # set 
-    set.seed(87)
+    
     source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
     
     rmarkdown::render ("reports/multidim_anal_variable.Rmd")
