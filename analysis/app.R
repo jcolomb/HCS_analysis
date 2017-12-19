@@ -277,7 +277,7 @@ ui <- fluidPage(
          sliderInput("Npermutation",
                      "Number of permutations to perform for the statistics:",
                      min = 1,
-                     max = 1000,
+                     max = 600,
                      value = 240)
          , checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
          , radioButtons('groupingby', 'grouping variables following which categories',
@@ -286,19 +286,32 @@ ui <- fluidPage(
                       'MITsoft')
          , shinyUI(bootstrapPage(shinyDirButton('STICK', "Data_directory", 
                           "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")
-      ))),
+         ,selectInput('Name_project', 'choose the project to analyse:',
+                                      Projects_metadata$Proj_name ,
+                                      'test_online')
+         ,actionButton("goButton", "Do multidimensional analysis")
+                          
+         ))), 
       
       # Show a plot of the generated distribution
       mainPanel(
-        selectInput('Name_project', 'choose the project to analyse:',
-                        Projects_metadata$Proj_name ,
-                        'test_online')
-        ,actionButton("goButton", "Go!")
+        tabsetPanel(
+          tabPanel("multidim_results",
+            htmlOutput("includeHTML")
+            , textOutput("test")
+          )
+          ,tabPanel("summary reports",
+                   "nothing yet here"
+                   ,actionButton("plot data", "Plotting hourly summary data")
+                   ,selectInput('behavior to plot', 'choose the behaviour variable to plot',
+                                
+                                 'test_online')
+          )
         
-        ,htmlOutput("includeHTML")
-        , textOutput("test")
+
         
-        
+        )  
+        , "Note that the software only deal with minute summary data at the moment and you need to indicate time indications (start of experiment, light off, light on) in the different metadata files."
         
       )
    )
