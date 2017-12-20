@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(plotly)
 require (shinyFiles)
 
 #setwd("analysis")
@@ -302,10 +303,10 @@ ui <- fluidPage(
           )
           ,tabPanel("summary reports",
                    "nothing yet here"
-                   ,actionButton("plot data", "Plotting hourly summary data")
-                   ,selectInput('behavior to plot', 'choose the behaviour variable to plot',
-                                
-                                 'test_online')
+                   ,actionButton("plot_data", "Plotting hourly summary data")
+                   ,numericInput("obs", "plot number:", 1, min = 1, max = 20)
+                   ,plotlyOutput("plot") 
+                   
           )
         
 
@@ -369,8 +370,33 @@ server <- function(input, output, session) {
   })
    
 
-
+   GObuttonplot <- observeEvent(input$plot_data, {
+    
+      dataoutput2()
+     
+   })
   
+
+
+dataoutput2 <- reactive({
+  RECREATEMINFILE <- input$RECREATEMINFILE
+  groupingby<- input$groupingby
+  
+  STICK<- fileInput()
+  Name_project <- input$Name_project
+  
+  values$message <- "analyis started"
+  #source <- function (x,...){source (x, local=TRUE,...)}
+  source("Rcode/get_behav_gp.R")
+  source("Rcode/plot5_hoursummaries.R")
+  values$Outputspdf=paste0(plot.path,"/14_Minutes_Behaviours_timedtolightoff.pdf")
+  values$plot = pl
+}) 
+
+output$plot <- renderPlotly({
+  ggplotly(values$plot[[input$obs]])
+  
+})
  
 }
 
