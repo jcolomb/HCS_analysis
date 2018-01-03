@@ -42,3 +42,4 @@ Experiment_metadata,Onemin_summary,"""path to file containing the minute summary
 Experiment_metadata,Onehour_summary,"""path to file containing the hour summary data""",,
 Experiment_metadata,primary_behav_sequence,"""path to file containing the primary sequence data, the mbr file in HCS""",,
 Experiment_metadata,primary_position_time,"""path to file containing the primary position through time data""",,
+Experiment_metadata,primary_datafile,"“label for which file is used as the primary file (what was found as most raw), available values: hour_summary, min_summary",,
