@@ -61,6 +61,7 @@ if (RECREATEMINFILE || class(MIN_data)=="try-error"){
   
 MIN_data$ID = as.factor(MIN_data$ID)  
 
+write.table(metadata, paste0(Outputs,'/Metadata_',Name_project,'.csv'), sep = ';',row.names = FALSE)
 
 
 
