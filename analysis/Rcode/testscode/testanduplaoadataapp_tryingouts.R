@@ -32,3 +32,12 @@ Name_project ="Steele07_HD"
 source("Rcode/inputdata.r")
 
 source("Rcode/checkmetadata.r")
+Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
+onlinemin=Outputs 
+#for online projects, outputs are written on disk:
+if (WD == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
+
+dir.create (Outputs, recursive = TRUE)
+plot.path = Outputs
+
+source ("Rcode/animal_groups.r")
