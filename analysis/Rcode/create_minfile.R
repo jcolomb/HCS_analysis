@@ -7,16 +7,21 @@ if ( !RECREATEMINFILE){
 }
 
 if (RECREATEMINFILE || class(MIN_data)=="try-error"){
-    data = data.frame()
+    dataf = data.frame()
   files = as.character(MIN_datafiles[,1])
-  
+  fileshr = as.character(Hour_datafiles[,1])
   for (f in 1:length(files)) {
     if (WD == "https:/"){
       download.file(files[f], "tempor.xlsx",  mode="wb")
       files[f] = "tempor.xlsx"
+      download.file(fileshr[f], "temporhr.xlsx",  mode="wb")
+      fileshr[f] = "temporhr.xlsx"
     }
-    behav<- readxl::read_excel(files[f],sheet = 1)
-    behav = behav[-nrow(behav),1:46] ## -> keep all data (sum columns not taken into account), excluding data come later.
+    if (metadata$primary_datafile[f] =="min_summary") behav<- readxl::read_excel(files[f],sheet = 1)
+    if (metadata$primary_datafile[f] =="hour_summary") behav <- xx_to_min(readxl::read_excel(fileshr[f],sheet = 1),60)
+    behav = behav %>% filter(Bin != 'SUM') ##make sure the last row with the summary got removed
+    behav = behav %>% select(-matches("SUM")) # take out sum column if exists
+    
     
     # temp <- behav.1 %>% ungroup %>% group_by(Behavior) %>% summarise (duration.s = sum(Duration))
     
@@ -47,16 +52,16 @@ if (RECREATEMINFILE || class(MIN_data)=="try-error"){
     
     
     
-    data = rbind(data,df)
+    dataf = rbind(dataf,df)
     
   }
   
-  data = data %>% filter(Bin != 'SUM') ##make sure the last row with the summary got removed
-  MIN_data = data
   
-  write.table(data, paste0(Outputs,'/Min_',Name_project,'.csv'), sep = ';',row.names = FALSE)
+  MIN_data = dataf
   
-  rm(data)
+  write.table(MIN_data, paste0(Outputs,'/Min_',Name_project,'.csv'), sep = ';',row.names = FALSE)
+  
+  rm(dataf)
 }
   
 MIN_data$ID = as.factor(MIN_data$ID)  

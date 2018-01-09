@@ -101,3 +101,14 @@ permutate_trainset <- function(LIST) {
   }
   perm
 }
+
+## function to work with hourly summary files: transform it into minute summary file by dividing scores by 60
+xx_to_min <- function(behav_data,min_in_x=60){
+  temp= behav_data %>% select (-Bin) %>%
+    mutate_all(funs(. /min_in_x))
+  temp=temp[rep(seq_len(nrow(temp)), each=min_in_x),]
+  
+  result =cbind (Bin=seq(1:(nrow(behav_data)*min_in_x)),
+                 temp)
+  return(result)
+}

@@ -41,3 +41,5 @@ dir.create (Outputs, recursive = TRUE)
 plot.path = Outputs
 
 source ("Rcode/animal_groups.r")
+
+source ("Rcode/create_minfile.r")
