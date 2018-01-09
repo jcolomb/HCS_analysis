@@ -13,6 +13,9 @@ install.packages(c(
   #for plotting
   "gridExtra",
   "RGraphics",
-  "shinyFiles"))
+  "shinyFiles",
+  "devtools",
+  "plotly",
+  "glmpath"))
 
 devtools::install_github('jcolomb/osfr')
