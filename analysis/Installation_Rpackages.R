@@ -16,6 +16,7 @@ install.packages(c(
   "shinyFiles",
   "devtools",
   "plotly",
-  "glmpath"))
+  "glmpath",
+  "pander"))
 
 devtools::install_github('jcolomb/osfr')

@@ -17,6 +17,11 @@ names(Mins)[names(Mins)=="Eat.Z1."] = 'Eat.1'
 names(Mins)[names(Mins)=="Eat.Z2."] = 'Eat.2'
 names(Mins)[names(Mins)=="Eat.Z3."] = 'Eat.3'
 
+if (!is.null(Mins$Eat.2)){
+  Mins %>% mutate (Eat = Eat.1+Eat.2+Eat.3, Drink = Drink.1+Drink.2+Drink.3)
+}
+
+
 # used information about groups as identified in 4. Hours file
 # got arousal and urinate out (always 0)
 behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = distance.traveled,
@@ -29,7 +34,7 @@ behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = di
                               Twitch = Twitch,
                               Unknown = Unknown + Urinate , # urinate always(?) 0
                               Awaken = Awaken,Chew = Chew, Sniffing = Sniff, RemainLow = RemainLw,
-                              Eat = Eat.1+Eat.2+Eat.3, Drink = Drink.1+Drink.2+Drink.3, Stretch = Stretch)
+                              Eat = Eat, Drink = Drink, Stretch = Stretch)
 
 behav_jhuang <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,
                                 Distance_traveled = distance.traveled,
@@ -40,6 +45,6 @@ behav_jhuang <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,
                                 Walk = Turn+WalkLeft+WalkRght+WalkSlow+Circle,
                                 Groom = Groom,
                                 Micro_move = Awaken+Pause+RemainLw+Sniff+Twitch,
-                                Eat = Chew+Eat.1+Eat.2+Eat.3,
-                                Drink = Drink.1+Drink.2+Drink.3)
+                                Eat = Chew+Eat,
+                                Drink = Drink)
 
