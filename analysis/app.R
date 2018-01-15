@@ -302,7 +302,7 @@ ui <- fluidPage(
             , textOutput("test")
           )
           ,tabPanel("summary reports",
-                   "nothing yet here"
+                   "Note that a pdf file with all figures is also produced and saved in the Routputs folder."
                    ,actionButton("plot_data", "Plotting hourly summary data")
                    ,numericInput("obs", "plot number:", 1, min = 1, max = 20)
                    ,plotlyOutput("plot") 
@@ -312,7 +312,7 @@ ui <- fluidPage(
 
         
         )  
-        , "Note that the software only deal with minute summary data at the moment and you need to indicate time indications (start of experiment, light off, light on) in the different metadata files."
+        , "You need to indicate time indications (start of experiment, light off, light on) in the different metadata files. Work with minutes and hourly summary at the moment."
         
       )
    )
