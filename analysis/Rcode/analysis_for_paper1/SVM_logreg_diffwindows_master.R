@@ -1,5 +1,5 @@
 #----------------------------prepare data
-
+starttime <- Sys.time()
 setwd("analysis")
 
 
@@ -92,9 +92,9 @@ Acc_real= Acc_real[,-1]
 
 
 #----------------- SVM and log regressions: permutations
-Npermutation = 1
+Npermutation = 2
 
-Acc_cumm = Acc_real
+if (!exists("Acc_cumm")) Acc_cumm = Acc_real
 for (j in (seq(1:Npermutation)+1)){
   Acc_notreal = NA
   for (i in 1:6){
@@ -118,6 +118,15 @@ for (j in (seq(1:Npermutation)+1)){
   
   Acc_cumm= rbind (Acc_cumm,Acc_notreal)
 }
+
+stoptime <- Sys.time()
+beepr::beep()
+
+
+
+
+
+
 # 
 # set.seed(74)
 # source ("Rcode/multidimensional_analysis_svm.R") # returns Accuracy (text), Accuracyreal = kappa of result of svm prediction on the test data

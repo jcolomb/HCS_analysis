@@ -18,7 +18,7 @@ names(Mins)[names(Mins)=="Eat.Z2."] = 'Eat.2'
 names(Mins)[names(Mins)=="Eat.Z3."] = 'Eat.3'
 
 if (!is.null(Mins$Eat.2)){
-  Mins %>% mutate (Eat = Eat.1+Eat.2+Eat.3, Drink = Drink.1+Drink.2+Drink.3)
+  Mins<- Mins %>% mutate (Eat = Eat.1+Eat.2+Eat.3, Drink = Drink.1+Drink.2+Drink.3)
 }
 
 
