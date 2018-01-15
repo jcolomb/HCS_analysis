@@ -1,0 +1,18 @@
+Long Behavior Code (HEX);1;2;3;4;5;6;7;8
+;[0- F];[0- F];[0- F];[0- F];[0- F];[0- F];[0- F];[0- F]
+Product Flag;"1-HCS
+2-SZS
+4-PRM ";;;;;;;
+Cmt Type;;"0-no cmt
+1-positive value cmt
+2-negative value cmt
+8-cmt w/subclass (Groom)";;;;;;
+Cmt Code;;;X;X;X;;;
+;;;"[0x001 - 0x6FF] -- day comment(sys)
+[0x801 - 0xEFF] -- night comment(sys)
+[0x701 - 0x7FF] -- day comment(usr-defined)
+[0xF01 - 0xFFF] -- night comment(usr-defined)";;;;;
+Beh Code;;;;;;X;X;X
+;;;;;;Behavior code;;
+;;;;;;;;
+;;;;;;;;

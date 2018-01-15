@@ -1,0 +1,18 @@
+MBR File Format:;;;;
+<Number of Lines of Behavior to follow>;;;;
+<Start Frame>  <End Frame> <Beh Code>;;;;
+…;;;;
+…;;;;
+<Start Frame>  <End Frame> <Beh Code>;;;;
+<Total Dist Traveled in meters>;;;;
+;;;;
+;;;;
+Behavior Code is either a simple decimal 1 or 2 digit number referred to as Short Behavior Code;;;;
+Details about these codes are found in the next sheet titled Short Behavior Codes;;;;
+OR;;;;
+It is a large number that needs further processing;;;;
+Each large number is a decimal representation of a Hex Code. So, first convert that decimal number to a Hex code;;;;
+From the 8-digit Hex Code, the rightmost 3 Hex digits need to be converted back to decimal and will represent the Short Behavior Codes;;;;
+The Long Behavior Codes sheet details this full Hex decoding methodology;;;;
+;;;;
+;;;;
