@@ -92,7 +92,7 @@ Acc_real= Acc_real[,-1]
 
 
 #----------------- SVM and log regressions: permutations
-Npermutation = 2
+Npermutation = 300
 
 if (!exists("Acc_cumm")) Acc_cumm = Acc_real
 for (j in (seq(1:Npermutation)+1)){
