@@ -308,7 +308,13 @@ ui <- fluidPage(
                    ,plotlyOutput("plot") 
                    
           )
-        
+          ,tabPanel("Interaction graphs",
+                    
+                    ,actionButton("plot_data", "Plotting hourly summary data")
+                    ,numericInput("obs", "plot number:", 1, min = 1, max = 20)
+                    ,plotlyOutput("plot") 
+                    
+          )
 
         
         )  
