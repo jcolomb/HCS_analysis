@@ -263,6 +263,8 @@ source= function (file, local = TRUE, echo = verbose, print.eval = echo,
 
 PMeta = osfr::path_file("myxcv")
 Projects_metadata <- read_csv(PMeta)
+all_TW =T
+#Timewindows = data.frame ("run it first")
 
 
 
@@ -290,6 +292,7 @@ ui <- fluidPage(
          ,selectInput('Name_project', 'choose the project to analyse:',
                                       Projects_metadata$Proj_name ,
                                       'test_online')
+         ,actionButton("TWbutton", "Choose time windows")
          ,actionButton("goButton", "Do multidimensional analysis")
                           
          ))), 
@@ -298,7 +301,8 @@ ui <- fluidPage(
       mainPanel(
         tabsetPanel(
           tabPanel("multidim_results",
-            htmlOutput("includeHTML")
+            DT::dataTableOutput('TW')       
+            ,htmlOutput("includeHTML")
             , textOutput("test")
           )
           ,tabPanel("summary reports",
@@ -308,13 +312,13 @@ ui <- fluidPage(
                    ,plotlyOutput("plot") 
                    
           )
-          ,tabPanel("Interaction graphs",
+          #,tabPanel("Interaction graphs",
                     
-                    ,actionButton("plot_data", "Plotting hourly summary data")
-                    ,numericInput("obs", "plot number:", 1, min = 1, max = 20)
-                    ,plotlyOutput("plot") 
+                    #,actionButton("plot_data", "Plotting hourly summary data")
+                    #,numericInput("obs", "plot number:", 1, min = 1, max = 20)
+                    #,plotlyOutput("plot") 
                     
-          )
+          #)
 
         
         )  
@@ -346,6 +350,13 @@ server <- function(input, output, session) {
   includeHTML1()
   })
   
+  TWbutton <- observeEvent(input$TWbutton, {
+    # session$sendCustomMessage(type = 'testmessage',
+    #                          message = 'this may take some time, plese wait')
+    dataoutputTW()
+    
+  })
+  
   dataoutput <- reactive({
     RECREATEMINFILE <- input$RECREATEMINFILE
     groupingby<- input$groupingby
@@ -357,6 +368,24 @@ server <- function(input, output, session) {
     #source <- function (x,...){source (x, local=TRUE,...)}
     source("master_shiny.R")
     values$Outputshtml="reports/multidim_anal_variable.html"
+    
+  })
+  
+  dataoutputTW <- reactive({
+    RECREATEMINFILE <- input$RECREATEMINFILE
+    groupingby<- input$groupingby
+    Npermutation<- input$Npermutation
+    STICK<- fileInput()
+    Name_project <- input$Name_project
+    s = input$TW_rows_selected
+    if (length(s)) {
+      TW_all =F
+      
+    
+    values$message <- "analyis started"
+    #source <- function (x,...){source (x, local=TRUE,...)}
+    source ("Rcode/get_behav_gp.r")
+    values$Timewindows =Timewindows
     
   })
 
@@ -403,8 +432,13 @@ output$plot <- renderPlotly({
   ggplotly(values$plot[[input$obs]])
   
 })
- 
+
+output$TW <- DT::renderDataTable(values$Timewindows, server = TRUE)
+
+
 }
+
+
 
 # Run the application 
 shinyApp(ui = ui, server = server)
