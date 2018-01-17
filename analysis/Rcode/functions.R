@@ -102,13 +102,51 @@ permutate_trainset <- function(LIST) {
   perm
 }
 
+tune.svm3 <- function(trainset,groupingvar){
+
+  
+  objR <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = "radial")
+  
+  
+  objL <- tune.svm(groupingvar~., data = trainset, gamma = 4^(-5:5), cost = 4^(-5:5),
+                   tune.control(sampling = "cross"),kernel = "linear")
+  
+  
+ 
+  return (c("radial",objR,"linear",objL))
+}
+
+#set transformation for %age time data (i.e. not distance traveled, all the other)
+#we cannot use log (too many 0), the Arcsin is also not usable since we will do regressions afterwards.
+calcul = function (x){
+  sqrt(mean (x)/60)
+}
+calcul_text = "data (%age of time spent doing the behavior) transformed using the square root method."
+
+## use calcul fonction and get values for one window:
+get_windowsummary <- function(windowdata) {
+  temp1= windowdata %>% group_by(ID) %>% 
+    #summarise_if(is.numeric,funs(mean)) %>%   # we take the mean and not the sum, to account for different window size
+    summarise_at(vars(Distance_traveled),funs(mean))
+  
+  
+  temp2= windowdata %>% group_by(ID) %>% 
+    select (- Bin, -bintodark, -Distance_traveled) %>%
+    summarise_if(is.numeric,funs(calcul))   # we take the mean and not the sum, to account for different window size
+  #summarise_at(vars(Distance_traveled),funs(mean)) %>%
+  
+  temp = inner_join(temp1,temp2)
+  names (temp)[-1]= paste0(names (temp)[-1],i)
+  return(temp)
+}
+
 ## function to work with hourly summary files: transform it into minute summary file by dividing scores by 60
 xx_to_min <- function(behav_data,min_in_x=60){
   temp= behav_data %>% select (-Bin) %>%
-    mutate_all(funs(. /min_in_x))
+  mutate_all(funs(. /min_in_x))
   temp=temp[rep(seq_len(nrow(temp)), each=min_in_x),]
-  
   result =cbind (Bin=seq(1:(nrow(behav_data)*min_in_x)),
-                 temp)
+                               temp)
   return(result)
 }
