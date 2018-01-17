@@ -92,7 +92,7 @@ Acc_real= Acc_real[,-1]
 
 
 #----------------- SVM and log regressions: permutations
-Npermutation = 300
+Npermutation = 150
 
 if (!exists("Acc_cumm")) Acc_cumm = Acc_real
 for (j in (seq(1:Npermutation)+1)){
@@ -117,16 +117,19 @@ for (j in (seq(1:Npermutation)+1)){
   Acc_notreal= Acc_notreal[,-1]
   
   Acc_cumm= rbind (Acc_cumm,Acc_notreal)
+  save.image(file = paste0("svm_logreg_", nrow(Acc_cumm)))
+  
 }
 
 stoptime <- Sys.time()
 beepr::beep()
+save.image(file = paste0("svm_logreg_", nrow(Acc_cumm)))
 
 
 
 
 
-
+difftime(stoptime, starttime,units= "mins")
 # 
 # set.seed(74)
 # source ("Rcode/multidimensional_analysis_svm.R") # returns Accuracy (text), Accuracyreal = kappa of result of svm prediction on the test data
