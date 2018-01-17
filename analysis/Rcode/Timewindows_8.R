@@ -1,16 +1,9 @@
-#------- multidimensional analysis
-#1. % time spent on each behavior calculated for each time window, output is one table with one raw being one test (one animal tested)
-#2. The table is used  as the input to a multidimensional analysis
-#------------REmarks---------------------------------------------------
+#------- Time windows creation.
 
+# 1. get data and group variables- calculate MAXTIME
 
-#------------1 Create data---------------------------------------------------
-
-#1.1 get minute data from csv file (optional),
-# and put different columns together (group behavior)
-
-#MIN_data = read_csv (paste0(Outputs,'/Min_',Name_project,'.csv'))
 Mins <- MIN_data
+Mins$animal_ID = as.character(Mins$animal_ID)
 
 source ("Rcode/grouping_variables.r")
 
@@ -19,131 +12,39 @@ temp =Mins %>% group_by(ID)%>% summarise(max(bintodark))
 MAXTIME=trunc(min (temp$`max(bintodark)`)/6)/10
 
 
+#2 create table of time window in minutes
 
-
-#1.2 create table of time window in minutes
-
-#calculate lenght of the day from the metadata:
+#2.1 calculate lenght of the day from the metadata:
 LIGHT_ON = (as.numeric(strsplit(format(metadata$light_on,"%H:%M:%S"),split = ':')[[1]][1])*60)+
   as.numeric(strsplit(format(metadata$light_on,"%H:%M:%S"),split = ':')[[1]][2])
 LIGHT_OFF = (as.numeric(strsplit(format(metadata$light_off,"%H:%M:%S"),split = ':')[[1]][1])*60)+
   as.numeric(strsplit(format(metadata$light_off,"%H:%M:%S"),split = ':')[[1]][2])
 daylenght =(LIGHT_OFF-LIGHT_ON)/60
 
-#####-------------add a column to the data saying if it is day or night
-
-# get time of start in minutes:
-temp=t(as.data.frame(strsplit(format(metadata$`real time start`,"%H:%M:%S"),split = ':')))
-temp= as.data.frame(temp)
-names (temp)= c("hr","min", "sec")
-temp <- temp %>% mutate (time= as.numeric(as.character(hr))*60+ as.numeric(as.character(min)))
-
-
-# add the column 
-metadata$start_time_min =temp$time
-Mins=left_join (Mins,metadata)
-Mins= Mins %>% mutate(timeofday = (start_time_min+Bin) %% (24*60)) %>% 
-  mutate (lightcondition = ifelse(timeofday >LIGHT_ON & timeofday <LIGHT_OFF, "DAY","NIGHT")) %>%
-  select (-timeofday, -start_time_min)
-Mins$lightcondition = as.factor(Mins$lightcondition)
-minadd= Mins %>% select (ID, Bin, lightcondition)
-#enter time windows, values in hours
-
-
-T1 = c("Bin", 0,2) # 2 first hours of recording
-T2= c("Bintodark", -2,0) # last 2h before light off
-T3 = c("Bintodark", 0,3) # early night
-T35 =c("Bintodark", 3,daylenght-3) #middle day
-T4 = c("Bintodark", daylenght-3,min ((daylenght),MAXTIME)) # late night
+#2.2 create table: single elements:
+T1 = c("Bin", 0,2,"first 2 hours of recording") # 2 first hours of recording
+T2= c("Bintodark", -2,0, "last 2h before night") # last 2h before light off
+T3 = c("Bintodark", 0,3, "first 3h of night") # early night
+T35 =c("Bintodark", 3,daylenght-3, "middle night") #middle night
+T4 = c("Bintodark", daylenght-3,min ((daylenght),MAXTIME), "late night (3h)") # late night
 #T5 = c("Bintodark", 12,15) # early day 2
-T5 = c("Bintodark", daylenght,min ((daylenght+3),MAXTIME)) # early day 2: 3h or maximal time with all mice included
+T5 = c("Bintodark", daylenght,min ((daylenght+3),MAXTIME),"early day(3h)") # early day 2: 3h or maximal time with all mice included
 
-T6= c("Bintodark", -2,min ((daylenght+3),MAXTIME))
-T7 = c("lightcondition", "DAY",NA)
-T8 = c("lightcondition", "NIGHT", NA)
+T6= c("Bintodark", -2,min ((daylenght+3),MAXTIME), "full recording")
+T7 = c("lightcondition", "DAY",NA, "daytime")
+T8 = c("lightcondition", "NIGHT", NA, "nighttime")
+
+#2.3 put the table together
 
 #create table with numeric values, values being in minutes
 #Timewindows = data.frame(rbind(T1,T2,T3,T4,T5)) #original split
-Timewindows = data.frame(rbind(T1,T2,T3,T4,T5,T6))
+Timewindows = data.frame(rbind(T1,T2,T3,T4,T5,T6,T7,T8))
+Timewindows = Timewindows[1:6,]
 #if (MAXTIME<daylenght) Timewindows = data.frame(rbind(T1,T2,T3,T35,T4))
-colnames (Timewindows) = c("time_reference", "windowstart", "windowend")
+colnames (Timewindows) = c("time_reference", "windowstart", "windowend", "windowname")
 Timewindows$time_reference = as.character(Timewindows$time_reference)
 Timewindows =Timewindows %>%
   mutate (windowstart = 60*as.numeric (as.character(windowstart)))%>%
   mutate (windowend = 60*as.numeric (as.character(windowend)))
 Timewindows = data.frame(rbind(Timewindows,T7,T8))
 
-
-
-#set transformation for %age time data (i.e. not distance traveled, all the other)
-#we cannot use log (too many 0), the Arcsin is also not usable since we will do regressions afterwards.
-calcul = function (x){
-  sqrt(mean (x)/60)
-}
-calcul_text = "data (%age of time spent doing the behavior) transformed using the square root method."
-
-## use calcul fonction and get values for one window:
-get_windowsummary <- function(windowdata) {
-  temp1= windowdata %>% group_by(ID) %>% 
-    #summarise_if(is.numeric,funs(mean)) %>%   # we take the mean and not the sum, to account for different window size
-    summarise_at(vars(Distance_traveled),funs(mean))
-  
-
-  temp2= windowdata %>% group_by(ID) %>% 
-    select (- Bin, -bintodark, -Distance_traveled) %>%
-    summarise_if(is.numeric,funs(calcul))   # we take the mean and not the sum, to account for different window size
-    #summarise_at(vars(Distance_traveled),funs(mean)) %>%
-    
-  temp = inner_join(temp1,temp2)
-  names (temp)[-1]= paste0(names (temp)[-1],i)
-  return(temp)
-}
-
-
-#1.4 create result table
-if (groupingby == "AOCF"){
-  behav_gp =behav_gp
-} else if (groupingby == "MITsoft") {
-  behav_gp = behav_jhuang
-} 
-
-behav_gp = left_join(behav_gp, minadd)
-
-Multi_datainput = behav_gp %>% group_by(ID) %>% 
-  summarise_if(is.character,funs(sum)) %>% select (ID)
-
-for (i in c(1:nrow(Timewindows))){
-  # filer to data in the time window
-  if (Timewindows$time_reference [i] =="Bin"){
-    windowdata = behav_gp %>% filter (Bin > Timewindows [i,2] & Bin < Timewindows [i,3])
-  }else if (Timewindows$time_reference[i] =="Bintodark"){
-    windowdata = behav_gp %>% filter (bintodark > Timewindows [i,2] & bintodark < Timewindows [i,3])
-  }else if (Timewindows$time_reference[i] =="lightcondition"){
-    windowdata = behav_gp %>% filter (lightcondition == Timewindows [i,2] )
-  }else print ("error in timewindows table")
-  
-  #calculate values and add it to the result data frame
-  Multi_datainput = inner_join (Multi_datainput,get_windowsummary(windowdata), by ="ID")
-  
-}
-
-# save data for later use
-
-
-write.table(Multi_datainput, paste0(Outputs,'/timedwindowed_',groupingby,"_",Name_project,'.csv'), sep = ';',row.names = FALSE)
-
-#add groupingvar 
-Multi_datainput_m = left_join(Multi_datainput, metadata %>% select (ID, groupingvar), by= "ID")
-
-Multi_datainput_m = Multi_datainput_m %>% 
-  mutate (groupingvar = as.factor(groupingvar))%>%
-  select (-ID)
-
-#add groupingvar + confoundvar
-if (!is.na(Projects_metadata$confound_by)){
-  Multi_datainput_m2 = left_join(Multi_datainput, metadata %>% select (ID, groupingvar, confoundvar), by= "ID")
-
-  Multi_datainput_m2 = Multi_datainput_m2 %>% 
-  mutate (groupingvar = as.factor(groupingvar))%>%
-  select (-ID)
-}
