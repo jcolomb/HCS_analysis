@@ -363,6 +363,9 @@ server <- function(input, output, session) {
     Npermutation<- input$Npermutation
     STICK<- fileInput()
     Name_project <- input$Name_project
+    selct_TW =  unlist(input$TW_rows_selected)
+    if (!length(selct_TW)) selct_TW = c(1:8)
+      
     
     values$message <- "analyis started"
     #source <- function (x,...){source (x, local=TRUE,...)}
@@ -377,9 +380,8 @@ server <- function(input, output, session) {
     Npermutation<- input$Npermutation
     STICK<- fileInput()
     Name_project <- input$Name_project
-    s = input$TW_rows_selected
-    if (length(s)) {
-      TW_all =F
+    selct_TW <- c(1:8)
+      
       
     
     values$message <- "analyis started"

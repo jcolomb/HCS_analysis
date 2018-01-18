@@ -1,6 +1,6 @@
 #------------------ choose only some time windows
 
-if (!TW_all == T) Timewindows = Timewindows[Timewindows$inclusion,]
+Timewindows = Timewindows[as.numeric(selct_TW),]
 
 
 #-------------add a column to the data saying if it is day or night

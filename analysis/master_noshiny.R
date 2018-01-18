@@ -38,6 +38,8 @@ RECREATEMINFILE= F # set to true if you want to recreate an existing min file, o
 
 # variable grouping, only working with HCS data at the moment.
 groupingby = "MITsoft" # other possibilities: "AOCF"
+# choosing time windows for the analysis
+selct_TW = c(1:8)
 
 Npermutation = 1 # number of permutation to perform. set to 1 if testing (42 s per run with AOCF designation,30s with MIT)
 
@@ -69,7 +71,7 @@ Name_project ="Ro_testdata"
 # Name_project = "Vida_2015"
 # Name_project = "Lehnard_2016"
 # Name_project ="Tarabykin_2015" 
-Name_project ="Steele07_HD"
+#Name_project ="Steele07_HD"
 
 #-------------------compute metadata and MIN_data----------------------------
 
