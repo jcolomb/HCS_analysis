@@ -5,10 +5,11 @@
 # input = behav_gp
 
 # change the class of hours as numeric instead of charachter
+behav_gpori= behav_gp
 if (!is.numeric(behav_gp$Bin)) {
   behav_gp <- behav_gp %>% mutate(Bin = as.numeric(Bin))
 }
-
+behav_gp = behav_gp %>% select (-lightcondition)
 #---------------creating 60 mins bins for visualisation---------------#
 
 
@@ -153,4 +154,5 @@ grid.arrange(splitTextGrob(text.all.d),pl.all.d,
 
 dev.off()
 
+behav_gpori -> behav_gp
 

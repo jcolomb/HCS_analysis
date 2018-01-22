@@ -281,7 +281,7 @@ ui <- fluidPage(
                      "Number of permutations to perform for the statistics:",
                      min = 1,
                      max = 600,
-                     value = 240)
+                     value = 1)
          , checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
          , radioButtons('groupingby', 'grouping variables following which categories',
                       c('Jhuang 10 categories'='MITsoft',
@@ -291,9 +291,8 @@ ui <- fluidPage(
                           "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")
          ,selectInput('Name_project', 'choose the project to analyse:',
                                       Projects_metadata$Proj_name ,
-                                      'test_online')
-         ,actionButton("TWbutton", "Choose time windows")
-         ,actionButton("goButton", "Do multidimensional analysis")
+                                      'Ro_testdata')
+         
                           
          ))), 
       
@@ -301,9 +300,15 @@ ui <- fluidPage(
       mainPanel(
         tabsetPanel(
           tabPanel("multidim_results",
-            DT::dataTableOutput('TW')       
+            "If you do not choose the time windows to incorporate in the analysis, all time windows will be used.
+            "       
+            ,actionButton("TWbutton", "Choose time windows")
+            , tags$hr()
+            ,DT::dataTableOutput('TW')  
+            ,actionButton("goButton", "Do multidimensional analysis")
+                 
             ,htmlOutput("includeHTML")
-            , textOutput("test")
+            #, textOutput("test")
           )
           ,tabPanel("summary reports",
                    "Note that a pdf file with all figures is also produced and saved in the Routputs folder."
@@ -363,7 +368,8 @@ server <- function(input, output, session) {
     Npermutation<- input$Npermutation
     STICK<- fileInput()
     Name_project <- input$Name_project
-    selct_TW =  unlist(input$TW_rows_selected)
+    selct_TW =  input$TW_rows_selected
+   
     if (!length(selct_TW)) selct_TW = c(1:8)
       
     
@@ -403,7 +409,7 @@ server <- function(input, output, session) {
   output$includeHTML<-renderText(includeHTML1())
 
    output$test <- renderPrint({
-     input$Name_project
+     values$message
   })
    
 

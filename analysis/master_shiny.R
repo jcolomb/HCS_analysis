@@ -1,5 +1,5 @@
 source ("Rcode/get_behav_gp.r")
-source ("Rcode/Timewindows_utilisation.r")
+
 #multidimensional analysis, Random forest in 2 rounds
 source ("Rcode/RF_selection_2rounds.R")# returns RF_selec = Input
 
@@ -42,8 +42,6 @@ if (nrow(metadata) < 22) {
               copy.mode = TRUE, copy.date = FALSE)
   }
 }
-  
-  
   
 
 

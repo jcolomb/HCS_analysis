@@ -1,6 +1,6 @@
 #------------------ choose only some time windows
 
-Timewindows = Timewindows[as.numeric(selct_TW),]
+Timewindows = Timewindows[selct_TW,]
 
 
 #-------------add a column to the data saying if it is day or night

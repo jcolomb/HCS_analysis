@@ -18,6 +18,7 @@ install.packages(c(
   "plotly",
   "glmpath",
   "pander",
-  "DT"))
+  "DT",
+  "beepr"))
 
 devtools::install_github('jcolomb/osfr')
