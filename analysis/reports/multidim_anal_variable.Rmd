@@ -3,10 +3,6 @@
 output: html_document
 ---
 
-```{r}
-save.image(file= "results_b.rdata") 
-```
-
 
 #This is an analysis of the `r Name_project` project
 
@@ -25,8 +21,8 @@ summary (as.factor(metadata$groupingvar))
 ---
 
 
-We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-3` x `r nrow (Timewindows)` **=
-`r (length(names(behav_gp))-3)* nrow (Timewindows)` variables** :
+We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-4` x `r nrow (Timewindows)` **=
+`r (length(names(behav_gp))-4)* nrow (Timewindows)` variables** :
 
 ```{r, results='asis', echo=FALSE}
 pander::pandoc.table(Timewindows)

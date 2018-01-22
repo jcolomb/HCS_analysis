@@ -54,7 +54,7 @@ for (i in c(1:nrow(Timewindows))){
   }else print ("error in timewindows table")
   
   #calculate values and add it to the result data frame
-  Multi_datainput = inner_join (Multi_datainput,get_windowsummary(windowdata), by ="ID")
+  Multi_datainput = inner_join (Multi_datainput,get_windowsummary(windowdata, i=i), by ="ID")
   
 }
 

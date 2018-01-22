@@ -125,7 +125,7 @@ calcul = function (x){
 calcul_text = "data (%age of time spent doing the behavior) transformed using the square root method."
 
 ## use calcul fonction and get values for one window:
-get_windowsummary <- function(windowdata) {
+get_windowsummary <- function(windowdata,i) {
   temp1= windowdata %>% group_by(ID) %>% 
     #summarise_if(is.numeric,funs(mean)) %>%   # we take the mean and not the sum, to account for different window size
     summarise_at(vars(Distance_traveled),funs(mean))
