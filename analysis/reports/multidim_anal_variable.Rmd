@@ -3,6 +3,9 @@
 output: html_document
 ---
 
+```{r}
+save.image(file= "results_b.rdata") 
+```
 
 
 #This is an analysis of the `r Name_project` project
