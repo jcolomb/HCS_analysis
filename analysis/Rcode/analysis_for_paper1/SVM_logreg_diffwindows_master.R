@@ -123,7 +123,7 @@ for (j in (seq(1:Npermutation)+1)){
 
 stoptime <- Sys.time()
 beepr::beep()
-save.image(file = paste0("svm_logreg_", nrow(Acc_cumm)))
+#save.image(file = paste0("svm_logreg_", nrow(Acc_cumm)))
 
 
 
