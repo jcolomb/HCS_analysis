@@ -1,4 +1,7 @@
-#
+#ANALYSING DATA
+
+
+
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
 #
@@ -427,8 +430,8 @@ dataoutput2 <- reactive({
   
   STICK<- fileInput()
   Name_project <- input$Name_project
-  selct_TW =  input$TW_rows_selected
   
+  selct_TW =  input$TW_rows_selected
   if (!length(selct_TW)) selct_TW = c(1:8)
   values$message <- "analyis started"
   #source <- function (x,...){source (x, local=TRUE,...)}
