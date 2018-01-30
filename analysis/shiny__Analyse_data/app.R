@@ -10,6 +10,8 @@
 #    http://shiny.rstudio.com/
 #
 setwd("../")
+versions =list.files("../.git/refs/tags")
+version = versions[length(versions)]
 library(shiny)
 library(plotly)
 require (shinyFiles)
@@ -275,8 +277,9 @@ all_TW =T
 ui <- fluidPage(
    
    # Application title
-   titlePanel("Analyse your home cage monitoring data. https://github.com/jcolomb/HCS_analysis"),
-   
+   titlePanel(title=paste0("BehSeqanalyser, ",version))
+   ,tags$h4 ("Analyse home cage monitoring data. https://github.com/jcolomb/HCS_analysis")
+   ,     
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(

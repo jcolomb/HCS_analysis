@@ -20,6 +20,8 @@ library(gridExtra)
 library(RGraphics)
 source ("Rcode/functions.r")
 
+versions =list.files("../.git/refs/tags")
+version = versions[length(versions)]
 
 #library (tcltk2)
 

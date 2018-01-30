@@ -2,9 +2,10 @@
 
 output: html_document
 ---
+This report was created the using the behavseqanalyser `r version`, behaviour were grouped  using the `r groupingby` categorisation (date: `r Sys.Date()`).
 
 
-#This is an analysis of the `r Name_project` project
+#This is an analysis of the `r Name_project` project, done with the behavseqanalyser `r version`
 
 
 The data is grouped by `r Projects_metadata$group_by `.
@@ -97,8 +98,8 @@ print(boxplotPCA1)
 NB: This strategy is pretty good against type I errors. On the other hand, it may well oversee existing differences.
 
 #SVM
- 
-We perform a SVM on the total data or the reduced data and compare the results. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy (kappa) as the output. This accuracy (`r Accuracyreal`) was tested for significance, using a permutation strategy. We performed `r length(Acc_sampled)` permutations. 
+
+We perform a SVM on the total data or the reduced data and compare the results. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy (kappa) as the output. This accuracy (`r Accuracyreal`) was tested for significance, using a permutation strategy. We performed `r length(Acc_sampled)` permutations.
 (What it does is permute the elements in random groups in the training data, tune a svm and apply it to the (non-randomised) test set, its prediction (kappa score) is saved.
 We use a Binomial confidence interval to calculate a p value. )
 
@@ -113,7 +114,7 @@ if (nrow(metadata) < 22) {print("there is not enough data to try to do a svm")
 ```{r, results='asis', echo=FALSE}
 if (R[3]< 0.05) {pander::pandoc.strong("The SVM procedure suggest that the behavior profile of the two groups of animal are not identical.")
 }else {pander::pandoc.strong("The SVM procedure could not tell the two groups apart.")
-  
+
 }
 
 
@@ -148,6 +149,34 @@ print(zapsmall(R)) # 95% CI by default
 
 
 
+---
+metadata used for the analysis
+
+```{r, echo=FALSE}
+DT::datatable(t(Projects_metadata),
+              options = list(
+  pageLength =100,
+  lengthMenu = c( 5, 100)
+),caption = "master metadata")
+
+```
+
+---
+
+```{r, echo=FALSE}
+metadata$`real time start`= as.character(metadata$`real time start`)
+DT::datatable (metadata,caption = "full metadata",
+               extensions = 'Buttons', options = list(
+    dom = 'Bfrtip',
+    buttons = 
+       list(
+        extend = 'collection',
+        buttons = c('csv', 'excel'),
+        text = 'Download'
+      )))
+
+
+```
 
 
 
