@@ -1,3 +1,7 @@
+#-- this code is used if there is more than two groups 
+#-- it does the ICA and the svm analysis
+#-- probably needs to be modified
+
 #plot with color
 
 p = icafast(Input %>% select (-groupingvar),

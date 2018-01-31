@@ -17,13 +17,14 @@ names(Mins)[names(Mins)=="Eat.Z1."] = 'Eat.1'
 names(Mins)[names(Mins)=="Eat.Z2."] = 'Eat.2'
 names(Mins)[names(Mins)=="Eat.Z3."] = 'Eat.3'
 
+# if eat and drink are separated in 3 zones, calculate the sum
 if (!is.null(Mins$Eat.2)){
   Mins<- Mins %>% mutate (Eat = Eat.1+Eat.2+Eat.3, Drink = Drink.1+Drink.2+Drink.3)
 }
 
 
-# used information about groups as identified in 4. Hours file
-# got arousal and urinate out (always 0)
+# group behavior following AOCF rules
+# got arousal and urinate in Unknown (always 0)
 behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = distance.traveled,
                               ComeDown = ComeDown+CDfromPR,
                               hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV+LandVert,
@@ -35,7 +36,7 @@ behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = di
                               Unknown = Unknown + Urinate , # urinate always(?) 0
                               Awaken = Awaken,Chew = Chew, Sniffing = Sniff, RemainLow = RemainLw,
                               Eat = Eat, Drink = Drink, Stretch = Stretch)
-
+# group behavior following Jhuang et al. rules
 behav_jhuang <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,
                                 Distance_traveled = distance.traveled,
                                 Hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV,

@@ -1,4 +1,7 @@
-
+##--- this code creates metadata$groupingvar, from Projects_metadata$group_by,
+#-- as well as metadata$confoundvar
+##-- TODO get rid of exception for age_category using the other_category field.
+#-- if more than one element, bind the elements in one unique category.
 
 groups = str_split( as.character(Projects_metadata$group_by), " ")[[1]]
 groups=groups [groups!="+"]

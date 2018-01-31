@@ -1,6 +1,8 @@
-#RF
+#---- RF: random forest in 2 rounds, 
+#-- outputs: RF_selec, Variables_list
 
-# first round:
+#---------------------- first round:
+#-- random forest
 HCS.rf <-
   randomForest(
     groupingvar ~ .,
@@ -9,13 +11,16 @@ HCS.rf <-
     proximity = TRUE,
     ntree = 1500
   )
+#-- get table of best variables
 R = round(importance(HCS.rf, type = 2), 2)
 R2 = data.frame(row.names (R), R)  %>% arrange(-MeanDecreaseGini)
 
+#-- reduce input to firs 20 variables
 Input = Multi_datainput_m [, names(Multi_datainput_m) %in% as.character(R2 [1:20, 1])]
 Input$groupingvar = Multi_datainput_m$groupingvar
 
-# second round
+#---------------------- second round
+#-- random forest
 HCS.rf2 <-
   randomForest(
     groupingvar ~ .,
@@ -24,10 +29,11 @@ HCS.rf2 <-
     proximity = TRUE,
     ntree = 1500
   )
+#-- get table of best variables
 R = round(importance(HCS.rf2, type = 2), 2)
 R2 = data.frame(row.names (R), R)  %>% arrange(-MeanDecreaseGini)
 
-# selection of variables (8-20)
+#-- selection of variables (8-20)
 
 import_treshold = 0.95
 R3 = data.frame(row.names (R), R)  %>%

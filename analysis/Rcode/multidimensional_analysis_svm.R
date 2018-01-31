@@ -1,4 +1,6 @@
-# #-------------------------SVM
+# #-------------------------SVM analysis
+## should make different analysis depending on number of animals per group.
+## needs to be reworked extensively
 
 
 if (!nrow(metadata) < 22) {

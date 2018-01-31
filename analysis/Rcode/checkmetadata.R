@@ -1,4 +1,4 @@
-# get file path for data files (behavior+ minute +hour summary)
+#--- get file path for data files (behavior+ minute +hour summary)
 
 BEH_datafiles = metadata  %>% transmute(paste(WD,Folder_path, raw_data_folder, experiment_folder_name,Behavior_sequence, sep= "/"))
 names(BEH_datafiles)= "filepath"
@@ -10,16 +10,19 @@ names(MIN_datafiles)= "filepath"
 MIN_datafiles= MIN_datafiles%>% mutate (file.exists (as.character(filepath)   ) )   
 
 
-Hour_datafiles = metadata %>% transmute(paste(WD,Folder_path, raw_data_folder, experiment_folder_name,Onehr_summary, sep= "/"))
+Hour_datafiles = metadata %>% transmute(paste(WD,Folder_path, raw_data_folder, experiment_folder_name,Onehour_summary, sep= "/"))
 names(Hour_datafiles)= "filepath"
 Hour_datafiles= Hour_datafiles%>% mutate (file.exists (as.character(filepath)   ) )   
 
+#--- bind all path into one data frame
 all_datafiles=rbind(MIN_datafiles,BEH_datafiles,Hour_datafiles)
 
-###for testing testing
+###for testing 
 ###all_datafiles [5,2]= FALSE
 #View(all_datafiles)
-#check correpondance between path in metadata and real files.
+
+
+#--- check correpondance between path in metadata and real files, only for data of the primary_datafile .
 
 if (metadata$primary_datafile[1]== "hour_summary" ){
   if (all(Hour_datafiles$`file.exists(as.character(filepath))`)){
@@ -34,6 +37,7 @@ if (metadata$primary_datafile[1]== "hour_summary" ){
 }
 ##TODO : check only min and not behav file??
 
+#--- check if number of files corresponds, if not report files present but not in metadata.
 datafolder = metadata %>% transmute(paste(WD,Folder_path, raw_data_folder,  sep= "/"))
 files= list.files(as.character(datafolder[1,1]), recursive = T)
 if (nrow(all_datafiles) < length(files)){
@@ -42,24 +46,11 @@ if (nrow(all_datafiles) < length(files)){
 }
 
 
-#put something in genotype and treatment fields if it is NA.
+#--- put something in genotype and treatment fields if it is NA.
 metadata$genotype=ifelse(is.na (metadata$genotype), "unknown",metadata$genotype)
 metadata$treatment=ifelse(is.na (metadata$treatment), "none",metadata$treatment)
 
-# add animal ID to table
+#--- add animal ID to table of file path
 BEH_datafiles=cbind(BEH_datafiles$filepath, metadata$ID)
 MIN_datafiles=cbind(MIN_datafiles$filepath, metadata$ID)
 Hour_datafiles=cbind(Hour_datafiles$filepath, metadata$ID)
-
-
-
-
-# 
-# temp=BEH_datafiles %>% mutate(ids = max(str_locate_all(pattern = '_',filepath)[[1]]))
-# ANIMAL_IDS= temp %>% transmute (animal_ID = substr(filepath,ids+1,nchar(filepath)-5))
-# temp = cbind(ANIMAL_IDS, metadata$`animal ID`)
-# temp %>% transmute (animal_ID == metadata$`animal ID`)
-# 
-# # find animal ID in file name
-# ids <- max(str_locate_all(pattern = '_',files[f])[[1]])
-# animal_ID = substr(files[f],ids+1,nchar(files[f])-5)
