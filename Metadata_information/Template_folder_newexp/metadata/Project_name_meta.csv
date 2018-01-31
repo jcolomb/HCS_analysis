@@ -1,1 +1,1 @@
-animal_ID,gender,treatment,genotype,date,test cage,real time start,Lab_ID,Exclude_data,comment,experiment_folder_name,Behavior_sequence,Onemin_summary,Onehour_summary,primary_behav_sequence,primary_position_time,primary_datafile
+animal_ID,animal_birthdate,gender,treatment,genotype,other_category,date,test cage,real time start,Lab_ID,Exclude_data,comment,experiment_folder_name,Behavior_sequence,Onemin_summary,Onehour_summary,primary_behav_sequence,primary_position_time,primary_datafile
