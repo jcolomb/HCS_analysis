@@ -32,8 +32,8 @@ version = versions[length(versions)]
 
 ##project metadata path:
 
-#PMeta ="../data/Projects_metadata2.csv"
-PMeta = osfr::path_file("myxcv")
+PMeta ="../data/Projects_metadata.csv"
+#PMeta = osfr::path_file("myxcv")
 
 RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 
