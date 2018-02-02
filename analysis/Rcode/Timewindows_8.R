@@ -38,8 +38,8 @@ T8 = c("lightcondition", "NIGHT", NA, "nighttime")
 
 #create table with numeric values, values being in minutes
 #Timewindows = data.frame(rbind(T1,T2,T3,T4,T5)) #original split
-Timewindows = data.frame(rbind(T1,T2,T3,T4,T5,T6,T7,T8))
-Timewindows = Timewindows[1:6,]
+Timewindows = data.frame(rbind(T1,T2,T3,T35,T4,T5,T6,T7,T8))
+Timewindows = Timewindows[1:7,]
 #if (MAXTIME<daylenght) Timewindows = data.frame(rbind(T1,T2,T3,T35,T4))
 colnames (Timewindows) = c("time_reference", "windowstart", "windowend", "windowname")
 Timewindows$time_reference = as.character(Timewindows$time_reference)

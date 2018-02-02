@@ -32,8 +32,8 @@ version = versions[length(versions)]
 
 ##project metadata path:
 
-PMeta ="../data/Projects_metadata.csv"
-#PMeta = osfr::path_file("myxcv")
+#PMeta ="../data/Projects_metadata.csv"
+PMeta = osfr::path_file("myxcv")
 
 RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 
@@ -41,7 +41,7 @@ RECREATEMINFILE= F # set to true if you want to recreate an existing min file, o
 # variable grouping, only working with HCS data at the moment.
 groupingby = "MITsoft" # other possibilities: "AOCF"
 # choosing time windows for the analysis
-selct_TW = c(1:8)
+selct_TW = c(1:9)
 
 Npermutation = 1 # number of permutation to perform. set to 1 if testing (42 s per run with AOCF designation,30s with MIT)
 

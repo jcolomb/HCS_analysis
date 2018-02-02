@@ -376,7 +376,7 @@ server <- function(input, output, session) {
     Name_project <- input$Name_project
     selct_TW =  input$TW_rows_selected
    
-    if (!length(selct_TW)) selct_TW = c(1:8)
+    if (!length(selct_TW)) selct_TW = c(1:9)
       
     
     values$message <- "analyis started"
@@ -392,7 +392,7 @@ server <- function(input, output, session) {
     Npermutation<- input$Npermutation
     STICK<- fileInput()
     Name_project <- input$Name_project
-    selct_TW <- c(1:8)
+    selct_TW <- c(1:9)
       
       
     
@@ -435,7 +435,7 @@ dataoutput2 <- reactive({
   Name_project <- input$Name_project
   
   selct_TW =  input$TW_rows_selected
-  if (!length(selct_TW)) selct_TW = c(1:8)
+  if (!length(selct_TW)) selct_TW = c(1:9)
   values$message <- "analyis started"
   #source <- function (x,...){source (x, local=TRUE,...)}
   source("Rcode/get_behav_gp.R")
