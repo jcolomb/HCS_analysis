@@ -2,10 +2,11 @@
 
 output: html_document
 ---
+
 This report was created the using the behavseqanalyser `r version`, behaviour were grouped  using the `r groupingby` categorisation (date: `r Sys.Date()`).
 
 
-#This is an analysis of the `r Name_project` project, done with the behavseqanalyser `r version`
+#`r Name_project` project, home cage monitoring results
 
 
 The data is grouped by `r Projects_metadata$group_by `.
@@ -31,6 +32,7 @@ pander::pandoc.table(Timewindows)
 Note that the last window might be truncated if not all dataset is achieving 900 min after light on.
 
 We then run a random forest to get the variables in order of importance to distinguish the groups. We then take the best 20 and run the random forest again (such that the Gini scores obtained will not depend on the initial number of variables). We plot here the table of variables ordered by weight:
+
 ```{r, echo=FALSE}
 
 varImpPlot(HCS.rf)
@@ -67,7 +69,7 @@ print(p)
 ```
 
 
-Here, we plot the first two or threecomponents obtained after a ICAperformed on the reduced data:
+Here, we plot the first two or threecomponents obtained after a ICA performed on the reduced data:
 
 ```{r, echo=FALSE}
 print(pls)  
@@ -99,7 +101,7 @@ NB: This strategy is pretty good against type I errors. On the other hand, it ma
 
 #SVM
 
-We perform a SVM on the total data or the reduced data and compare the results. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy (kappa) as the output. This accuracy (`r Accuracyreal`) was tested for significance, using a permutation strategy. We performed `r length(Acc_sampled)` permutations.
+We perform a SVM on the total data. For that with split the data in training and test sets, tune the svm for best parameters and then run the svm and gives the overall accuracy (kappa) as the output. This accuracy (`r Accuracyreal`) was tested for significance, using a permutation strategy. We performed `r length(Acc_sampled)` permutations.
 (What it does is permute the elements in random groups in the training data, tune a svm and apply it to the (non-randomised) test set, its prediction (kappa score) is saved.
 We use a Binomial confidence interval to calculate a p value. )
 
@@ -136,7 +138,9 @@ hist(Acc_sampled, breaks=c(0:15)/15*2-1)
 abline(v = Accuracyreal, col="Red")
 
 ```
+
 P value calculation:
+
 ```{r}
                                  # Exports `binconf`
 k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
@@ -150,7 +154,9 @@ print(zapsmall(R)) # 95% CI by default
 
 
 ---
+
 metadata used for the analysis
+
 
 ```{r, echo=FALSE}
 DT::datatable(t(Projects_metadata),
@@ -166,14 +172,20 @@ DT::datatable(t(Projects_metadata),
 ```{r, echo=FALSE}
 metadata$`real time start`= as.character(metadata$`real time start`)
 DT::datatable (metadata,caption = "full metadata",
-               extensions = 'Buttons', options = list(
+               extensions = 'Buttons', 
+               options = list(
+                 pageLength =5,
+  
     dom = 'Bfrtip',
-    buttons = 
-       list(
+    buttons = list('pageLength','copy', list(
         extend = 'collection',
         buttons = c('csv', 'excel'),
         text = 'Download'
-      )))
+      ))
+    
+       #list(c('pageLength','csv', 'excel'))
+        ,
+lengthMenu = c( 5,20, -1)))
 
 
 ```

@@ -1,3 +1,8 @@
+
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1162739.svg)](https://doi.org/10.5281/zenodo.1162739)
+
+
 # HCS_analysis
 This code analyse data obtained from the homecagescan software (HCS, cleversys Inc.), it is buid to accept data from other single housed animal home cage monitoring systems.
 
