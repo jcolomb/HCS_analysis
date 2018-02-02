@@ -1,6 +1,6 @@
 # plot data from svm against logreg experiment
 
-load("C:/Users/cogneuro/Desktop/HCS_analysis/analysis/svm_logreg_174")
+load("C:/Users/cogneuro/Desktop/HCS_analysis/analysis/svm_logreg_246")
 Plothist_bin <- function (Acc_cumm,i){
   dataplot = data.frame(Acc_cumm [-1,i])
   realacc=Acc_cumm [1,i]
