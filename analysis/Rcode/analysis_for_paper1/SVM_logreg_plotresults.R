@@ -9,7 +9,7 @@ Plothist_bin <- function (Acc_cumm,i){
   
   k1 <- sum(as.numeric(dataplot$Accuracy_perm_grouping) >=
               realacc)   # One-tailed test
-  stat =print(zapsmall(binconf(k1, nrow(dataplot)-1, method='exact'))) # 95% CI by default
+  stat =print(zapsmall(Hmisc::binconf(k1, nrow(dataplot)-1, method='exact'))) # 95% CI by default
   R= "not enough \npermutation done"
   if (stat[1,2] > 0.05) R= "no difference spotted"
   if (stat[1,3] < 0.05) R= paste0("different \nwith p < ",stat[1,3])
@@ -39,8 +39,8 @@ for (i in seq(1:Nplot)){
 
 #pdf(file = paste0("svm_logregresults.pdf"), width = 15, height = 10)
 
-marrangeGrob(pl_hist ,
-             ncol=3,nrow =3, top= paste0 ("accuracy of grouping with ",nrow(dataplot)," permutations performed"))
+gridExtra::marrangeGrob(pl_hist ,
+             ncol=3,nrow =3, top= paste0 ("accuracy of grouping with ",nrow(data.frame(Acc_cumm [-1,1]))," permutations performed"))
 
 
 #dev.off()
