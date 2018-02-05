@@ -25,17 +25,25 @@ if (!is.null(Mins$Eat.2)){
 
 # group behavior following AOCF rules
 # got arousal and urinate in Unknown (always 0)
-behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,Distance_traveled = distance.traveled,
+behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,
+                              Distance_traveled = distance.traveled,
                               ComeDown = ComeDown+CDfromPR,
                               hang = HangCudl+HangVert+HVfromRU+HVfromHC+RemainHC+RemainHV+LandVert,
-                              jump = Jump+ReptJump, immobile=Stationa+Pause+Sleep, 
+                              jump = Jump+ReptJump, 
+                              immobile=Stationa+Pause+Sleep, 
                               rearup = RearUp+RUfromPR+CDtoPR+RUtoPR+RemainPR+RemainRU,
                               digforage=Dig+Forage,
-                              walk = Turn+WalkLeft+WalkRght+WalkSlow+Circle, Groom = Groom, 
+                              walk = Turn+WalkLeft+WalkRght+WalkSlow+Circle,
+                              Groom = Groom, 
                               Twitch = Twitch,
                               Unknown = Unknown + Urinate , # urinate always(?) 0
-                              Awaken = Awaken,Chew = Chew, Sniffing = Sniff, RemainLow = RemainLw,
-                              Eat = Eat, Drink = Drink, Stretch = Stretch)
+                              Awaken = Awaken,
+                              Chew = Chew, 
+                              Sniffing = Sniff,
+                              RemainLow = RemainLw,
+                              Eat = Eat, 
+                              Drink = Drink, 
+                              Stretch = Stretch)
 # group behavior following Jhuang et al. rules
 behav_jhuang <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,
                                 Distance_traveled = distance.traveled,
