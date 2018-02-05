@@ -17,6 +17,8 @@ library(glmpath)
 source ("Rcode/functions.r")
 library(gridExtra)
 library(RGraphics)
+versions =list.files("../.git/refs/tags")
+version = versions[length(versions)]
 
 
 
@@ -28,7 +30,7 @@ Projects_metadata <- read_csv(PMeta)
 RECREATEMINFILE=T
 STICK =NA
 Name_project ="Ro_testdata"
-selct_TW = c(1:8)
+selct_TW = c(1:9)
 
 
 groupingby = "MITsoft" # other possibilities: "AOCF"
