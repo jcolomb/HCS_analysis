@@ -6,7 +6,7 @@ foldername= paste0("BSeqAnal_",version)
 Outputs = paste(WD,Projects_metadata$Folder_path,foldername, sep="/")
 onlinemin=Outputs 
 #for online projects, outputs are written on disk:
-if (WD == "https:/") Outputs = paste("../",foldername,Projects_metadata$Folder_path, sep="/")
+if (WD == "https:/") Outputs = paste("../data/",foldername,Projects_metadata$Folder_path, sep="/")
 
 dir.create (Outputs, recursive = TRUE)
 plot.path = Outputs
