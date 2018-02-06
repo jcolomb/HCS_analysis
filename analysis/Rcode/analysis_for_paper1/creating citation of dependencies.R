@@ -2,6 +2,7 @@ sink("test.bib")
 out <- sapply(names(sessionInfo()$otherPkgs), 
               function(x) print(citation(x), style = "Bibtex"))
 
+#table metadata
 
 sink("analysis/materialforpaper/projectmetadata.tex")
 temp=t(Projects_metadata)
@@ -16,4 +17,18 @@ print (Pmeta2,
        #tabular.environment ="tabular*",
        #width ="\\linewidth"
        )
+sink()
+
+## table categories
+table_categorisation <- read.csv("~/github_repo/HCS/table_categorisation.csv")
+
+sink("materialforpaper/tablecat.tex")
+print(
+  xtable::xtable(table_categorisation, align = "|l|l|l|l|",
+                 label = "cat_table",
+                 caption = "The initial 45 columns were pooled into 18 and 10 categories."), 
+  include.rownames=FALSE,
+  
+  table.placement="!htbp"
+)
 sink()
