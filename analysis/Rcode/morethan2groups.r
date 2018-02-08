@@ -33,7 +33,7 @@ Input = Multi_datainput_m
 ##data splitting
 #split by variable
 
-if (length(unique(metadata$groupingvar))==3) {
+
   metadata_ori= metadata
   Multi_datainput_m_ori = Multi_datainput_m
   Multi_datainput_m2_ori = Multi_datainput_m2
@@ -88,7 +88,7 @@ if (length(unique(metadata$groupingvar))==3) {
   Multi_datainput_m_ori -> Multi_datainput_m
   Multi_datainput_m2_ori -> Multi_datainput_m2
   metadata_ori -> metadata
-}
+
 # print(pls)
 # p1
 # p2

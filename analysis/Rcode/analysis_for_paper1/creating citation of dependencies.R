@@ -1,6 +1,16 @@
-sink("test.bib")
-out <- sapply(names(sessionInfo()$otherPkgs), 
-              function(x) print(citation(x), style = "Bibtex"))
+write_bib("devtools")
+
+## -- the bib was created using multiple time this and citation ("xxx") commands, adding code by hand afterwards
+sink("analysis/materialforpaper/test.bib")
+knitr::write_bib()
+knitr::write_bib("devtools")
+
+# out <- sapply(names(sessionInfo()$otherPkgs), 
+#               function(x) print(citation(x), style = "Bibtex"))
+# print (citation(), style = "Bibtex")
+# print (citation("devtools"), style = "Bibtex")
+sink()
+
 
 #table metadata
 
@@ -8,7 +18,7 @@ sink("analysis/materialforpaper/projectmetadata.tex")
 temp=t(Projects_metadata)
 temp=as.data.frame(temp)
 Pmeta2=xtable::xtable(temp,
-                      align = "|p{0.18\textwidth}|p{0.27\textwidth}|",
+                      align = "|p{0.35\\linewidth}|p{0.55\\linewidth}|",
                       caption = "Master metadata information.",
                       label = "tab:project_metadata")
 print (Pmeta2, 
