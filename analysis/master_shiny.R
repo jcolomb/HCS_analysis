@@ -34,7 +34,7 @@ if (nrow(metadata) < 22) {
     source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
     rmarkdown::render ("reports/multidim_anal_variable.Rmd")
   }
-  save.image(file= "thisisatest.rdata") 
+  save.image(file= "reports/results.rdata") 
   file.copy("reports/results.rdata", paste0(Outputs,"/multidim_analysis_",groupingby,".Rdata"), overwrite=TRUE,
             copy.mode = TRUE, copy.date = FALSE)
 }
