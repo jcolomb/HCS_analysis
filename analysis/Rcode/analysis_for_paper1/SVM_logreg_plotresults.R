@@ -1,6 +1,6 @@
 # plot data from svm against logreg experiment
 
-load("C:/Users/cogneuro/Desktop/HCS_analysis/analysis/svm_logreg_246")
+load("analysis/svm_logreg_246")
 Plothist_bin <- function (Acc_cumm,i){
   dataplot = data.frame(Acc_cumm [-1,i])
   realacc=Acc_cumm [1,i]
@@ -33,14 +33,16 @@ Plothist_bin <- function (Acc_cumm,i){
 Nplot <- ncol(Acc_cumm) 
 pl_hist <- list()
 
-for (i in seq(1:Nplot)){
-  pl_hist [[i]] = Plothist_bin(Acc_cumm,i)
+n=0
+for (i in c(1,2,3,10,11,12,4,5,6,13,14,15,7,8,9,16,17,18)){
+  n= n+1
+  pl_hist [[n]] = Plothist_bin(Acc_cumm,i)
 }
 
-#pdf(file = paste0("svm_logregresults.pdf"), width = 15, height = 10)
+pdf(file = paste0("svm_logregresults.pdf"), width = 15, height = 20)
 
 gridExtra::marrangeGrob(pl_hist ,
-             ncol=3,nrow =3, top= paste0 ("accuracy of grouping with ",nrow(data.frame(Acc_cumm [-1,1]))," permutations performed"))
+             ncol=3,nrow =6, top= paste0 ("accuracy of grouping with ",nrow(data.frame(Acc_cumm [-1,1]))," permutations performed"))
 
 
-#dev.off()
+dev.off()
