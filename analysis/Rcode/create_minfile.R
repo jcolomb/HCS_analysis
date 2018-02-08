@@ -2,7 +2,7 @@
 #-- if file exists, just read it again (unless RECREATEMINFILE is true)
 if (!RECREATEMINFILE) {
   MIN_data = try(read.csv2(paste0(onlinemin, '/Min_', Name_project, '.csv'), dec = ".")
-                 , T)
+                 , TRUE)
   
 }
 
@@ -39,8 +39,8 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
       treatment,
       genotype,
       date,
-      test.cage = 'test cage',
-      real.time = 'real time start',
+      test.cage = test_cage,
+      real.time = real_time_start,
       dark.start = light_off,
       project.name = Proj_name
     )

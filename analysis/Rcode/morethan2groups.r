@@ -6,7 +6,7 @@
 
 p = icafast(Input %>% select (-groupingvar),
             2,
-            center = T,
+            center = TRUE,
             maxit = 100)
 R = cbind(p$Y, Input   %>% select (groupingvar))
 names(R) = c("D1", "D2",  "groupingvar")
@@ -17,7 +17,7 @@ pls = R %>% ggplot (aes (x = D1, y = D2, color = groupingvar)) +
 #theme(legend.position = 'none')
 print(pls)
 
-p=icafast(Input%>% select (-groupingvar),3,center=T,maxit=100)
+p=icafast(Input%>% select (-groupingvar),3,center=TRUE,maxit=100)
 
 ICA= cbind(p$Y, Input   %>% select (groupingvar),metadata   %>% select (animal_ID))
 names(ICA) = c("Component_1", "Component_2", "Component_3","groupingvar","animal_ID")
@@ -36,6 +36,7 @@ Input = Multi_datainput_m
 if (length(unique(metadata$groupingvar))==3) {
   metadata_ori= metadata
   Multi_datainput_m_ori = Multi_datainput_m
+  Multi_datainput_m2_ori = Multi_datainput_m2
   
   print("we need to choose grouping variables")
   metadata_ori$groupingvar = as.factor(metadata_ori$groupingvar)
@@ -45,6 +46,8 @@ if (length(unique(metadata$groupingvar))==3) {
   metadata=droplevels(metadataRest)
   Multi_datainput_mREST = Multi_datainput_m_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[1:2],]
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
+  Multi_datainput_m2REST = Multi_datainput_m2_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[1:2],]
+  Multi_datainput_m2= droplevels(Multi_datainput_m2REST)
   # make svm!
   source ("Rcode/multidimensional_analysis_svm.R")
   Acc_sampled= c() # set 
@@ -82,6 +85,9 @@ if (length(unique(metadata$groupingvar))==3) {
                    ". doing ",length(Acc_sampled) , " permutations, we find the p value lies between ", R[2], " and ", R[3]))
   
 
+  Multi_datainput_m_ori -> Multi_datainput_m
+  Multi_datainput_m2_ori -> Multi_datainput_m2
+  metadata_ori -> metadata
 }
 # print(pls)
 # p1

@@ -39,7 +39,7 @@ if (metadata$primary_datafile[1]== "hour_summary" ){
 
 #--- check if number of files corresponds, if not report files present but not in metadata.
 datafolder = metadata %>% transmute(paste(WD,Folder_path, raw_data_folder,  sep= "/"))
-files= list.files(as.character(datafolder[1,1]), recursive = T)
+files= list.files(as.character(datafolder[1,1]), recursive = TRUE)
 if (nrow(all_datafiles) < length(files)){
   print("some files are not grabbed by the metadata, are some animals missing?")
   View(anti_join( data.frame(filepath=basename(files)), all_datafiles %>% transmute (filepath = basename(filepath))))
@@ -54,3 +54,4 @@ metadata$treatment=ifelse(is.na (metadata$treatment), "none",metadata$treatment)
 BEH_datafiles=cbind(BEH_datafiles$filepath, metadata$ID)
 MIN_datafiles=cbind(MIN_datafiles$filepath, metadata$ID)
 Hour_datafiles=cbind(Hour_datafiles$filepath, metadata$ID)
+

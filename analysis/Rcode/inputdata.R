@@ -17,15 +17,15 @@ animal_meta = read_csv(
     Projects_metadata$animal_metadata,
     sep = "/"
   ),
-  col_names = T,
+  col_names = TRUE,
   cols(
     animal_ID = col_character(),
     gender = col_character(),
     treatment = col_character(),
     genotype = col_character(),
     date = col_character(),
-    `test cage` = col_character(),
-    `real time start` = col_time(format = ""),
+    test_cage = col_character(),
+    real_time_start = col_time(format = ""),
     experiment_folder_name = col_character(),
     Behavior_sequence = col_character(),
     Onemin_summary = col_character(),

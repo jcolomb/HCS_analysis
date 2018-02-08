@@ -6,7 +6,7 @@ Timewindows = Timewindows[selct_TW,]
 #-------------add a column to the data saying if it is day or night
 
 # get time of start in minutes (temp):
-temp=t(as.data.frame(strsplit(format(metadata$`real time start`,"%H:%M:%S"),split = ':')))
+temp=t(as.data.frame(strsplit(format(metadata$real_time_start,"%H:%M:%S"),split = ':')))
 temp= as.data.frame(temp)
 names (temp)= c("hr","min", "sec")
 temp <- temp %>% mutate (time= as.numeric(as.character(hr))*60+ as.numeric(as.character(min)))

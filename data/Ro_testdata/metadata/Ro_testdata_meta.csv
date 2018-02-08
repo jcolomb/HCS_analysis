@@ -1,4 +1,4 @@
-animal_ID,animal_birthdate,gender,treatment,genotype,other_category,date,test cage,real time start,Lab_ID,Exclude_data,comment,experiment_folder_name,Behavior_sequence,Onemin_summary,Onehour_summary,primary_behav_sequence,primary_position_time,primary_datafile
+animal_ID,animal_birthdate,gender,treatment,genotype,other_category,date,test_cage,real_time_start,Lab_ID,Exclude_data,comment,experiment_folder_name,Behavior_sequence,Onemin_summary,Onehour_summary,primary_behav_sequence,primary_position_time,primary_datafile
 2,,female,first,wt,NA,09.06.2015,1,09:16:00,AOCF_1,,,150609_Testdata_HCS_groupB,150609_Testdata_HCS_beh_2.xlsx,150609_Testdata_HCS_min_2.xlsx,150609_Testdata_HCS_hour_2.xlsx,NA,NA,min_summary
 2,,female,second,wt,NA,13.10.2015,1,08:58:00,AOCF_1,,,151013_Testdata_HCS_groupB,151013_Testdata_HCS_beh_2.xlsx,151013_Testdata_HCS_min_2.xlsx,151013_Testdata_HCS_hour_2.xlsx,NA,NA,min_summary
 20,,female,first,wt,NA,08.06.2015,3,09:21:00,AOCF_1,,,150608_Testdata_HCS_groupA,150608_Testdata_HCS_beh_20.xlsx,150608_Testdata_HCS_min_20.xlsx,150608_Testdata_HCS_hour_20.xlsx,NA,NA,min_summary

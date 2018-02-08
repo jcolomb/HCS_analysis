@@ -1,5 +1,6 @@
 if (!is.na(Projects_metadata$confound_by)) {
-  RF_selec = Multi_datainput_m2[order(Multi_datainput_m$groupingvar, Multi_datainput_m$confoundvar),]
+  RF_selec = Multi_datainput_m2[order(Multi_datainput_m2$groupingvar, Multi_datainput_m2$confoundvar),]
+  RF_selec = RF_selec %>% select (-confoundvar)
 }else {
   RF_selec = Multi_datainput_m[order(Multi_datainput_m$groupingvar),]
 }
