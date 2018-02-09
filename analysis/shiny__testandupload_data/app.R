@@ -279,6 +279,8 @@ ui <- fluidPage(
       checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
       , shinyUI(bootstrapPage(shinyDirButton('STICK', "Data_directory", 
                                              "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")
+      
+      , textOutput("test")                        
       ))),
     
     # Show a plot of the generated distribution
@@ -289,13 +291,8 @@ ui <- fluidPage(
       ,actionButton("goButton", "Test metadata")
       
       
-      , textOutput("test")
-      , "this table enumerate existing files which are not accessed by the metadata:"
-      ,tableOutput("outputtable")
-      , "this table enumerate files which are mentioned in the metadata, but do not exist:"
-      ,tableOutput("outputtable2")
-      #, textOutput("dir")
       , tags$hr()
+      
       ,actionButton("goButton2", "If everything is correct, click here to create the min file.")
       , tags$hr()
       ,tags$p( "Push the project into the master metadata file (on osf) for analysis.
@@ -304,6 +301,13 @@ ui <- fluidPage(
       ")
       ,actionButton("goButton3", "Push it")
       ,tableOutput("outputtable3")
+      , tags$hr()
+      , "this table enumerate existing files which are not accessed by the metadata:"
+      ,tableOutput("outputtable")
+      , "this table enumerate files which are mentioned in the metadata, but do not exist:"
+      ,tableOutput("outputtable2")
+      #, textOutput("dir")
+      , tags$hr()
     )
   )
 )
@@ -358,7 +362,7 @@ server <- function(input, output, session) {
     if (all(all_datafiles$`file.exists(as.character(filepath))`)){
       values$message="Metadata and data is consistent"
     }else {
-      values$message="There are problems !"
+      values$message="There are problems ! Please check the tables to see whether the problems are real or if we can ignore the warnings."
       values$message_t= all_datafiles %>% filter (`file.exists(as.character(filepath))` == FALSE) %>% select (filepath)
     }
     
