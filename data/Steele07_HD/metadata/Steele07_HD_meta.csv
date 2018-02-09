@@ -1,31 +1,60 @@
-"animal_ID","animal_birthdate","gender","treatment","genotype","other_category","date","test_cage","real_time_start","Lab_ID","Exclude_data","comment","experiment_folder_name","Behavior_sequence","Onemin_summary","Onehour_summary","primary_behav_sequence","primary_position_time","primary_datafile"
-629,NA,"male",NA,"MyD88",NA,"04.10.2016",NA,NA,"AOCF_1",NA,NA,"161004_Lehnardt_MyD88.1_HCS_A","161004_Lehnardt_MyD88.1_HCS_Beh_629.xlsx","161004_Lehnardt_MyD88.1_HCS_Min_629.xlsx",NA,NA,NA,"min_summary"
-645,NA,"male",NA,"MyD88",NA,"04.10.2016",NA,NA,"AOCF_1",NA,NA,"161004_Lehnardt_MyD88.1_HCS_A","161004_Lehnardt_MyD88.1_HCS_Beh_645.xlsx","161004_Lehnardt_MyD88.1_HCS_Min_645.xlsx",NA,NA,NA,"min_summary"
-11,NA,"male",NA,"WT",NA,"04.10.2016",NA,NA,"AOCF_1",NA,NA,"161004_Lehnardt_MyD88.1_HCS_A","161004_Lehnardt_MyD88.1_HCS_Beh_11.xlsx","161004_Lehnardt_MyD88.1_HCS_Min_11.xlsx",NA,NA,NA,"min_summary"
-12,NA,"male",NA,"WT",NA,"04.10.2016",NA,NA,"AOCF_1",NA,NA,"161004_Lehnardt_MyD88.1_HCS_A","161004_Lehnardt_MyD88.1_HCS_Beh_12.xlsx","161004_Lehnardt_MyD88.1_HCS_Min_12.xlsx",NA,NA,NA,"min_summary"
-2,NA,"male",NA,"MyD88",NA,"05.10.2016",NA,NA,"AOCF_1",NA,NA,"161005_Lehnardt_MyD88.1_HCS_B","161005_Lehnardt_MyD88.1_HCS_Beh_2.xlsx","161005_Lehnardt_MyD88.1_HCS_Min_2.xlsx",NA,NA,NA,"min_summary"
-1,NA,"male",NA,"MyD88",NA,"05.10.2016",NA,NA,"AOCF_1",NA,NA,"161005_Lehnardt_MyD88.1_HCS_B","161005_Lehnardt_MyD88.1_HCS_Beh_1.xlsx","161005_Lehnardt_MyD88.1_HCS_Min_1.xlsx",NA,NA,NA,"min_summary"
-5,NA,"male",NA,"MyD88",NA,"05.10.2016",NA,NA,"AOCF_1",NA,NA,"161005_Lehnardt_MyD88.1_HCS_B","161005_Lehnardt_MyD88.1_HCS_Beh_5.xlsx","161005_Lehnardt_MyD88.1_HCS_Min_5.xlsx",NA,NA,NA,"min_summary"
-4,NA,"male",NA,"MyD88",NA,"05.10.2016",NA,NA,"AOCF_1",NA,NA,"161005_Lehnardt_MyD88.1_HCS_B","161005_Lehnardt_MyD88.1_HCS_Beh_4.xlsx","161005_Lehnardt_MyD88.1_HCS_Min_4.xlsx",NA,NA,NA,"min_summary"
-3,NA,"male",NA,"MyD88",NA,"06.10.2016",NA,NA,"AOCF_1",NA,NA,"161006_Lehnardt_MyD88.1_HCS_C","161006_Lehnardt_MyD88.1_HCS_Beh_3.xlsx","161006_Lehnardt_MyD88.1_HCS_min_3.xlsx",NA,NA,NA,"min_summary"
-8,NA,"male",NA,"WT",NA,"06.10.2016",NA,NA,"AOCF_1",NA,NA,"161006_Lehnardt_MyD88.1_HCS_C","161006_Lehnardt_MyD88.1_HCS_Beh_8.xlsx","161006_Lehnardt_MyD88.1_HCS_min_8.xlsx",NA,NA,NA,"min_summary"
-7,NA,"male",NA,"WT",NA,"06.10.2016",NA,NA,"AOCF_1",NA,NA,"161006_Lehnardt_MyD88.1_HCS_C","161006_Lehnardt_MyD88.1_HCS_Beh_7.xlsx","161006_Lehnardt_MyD88.1_HCS_min_7.xlsx",NA,NA,NA,"min_summary"
-10,NA,"male",NA,"WT",NA,"06.10.2016",NA,NA,"AOCF_1",NA,NA,"161006_Lehnardt_MyD88.1_HCS_C","161006_Lehnardt_MyD88.1_HCS_Beh_10.xlsx","161006_Lehnardt_MyD88.1_HCS_min_10.xlsx",NA,NA,NA,"min_summary"
-6,NA,"male",NA,"WT",NA,"07.10.2016",NA,NA,"AOCF_1",NA,NA,"161007_Lehnardt_MyD88.1_HCS_D","161007_Lehnardt_MyD88.1_HCS_Beh_6.xlsx","161007_Lehnardt_MyD88.1_HCS_min_6.xlsx",NA,NA,NA,"min_summary"
-9,NA,"male",NA,"WT",NA,"07.10.2016",NA,NA,"AOCF_1",NA,NA,"161007_Lehnardt_MyD88.1_HCS_D","161007_Lehnardt_MyD88.1_HCS_Beh_9.xlsx","161007_Lehnardt_MyD88.1_HCS_min_9.xlsx",NA,NA,NA,"min_summary"
-45,NA,"male",NA,"WT",NA,"17.10.2016",NA,NA,"AOCF_1",NA,NA,"161017_Lehnardt_MyD88.2_HCS_E","161017_Lehnardt_MyD88.2_HCS_Behav_20.xlsx","161017_Lehnardt_MyD88.2_HCS_min_20.xlsx",NA,NA,NA,"min_summary"
-735,NA,"male",NA,"MyD88",NA,"17.10.2016",NA,NA,"AOCF_1",NA,NA,"161017_Lehnardt_MyD88.2_HCS_E","161017_Lehnardt_MyD88.2_HCS_Behav_23.xlsx","161017_Lehnardt_MyD88.2_HCS_min_23.xlsx",NA,NA,NA,"min_summary"
-734,NA,"male",NA,"MyD88",NA,"17.10.2016",NA,NA,"AOCF_1",NA,NA,"161017_Lehnardt_MyD88.2_HCS_E","161017_Lehnardt_MyD88.2_HCS_Behav_22.xlsx","161017_Lehnardt_MyD88.2_HCS_min_22.xlsx",NA,NA,NA,"min_summary"
-46,NA,"male",NA,"WT",NA,"17.10.2016",NA,NA,"AOCF_1",NA,NA,"161017_Lehnardt_MyD88.2_HCS_E","161017_Lehnardt_MyD88.2_HCS_Behav_21.xlsx","161017_Lehnardt_MyD88.2_HCS_min_21.xlsx",NA,NA,NA,"min_summary"
-726,NA,"male",NA,"MyD88",NA,"18.10.2016",NA,NA,"AOCF_1",NA,NA,"161018_Lehnardt_MyD88.2_HCS_F","161018_Lehnardt_MyD88.2_HCS_Behav_24.xlsx","161018_Lehnardt_MyD88.2_HCS_min_24.xlsx",NA,NA,NA,"min_summary"
-44,NA,"male",NA,"WT",NA,"18.10.2016",NA,NA,"AOCF_1",NA,NA,"161018_Lehnardt_MyD88.2_HCS_F","161018_Lehnardt_MyD88.2_HCS_Behav_27.xlsx","161018_Lehnardt_MyD88.2_HCS_min_27.xlsx",NA,NA,NA,"min_summary"
-43,NA,"male",NA,"WT",NA,"18.10.2016",NA,NA,"AOCF_1",NA,NA,"161018_Lehnardt_MyD88.2_HCS_F","161018_Lehnardt_MyD88.2_HCS_Behav_25.xlsx","161018_Lehnardt_MyD88.2_HCS_min_25.xlsx",NA,NA,NA,"min_summary"
-725,NA,"male",NA,"MyD88",NA,"18.10.2016",NA,NA,"AOCF_1",NA,NA,"161018_Lehnardt_MyD88.2_HCS_F","161018_Lehnardt_MyD88.2_HCS_Behav_26.xlsx","161018_Lehnardt_MyD88.2_HCS_min_26.xlsx",NA,NA,NA,"min_summary"
-40,NA,"male",NA,"WT",NA,"19.10.2016",NA,NA,"AOCF_1",NA,NA,"161020_Lehnardt_MyD88.2_HCS_G","161019_Lehnardt_MyD88.2_HCS_Behav_16.xlsx","161019_Lehnardt_MyD88.2_HCS_min_16.xlsx",NA,NA,NA,"min_summary"
-41,NA,"male",NA,"WT",NA,"19.10.2016",NA,NA,"AOCF_1",NA,NA,"161020_Lehnardt_MyD88.2_HCS_G","161019_Lehnardt_MyD88.2_HCS_Behav_18.xlsx","161019_Lehnardt_MyD88.2_HCS_min_18.xlsx",NA,NA,NA,"min_summary"
-723,NA,"male",NA,"MyD88",NA,"19.10.2016",NA,NA,"AOCF_1",NA,NA,"161020_Lehnardt_MyD88.2_HCS_G","161019_Lehnardt_MyD88.2_HCS_Behav_15.xlsx","161019_Lehnardt_MyD88.2_HCS_min_15.xlsx",NA,NA,NA,"min_summary"
-42,NA,"male",NA,"WT",NA,"19.10.2016",NA,NA,"AOCF_1",NA,NA,"161020_Lehnardt_MyD88.2_HCS_G","161019_Lehnardt_MyD88.2_HCS_Behav_19.xlsx","161019_Lehnardt_MyD88.2_HCS_min_19.xlsx",NA,NA,NA,"min_summary"
-724,NA,"male",NA,"MyD88",NA,"20.10.2016",NA,NA,"AOCF_1",NA,NA,"161020_Lehnardt_MyD88.2_HCS_G","161020_Lehnardt_MyD88.2_HCS_Behav_17.xlsx","161020_Lehnardt_MyD88.2_HCS_min_17.xlsx",NA,NA,NA,"min_summary"
-730,NA,"male",NA,"MyD88",NA,"20.10.2016",NA,NA,"AOCF_1",NA,NA,"161020_Lehnardt_MyD88.2_HCS_G","161020_Lehnardt_MyD88.2_HCS_Behav_30.xlsx","161020_Lehnardt_MyD88.2_HCS_min_30.xlsx",NA,NA,NA,"min_summary"
-47,NA,"male",NA,"WT",NA,"20.10.2016",NA,NA,"AOCF_1",NA,NA,"161020_Lehnardt_MyD88.2_HCS_G","161020_Lehnardt_MyD88.2_HCS_Behav_28.xlsx","161020_Lehnardt_MyD88.2_HCS_min_28.xlsx",NA,NA,NA,"min_summary"
-733,NA,"male",NA,"MyD88",NA,"20.10.2016",NA,NA,"AOCF_1",NA,NA,"161020_Lehnardt_MyD88.2_HCS_G","161020_Lehnardt_MyD88.2_HCS_Behav_29.xlsx","161020_Lehnardt_MyD88.2_HCS_min_29.xlsx",NA,NA,NA,"min_summary"
+animal_ID,gender,treatment,genotype,date,test cage,real time start,experiment_folder_name,Behavior_sequence,Onemin_summary,Lab_ID,Exclude_data,Onehr_summary,primary_datafile
+3976,female,1,WT,20040905,,14:00,9-5-04,,,Steele_1,,3976 9-5-6-04 bins.xls,hour_summary
+3977,female,1,HD,20040905,,14:00,9-5-04,,,Steele_1,,3977 9-5-6-04 bins.xls,hour_summary
+3976,female,1,WT,20040906,,14:00,9-6-04,,,Steele_1,,cage 1 3976 9-6-7-04 bins.xls,hour_summary
+3977,female,1,HD,20040906,,14:00,9-6-04,,,Steele_1,,cage 3 3977 9-6-7-04 bins.xls,hour_summary
+3976,female,2,WT,20041013,,14:00,10-13-04,,,Steele_1,,cage 1 3976 10-13-14-04 bins.xls,hour_summary
+3977,female,2,HD,20041013,,14:00,10-13-04,,,Steele_1,,cage 3 3977 10-13-14-04 bins.xls,hour_summary
+3976,female,2,WT,20041014,,14:00,10-14-04,,,Steele_1,,cage 1 3976 10-14-15-04 new set file bins.xls,hour_summary
+3977,female,2,HD,20041014,,14:00,10-14-04,,,Steele_1,,cage 3 3977 10-14-15-04 new set file bins.xls,hour_summary
+3976,female,3,WT,20041026,,14:00,10-26-04,,,Steele_1,,cage 1 3976 10-26-27-04 bins.xls,hour_summary
+3977,female,3,HD,20041026,,14:00,10-26-04,,,Steele_1,,cage 3 3977 10-26-27-04 bins.xls,hour_summary
+4768,female,3,WT,20041026,,14:00,10-26-04,,,Steele_1,,cage 2 4768 10-26-27-04 bins.xls,hour_summary
+4769,female,3,HD,20041026,,14:00,10-26-04,,,Steele_1,,cage 4 4769 10-26-27-04 bins.xls,hour_summary
+3976,female,3,WT,20041027,,14:00,10-27-04,,,Steele_1,,cage 1 3976 10-27-28-04 bins.xls,hour_summary
+3977,female,3,HD,20041027,,14:00,10-27-04,,,Steele_1,,cage 3 3977 10-27-28-04 bins.xls,hour_summary
+4768,female,3,WT,20041027,,14:00,10-27-04,,,Steele_1,,cage 2 4768 10-28-29-04 bins.xls,hour_summary
+4769,female,3,HD,20041027,,14:00,10-27-04,,,Steele_1,,cage 4 4769 10-27-28-04 bins.xls,hour_summary
+4770,female,4,WT,20041101,,14:00,11-1-04,,,Steele_1,,cage 1 4770 11-1-2-04 bins.xls,hour_summary
+4771,female,4,HD,20041101,,14:00,11-1-04,,,Steele_1,,cage 3 4771 11-1-2-04 bins.xls,hour_summary
+4770,female,4,WT,20041102,,14:00,11-2-04,,,Steele_1,,cage1 4770 11-2-3-04 bins.xls,hour_summary
+4771,female,4,HD,20041102,,14:00,11-2-04,,,Steele_1,,cage3 4771 11-2-3-04 bins.xls,hour_summary
+4989,female,4,WT,20041105,,14:00,11-5-04,,,Steele_1,,cage2 4989 11-5-6-04 bins.xls,hour_summary
+4990,female,4,HD,20041105,,14:00,11-5-04,,,Steele_1,,cage4 4990 11-5-6-04 bins.xls,hour_summary
+4989,female,4,WT,20041106,,14:00,11-6-04,,,Steele_1,,cage2 4989 11-6-7-04 26 hour bins.xls,hour_summary
+4992,female,4,WT,20041108,,14:00,11-8-04,,,Steele_1,,cage2 4992 11-8-9-04 bins.xls,hour_summary
+4993,female,4,HD,20041108,,14:00,11-8-04,,,Steele_1,,cage4 4993 11-8-9-04 bins.xls,hour_summary
+4992,female,4,WT,20041109,,14:00,11-9-04,,,Steele_1,exclude,cage2 4992 11-9-10-04 bins.xls,hour_summary
+4993,female,4,HD,20041109,,14:00,11-9-04,,,Steele_1,,cage4 4993 11-9-10-04 bins.xls,hour_summary
+5210,female,5,HD,20041123,,14:00,11-23-04,,,Steele_1,,cage1 5210 11-23-24-04 bins.xls,hour_summary
+5211,female,5,WT,20041123,,14:00,11-23-04,,,Steele_1,,cage3 5211 11-23-24-04 bins.xls,hour_summary
+5210,female,5,HD,20041124,,14:00,11-24-04,,,Steele_1,,cage1 5210 11-24-25-04 bins.xls,hour_summary
+5211,female,5,WT,20041124,,14:00,11-24-04,,,Steele_1,,cage3 5211 11-24-25-04 bins.xls,hour_summary
+4768,female,6,WT,20041130,,14:00,11-30-04,,,Steele_1,,cage 2 4768 11-30-12-1-04 bins.xls,hour_summary
+4769,female,6,HD,20041130,,14:00,11-30-04,,,Steele_1,,cage 4 4769 11-30-12-1-04 bins.xls,hour_summary
+4768,female,6,WT,20041201,,14:00,12-1-04,,,Steele_1,,cage 2 4768 12-1-2-04 bins.xls,hour_summary
+4769,female,6,HD,20041201,,14:00,12-1-04,,,Steele_1,,cage 4 4769 12-1-2-04 bins.xls,hour_summary
+4770,female,7,WT,20041205,,14:00,12-5-04,,,Steele_1,,cage 1 4770 12-5-6-04 bins.xls,hour_summary
+4771,female,7,HD,20041205,,14:00,12-5-04,,,Steele_1,,cage 3 4771 12-5-6-04 bins.xls,hour_summary
+4770,female,7,WT,20041206,,14:00,12-6-04,,,Steele_1,,cage 1 4770 12-6-7-04 bins.xls,hour_summary
+4771,female,7,HD,20041206,,14:00,12-6-04,,,Steele_1,,cage 3 4771 12-6-7-04 bins.xls,hour_summary
+4989,female,7,WT,20041209,,14:00,12-9-04,,,Steele_1,,cage2 4989 12-9-10-04 bins.xls,hour_summary
+4990,female,7,HD,20041209,,14:00,12-9-04,,,Steele_1,,cage4 4990 12-9-10-04 bins.xls,hour_summary
+4989,female,7,WT,20041211,,14:00,12-11-04,,,Steele_1,,cage2 4989 12-11-12-04 bins.xls,hour_summary
+4990,female,7,HD,20041211,,14:00,12-11-04,,,Steele_1,,cage4 4990 12-11-12-04 bins.xls,hour_summary
+4992,female,7,WT,20041213,,14:00,12-13-04,,,Steele_1,,cage2 4992 12-13-14-04 bins.xls,hour_summary
+4993,female,7,HD,20041213,,14:00,12-13-04,,,Steele_1,,cage4 4993 12-13-14-04 bins.xls,hour_summary
+4992,female,7,WT,20041214,,14:00,12-14-04,,,Steele_1,,cage2 4992 12-14-15-04 bins.xls,hour_summary
+4993,female,7,HD,20041214,,14:00,12-14-04,,,Steele_1,,cage4 4993 12-14-15-04 bins.xls,hour_summary
+5891,female,8,HD,20041223,,14:00,12-23-04,,,Steele_1,,cage 4 5891 12-23-24-04 bins.xls,hour_summary
+5892,female,8,WT,20041223,,14:00,12-23-04,,,Steele_1,,cage 2 5892 12-23-24-04 bins.xls,hour_summary
+5891,female,8,HD,20041224,,14:00,12-24-04,,,Steele_1,,cage2 5891 12-24-25-04 bins.xls,hour_summary
+5892,female,8,WT,20041224,,14:00,12-24-04,,,Steele_1,,cage4 5892 12-24-25-04 bins.xls,hour_summary
+5210,female,8,HD,20041227,,14:00,12-27-04,,,Steele_1,,cage1 5210 12-27-28-04 bins.xls,hour_summary
+5211,female,8,WT,20041227,,14:00,12-27-04,,,Steele_1,,cage3 5211 12-27-28-04 bins.xls,hour_summary
+5210,female,8,HD,20041228,,14:00,12-28-04,,,Steele_1,,cage1 5210 12-28-29-04 bins.xls,hour_summary
+5211,female,8,WT,20041228,,14:00,12-28-04,,,Steele_1,,cage3 5211 12-28-29-04 bins.xls,hour_summary
+5891,female,9,HD,20050201,,14:00,2-1-05,,,Steele_1,,cage1 5891 2-1-2-05 bins.xls,hour_summary
+5892,female,9,WT,20050201,,14:00,2-1-05,,,Steele_1,,cage3 5892 2-1-2-05 bins.xls,hour_summary
+5891,female,9,HD,20050202,,14:00,2-2-05,,,Steele_1,,cage1 5891 2-2-3-05 bins.xls,hour_summary
+5892,female,9,WT,20050202,,14:00,2-2-05,,,Steele_1,,cage3 5892 2-2-3-05 bins.xls,hour_summary
