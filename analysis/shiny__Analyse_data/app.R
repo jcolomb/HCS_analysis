@@ -268,7 +268,7 @@ source= function (file, local = TRUE, echo = verbose, print.eval = echo,
 
 PMeta = osfr::path_file("myxcv")
 Projects_metadata <- read_csv(PMeta)
-all_TW =T
+NO_svm = FALSE
 #Timewindows = data.frame ("run it first")
 
 

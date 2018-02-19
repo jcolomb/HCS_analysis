@@ -8,12 +8,14 @@ source ("Rcode/PCA_strategy.R")
 
 set.seed(74)
 testvalidation = ifelse((min(summary(metadata$groupingvar)) > 15),TRUE,FALSE)
+Validation_type = ifelse(testvalidation,"independent test dataset","2-out")
+
 if (TRUE) Acc_sampled = c()
 
-if (nrow(metadata) < 22) {
+if (nrow(metadata) < 22 || NO_svm) {
   print("not enough data for svm")
   Accuracyreal=NA
-  Acc_sampled =NA
+  NO_svm = TRUE
   #calcul_text =NA
   
   source ("Rcode/ICA.R")

@@ -63,9 +63,9 @@ Name_project ="Ro_testdata"
 #without the formal agreements of the 
 #people who did the experiments:
 
-#Name_project = "Meisel_2017"
+Name_project = "Meisel_2017"
 # Name_project ="Lehnard_2016"
-# Name_project ="Schmidt2017svm"
+ Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
 # Name_project = "Rosenmund2015"
 # Name_project = "Rosenmund2015g"
