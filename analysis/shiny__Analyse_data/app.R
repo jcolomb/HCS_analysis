@@ -289,6 +289,7 @@ ui <- fluidPage(
                      max = 600,
                      value = 1)
          , checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
+         , checkboxInput('perf_SVM', 'Perform the multidimensional analysis (takes time)', TRUE)
          , radioButtons('groupingby', 'grouping variables following which categories',
                       c('Jhuang 10 categories'='MITsoft',
                         'Berlin 18 categories'='AOCF'),
@@ -370,6 +371,7 @@ server <- function(input, output, session) {
   
   dataoutput <- reactive({
     RECREATEMINFILE <- input$RECREATEMINFILE
+    NO_svm <- !input$perf_SVM
     groupingby<- input$groupingby
     Npermutation<- input$Npermutation
     STICK<- fileInput()
@@ -388,6 +390,7 @@ server <- function(input, output, session) {
   
   dataoutputTW <- reactive({
     RECREATEMINFILE <- input$RECREATEMINFILE
+    NO_svm <- !input$perf_SVM
     groupingby<- input$groupingby
     Npermutation<- input$Npermutation
     STICK<- fileInput()
@@ -429,6 +432,7 @@ server <- function(input, output, session) {
 
 dataoutput2 <- reactive({
   RECREATEMINFILE <- input$RECREATEMINFILE
+  NO_svm <- !input$perf_SVM
   groupingby<- input$groupingby
   
   STICK<- fileInput()

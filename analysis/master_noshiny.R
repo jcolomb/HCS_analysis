@@ -35,8 +35,8 @@ version = versions[length(versions)]
 #PMeta ="../data/Projects_metadata.csv"
 PMeta = osfr::path_file("myxcv")
 
-RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
-
+RECREATEMINFILE= T # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
+NO_svm = TRUE
 
 # variable grouping, only working with HCS data at the moment.
 groupingby = "MITsoft" # other possibilities: "AOCF"
@@ -63,13 +63,13 @@ Name_project ="Ro_testdata"
 #without the formal agreements of the 
 #people who did the experiments:
 
-Name_project = "Meisel_2017"
+#Name_project = "Meisel_2017"
 # Name_project ="Lehnard_2016"
  Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
 # Name_project = "Rosenmund2015"
 # Name_project = "Rosenmund2015g"
-# Name_project = "Pruess_2016"
+ Name_project = "Pruess_2016"
 # Name_project = "Vida_2015"
 # Name_project = "Lehnard_2016"
 # Name_project ="Tarabykin_2015" 
