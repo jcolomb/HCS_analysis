@@ -170,7 +170,7 @@ DT::datatable(t(Projects_metadata),
 ---
 
 ```{r, echo=FALSE}
-metadata$`real time start`= as.character(metadata$`real time start`)
+metadata$real_time_start= as.character(metadata$real_time_start)
 DT::datatable (metadata,caption = "full metadata",
                extensions = 'Buttons', 
                options = list(

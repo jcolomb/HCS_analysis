@@ -33,7 +33,7 @@ if (metadata$primary_datafile[1]== "hour_summary" ){
 }else if (all(all_datafiles$`file.exists(as.character(filepath))`)){
   print ("metadata reaches to data files")
 }else {
-  print(all_datafiles %>% filter (`file.exists(as.character(filepath))` == FALSE))
+  View(all_datafiles %>% filter (`file.exists(as.character(filepath))` == FALSE))
 }
 ##TODO : check only min and not behav file??
 
