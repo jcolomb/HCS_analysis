@@ -1,11 +1,14 @@
 ---
-
-output: html_document
+output: 
+  html_document:
+    toc: true
+    theme: cerulean
 ---
 
+This report was created the using the behavseqanalyser `r version`, behaviour were grouped  using the `r groupingby` categorisation (date: `r Sys.Date()`).
 
 
-#This is an analysis of the `r Name_project` project
+#`r Name_project`, home cage monitoring results
 
 
 The data is grouped by `r Projects_metadata$group_by `.
@@ -22,8 +25,8 @@ summary (as.factor(metadata$groupingvar))
 ---
 
 
-We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-3` x `r nrow (Timewindows)` **=
-`r (length(names(behav_gp))-3)* nrow (Timewindows)` variables** :
+We grouped the variables following the `r groupingby` argument to get `r length(names(behav_gp))-3` behavior categories. We used the folowing time windows and got `r length(names(behav_gp))-4` x `r nrow (Timewindows)` **=
+`r (length(names(behav_gp))-4)* nrow (Timewindows)` variables** :
 
 ```{r, results='asis', echo=FALSE}
 pander::pandoc.table(Timewindows)
@@ -31,6 +34,7 @@ pander::pandoc.table(Timewindows)
 Note that the last window might be truncated if not all dataset is achieving 900 min after light on.
 
 We then run a random forest to get the variables in order of importance to distinguish the groups. We then take the best 20 and run the random forest again (such that the Gini scores obtained will not depend on the initial number of variables). We plot here the table of variables ordered by weight:
+
 ```{r, echo=FALSE}
 
 varImpPlot(HCS.rf)
@@ -67,7 +71,7 @@ print(p)
 ```
 
 
-Here, we plot the first two or threecomponents obtained after a ICAperformed on the reduced data:
+Here, we plot the first two or threecomponents obtained after a ICA performed on the reduced data:
 
 ```{r, echo=FALSE}
 print(pls)  
@@ -75,8 +79,68 @@ pls2
 ```
 
 
+#PCA strategy
 
 
+```{r, results='asis', echo=FALSE}
+if (PCA_pval$p.value< .05) {pander::pandoc.strong("The PCA strategy shows that the behavior profile of the two groups of animal are not identical.")
+}else {pander::pandoc.strong("The PCA strategy could not tell the two groups apart.")
+  
+}
+
+
+```
+
+We performed a PCA on the data and tested whether the groups show a difference in their first component score using a Mann-Whitney or a Kruskal-Wallis rank sum test (if more than 2 groups exists).
+We plot here the first component in a boxplot:
+
+```{r, echo=FALSE}
+
+print(boxplotPCA1)
+```
+
+NB: This strategy is pretty good against type I errors. On the other hand, it may well oversee existing differences.
+
+
+
+---
+
+#metadata used for the analysis
+
+
+```{r, echo=FALSE}
+DT::datatable(t(Projects_metadata),
+              options = list(
+  pageLength =100,
+  lengthMenu = c( 5, 100)
+),caption = "master metadata")
+
+```
+
+---
+
+```{r, echo=FALSE}
+metadata$real_time_start= as.character(metadata$real_time_start)
+DT::datatable (metadata,caption = "full metadata",
+               extensions = 'Buttons', 
+               options = list(
+                 pageLength =5,
+  
+    dom = 'Bfrtip',
+    buttons = list('pageLength','copy', list(
+        extend = 'collection',
+        buttons = c('csv', 'excel'),
+        text = 'Download'
+      ))
+    
+       #list(c('pageLength','csv', 'excel'))
+        ,
+lengthMenu = c( 5,20, -1)))
+
+
+```
+
+-----------
 
 #SVM
 
