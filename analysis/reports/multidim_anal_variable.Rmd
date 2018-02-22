@@ -54,7 +54,7 @@ pander::pander(Variables_list)
 #Plotting
 First, lets plot the 2 most discriminative variables following the random forest:
 
-```{r}
+```{r, echo = FALSE}
 
 
  Plot = Multi_datainput_m [,names(Multi_datainput_m) %in% as.character(R2 [1:2,1]) ]
@@ -107,6 +107,8 @@ NB: This strategy is pretty good against type I errors. On the other hand, it ma
 
 #metadata used for the analysis
 
+## project metadata
+
 
 ```{r, echo=FALSE}
 DT::datatable(t(Projects_metadata),
@@ -118,6 +120,8 @@ DT::datatable(t(Projects_metadata),
 ```
 
 ---
+
+## all metadata (downloadable)
 
 ```{r, echo=FALSE}
 metadata$real_time_start= as.character(metadata$real_time_start)

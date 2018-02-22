@@ -150,3 +150,55 @@ xx_to_min <- function(behav_data,min_in_x=60){
                                temp)
   return(result)
 }
+
+## function to create min summary file from the mbr file, note that we had an unknown behavior for the first time with no data, 
+## while the HCS export function do not integrate it at all
+
+min_from_mbr <- function(rawdata,fpersec,Behav_code) {
+  #-- get rid of last row (distance traveled)
+  rawdata=rawdata [-nrow(rawdata),]
+  #-- get comon names
+  names (rawdata)= c("start", "end", "behavior")
+  
+  #-- change behavior code to 2 digit
+  rawdata= rawdata %>% mutate (behavior = behavior-round(behavior, digits = -2))
+  
+  
+  #-- pool elements with same name
+  rawdata$behavior [rawdata$behavior== 14] <- 13
+  rawdata$behavior [rawdata$behavior== 18] <- 17
+  rawdata$behavior [rawdata$behavior== 31] <- 30
+  
+  #-- add first line with no data
+  fline= c(0,rawdata$start[1], 44 )
+  rawdata =rbind(fline, rawdata)
+  
+  #Create summary (will be a function), note that bin is in frames, 25 frames per sec.
+  fpermin= 60*fpersec
+  
+  Binned_data = data.frame()
+  
+  MAXbin=trunc(rawdata$end [length(rawdata$end)]/fpermin)
+  for (bin in seq(1:MAXbin)){
+    starttime = (bin-1)*fpermin
+    endtime = bin*fpermin
+    
+    subset_data = rawdata %>% filter (start < endtime & end >starttime)
+    subset_data$start [1]=starttime
+    subset_data$end [length(subset_data$end)]=endtime
+    
+    temp=subset_data %>% transmute (duration = end-start, behavior = behavior)
+    temp=  temp %>% group_by(behavior) %>%summarize (sum(duration))
+    temp2 =left_join(Behav_code, temp, by = "behavior")
+    #replace NA with 0
+    temp2$`sum(duration)` = replace(temp2$`sum(duration)`,is.na(temp2$`sum(duration)`), 0)
+    temp2 = na.omit(temp2)
+    
+    result = c(bin,temp2$`sum(duration)`/fpersec)
+    Binned_data= rbind(Binned_data,result)
+    
+  }
+  
+  names(Binned_data)= c("Bin",na.omit(Behav_code$beh_name))
+  return(Binned_data)
+}

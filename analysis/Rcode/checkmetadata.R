@@ -14,8 +14,12 @@ Hour_datafiles = metadata %>% transmute(paste(WD,Folder_path, raw_data_folder, e
 names(Hour_datafiles)= "filepath"
 Hour_datafiles= Hour_datafiles%>% mutate (file.exists (as.character(filepath)   ) )   
 
+MBR_datafiles = metadata %>% transmute(paste(WD,Folder_path, raw_data_folder, experiment_folder_name,primary_behav_sequence, sep= "/"))
+names(MBR_datafiles)= "filepath"
+MBR_datafiles= MBR_datafiles%>% mutate (file.exists (as.character(filepath)   ) ) 
+
 #--- bind all path into one data frame
-all_datafiles=rbind(MIN_datafiles,BEH_datafiles,Hour_datafiles)
+all_datafiles=rbind(MIN_datafiles,BEH_datafiles,Hour_datafiles, MBR_datafiles)
 
 ###for testing 
 ###all_datafiles [5,2]= FALSE
@@ -35,7 +39,7 @@ if (metadata$primary_datafile[1]== "hour_summary" ){
 }else {
   View(all_datafiles %>% filter (`file.exists(as.character(filepath))` == FALSE))
 }
-##TODO : check only min and not behav file??
+##TODO : check only min and not behav file?? check only mbr file?
 
 #--- check if number of files corresponds, if not report files present but not in metadata.
 datafolder = metadata %>% transmute(paste(WD,Folder_path, raw_data_folder,  sep= "/"))
@@ -54,4 +58,5 @@ metadata$treatment=ifelse(is.na (metadata$treatment), "none",metadata$treatment)
 BEH_datafiles=cbind(BEH_datafiles$filepath, metadata$ID)
 MIN_datafiles=cbind(MIN_datafiles$filepath, metadata$ID)
 Hour_datafiles=cbind(Hour_datafiles$filepath, metadata$ID)
+MBR_datafiles=cbind(MBR_datafiles$filepath, metadata$ID)
 

@@ -11,6 +11,7 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
   dataf = data.frame() # initialise dataf
   files = as.character(MIN_datafiles[, 1]) 
   fileshr = as.character(Hour_datafiles[, 1])
+  filesmbr = as.character(MBR_datafiles[, 1])
   for (f in 1:length(files)) {
     #specific code if data needs to be downloaded first
     if (WD == "https:/") {
@@ -18,12 +19,24 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
       files[f] = "tempor.xlsx"
       download.file(fileshr[f], "temporhr.xlsx",  mode = "wb")
       fileshr[f] = "temporhr.xlsx"
+      download.file(filesmbr[f], "tempor.mbr",  mode = "wb")
+      fileshr[f] = "tempor.mbr"
     }
     # read primary data
     if (metadata$primary_datafile[f] == "min_summary")
       behav <- readxl::read_excel(files[f], sheet = 1)
     if (metadata$primary_datafile[f] == "hour_summary")
       behav <- xx_to_min(readxl::read_excel(fileshr[f], sheet = 1), 60)
+    if (metadata$primary_datafile[f] == "mbr"){
+      rawdata = read.csv (filesmbr[f],
+                          sep = "",
+                          skip = 1 ,
+                          header = F)
+      behav = min_from_mbr(rawdata, framepersec, Behav_code)
+      behav$`Travel(m)`= NA
+    }
+
+    
     ### take out sum column and row if they exists
     behav = behav %>% filter(Bin != 'SUM') 
     behav = behav %>% select(-matches("SUM")) 

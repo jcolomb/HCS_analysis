@@ -1,3 +1,8 @@
+## because we saw error in the files after we performed this analysis,
+## this code will give the same results as in the paper only with the 
+## "v0.1.1-alpha" of the software (and data), that you can download from 
+## github or zenodo.
+
 #----------------------------prepare data
 starttime <- Sys.time()
 setwd("analysis")

@@ -299,6 +299,9 @@ ui <- fluidPage(
          ,selectInput('Name_project', 'choose the project to analyse:',
                                       Projects_metadata$Proj_name ,
                                       'Ro_testdata')
+         , textOutput("text_1")
+         , a("Open the report in a new tab",target="_blank",href="report.html")
+         ,actionButton("debug_go", "Get back to R to debug")
          
                           
          ))), 
@@ -314,7 +317,7 @@ ui <- fluidPage(
             ,DT::dataTableOutput('TW')  
             ,actionButton("goButton", "Do multidimensional analysis")
                  
-            ,htmlOutput("includeHTML")
+            , htmlOutput("includeHTML", inline = TRUE)
             #, textOutput("test")
           )
           ,tabPanel("summary reports",
@@ -345,7 +348,7 @@ server <- function(input, output, session) {
   volumes= getVolumes(c("(C:)"))
   values <- reactiveValues()
   values$Outputshtml <- "reports/empty.html"
-  values$message = "analyis not started"
+  values$message = "analyis not started (link will not work or show the report for a different analysis)"
   
   shinyDirChoose(input, 'STICK', roots=volumes, session = session,restrictions=system.file(package='base'))
  
@@ -355,18 +358,47 @@ server <- function(input, output, session) {
     filepath
   })
 
+
+  
+  # GObuttonbis <- observeEvent(input$goButton, {
+  #   # session$sendCustomMessage(type = 'testmessage',
+  #   #                          message = 'this may take some time, plese wait')
+  #   values$message <- "analyis started"
+  # 
+  # })
+  
+  GObutton <- observeEvent(input$debug_go, {
+    browser()
+  })
+  
+  
+  
   GObutton <- observeEvent(input$goButton, {
     # session$sendCustomMessage(type = 'testmessage',
     #                          message = 'this may take some time, plese wait')
-   dataoutput()
-  includeHTML1()
+    withProgress({
+      setProgress(message = "analysis started")
+      dataoutput()
+      setProgress(message = "analysis done")
+    
+      includeHTML1()
+      setProgress(message = "you should see the report soon")
+      values$message <- "Click the link to see the whole report. NB the report was also saved in the analysis output folder"
+      
+    })
   })
+
+
   
   TWbutton <- observeEvent(input$TWbutton, {
     # session$sendCustomMessage(type = 'testmessage',
     #                          message = 'this may take some time, plese wait')
     dataoutputTW()
     
+  })
+  
+  startmessage<- reactive({
+    values$message <- "analyis started"
   })
   
   dataoutput <- reactive({
@@ -378,14 +410,16 @@ server <- function(input, output, session) {
     Name_project <- input$Name_project
     selct_TW =  input$TW_rows_selected
    
-    if (!length(selct_TW)) selct_TW = c(1:9)
+    if (!length(selct_TW)) {selct_TW = c(1:9)}
       
     
-    values$message <- "analyis started"
-    #source <- function (x,...){source (x, local=TRUE,...)}
-    source("master_shiny.R")
+    values$message <- "analysis finished"
     values$Outputshtml="reports/multidim_anal_variable.html"
     
+    source("master_shiny.R")
+    file.copy("reports/multidim_anal_variable.html", paste0("shiny__Analyse_data/www/report.html"), overwrite=TRUE,
+              copy.mode = TRUE, copy.date = FALSE)
+   # browser()
   })
   
   dataoutputTW <- reactive({
@@ -404,11 +438,14 @@ server <- function(input, output, session) {
     source ("Rcode/get_behav_gp.r")
     values$Timewindows =Timewindows
     
+    
   })
-
-  output$outputshtml <- renderUI({
-    values$Outputshtml
-  })
+  observe(
+    output$outputshtml <- renderUI({
+      values$Outputshtml
+    })    
+  )
+  
 
   includeHTML1<- reactive({
 
@@ -417,9 +454,12 @@ server <- function(input, output, session) {
   
   output$includeHTML<-renderText(includeHTML1())
 
-   output$test <- renderPrint({
+  observe({
+    output$text_1 <- renderText({
      values$message
+    })
   })
+
    
 
    GObuttonplot <- observeEvent(input$plot_data, {

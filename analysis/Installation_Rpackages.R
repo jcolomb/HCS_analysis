@@ -1,24 +1,29 @@
 #installation:
 
-install.packages(c(
-  "randomForest",
-  "ica",
-  "e1071", #svm
-  "Hmisc",   #binomial confidence 
-  
-  
-  #normal libraries:
-  "tidyverse",
-  "stringr",
-  #for plotting
-  "gridExtra",
-  "RGraphics",
-  "shinyFiles",
-  "devtools",
-  "plotly",
-  "glmpath",
-  "pander",
-  "DT",
-  "beepr"))
+packrat::restore()
 
-devtools::install_github('jcolomb/osfr')
+
+## alternatively you may install all packages and hope it works without packrat:
+#
+# install.packages(c(
+#   "randomForest",
+#   "ica",
+#   "e1071", #svm
+#   "Hmisc",   #binomial confidence 
+#   
+#   
+#   #normal libraries:
+#   "tidyverse",
+#   "stringr",
+#   #for plotting
+#   "gridExtra",
+#   "RGraphics",
+#   "shinyFiles",
+#   "devtools",
+#   "plotly",
+#   "glmpath",
+#   "pander",
+#   "DT",
+#   "beepr"))
+# 
+# devtools::install_github('jcolomb/osfr')
