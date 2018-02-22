@@ -30,9 +30,9 @@ print (Pmeta2,
 sink()
 
 ## table categories
-table_categorisation <- read.csv("~/github_repo/HCS/table_categorisation.csv")
+table_categorisation <- read.csv("analysis/materialforpaper/table_categorisation.csv")
 
-sink("materialforpaper/tablecat.tex")
+sink("analysis/materialforpaper/tablecat2.tex")
 print(
   xtable::xtable(table_categorisation, align = "|l|l|l|l|",
                  label = "cat_table",
