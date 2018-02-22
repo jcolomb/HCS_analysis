@@ -32,6 +32,7 @@ library (stringr)
 library(gridExtra)
 library(RGraphics)
 source ("Rcode/functions.r")
+source ("../Softwareheader.R")
 source= function (file, local = TRUE, echo = verbose, print.eval = echo, 
           exprs, spaced = use_file, verbose = getOption("verbose"), 
           prompt.echo = getOption("prompt"), max.deparse.length = 150, 
@@ -278,7 +279,7 @@ ui <- fluidPage(
    
    # Application title
    titlePanel(title=paste0("BehSeqanalyser, ",version))
-   ,tags$h4 ("Analyse home cage monitoring data. https://github.com/jcolomb/HCS_analysis")
+   ,source ("../Softwareheader.R")
    ,     
    # Sidebar with a slider input for number of bins 
    sidebarLayout(

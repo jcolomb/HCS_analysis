@@ -272,7 +272,7 @@ ui <- fluidPage(
   
   # Application title
   titlePanel("Prepare your home cage monitoring data for analysis. https://github.com/jcolomb/HCS_analysis"),
-  
+  source ("../Softwareheader.R"),
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
