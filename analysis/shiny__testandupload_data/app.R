@@ -27,6 +27,8 @@ library (stringr)
 library(gridExtra)
 library(RGraphics)
 
+
+
 source= function (file, local = TRUE, echo = verbose, print.eval = echo, 
                   exprs, spaced = use_file, verbose = getOption("verbose"), 
                   prompt.echo = getOption("prompt"), max.deparse.length = 150, 
@@ -267,6 +269,7 @@ Projects_metadata <- read_csv(PMeta)
 
 
 
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   
@@ -368,7 +371,7 @@ server <- function(input, output, session) {
     
     
       values$outputtable <- anti_join( data.frame(filepath=basename(files)), all_datafiles %>% transmute (filepath = basename(filepath)))
-     if (nrow(values$outputtable)>0) values$message="There are problems !"
+     if (nrow(values$outputtable)>0) values$message="There are problems ! Please check the tables to see whether the problems are real or if we can ignore the warnings."
     
       Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
       #for online projects, outputs are written on disk:

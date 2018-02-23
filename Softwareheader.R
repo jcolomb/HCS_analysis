@@ -1,6 +1,6 @@
  HTML(
   
-'<h5> Analyse home cage monitoring data. 
+'<h5> software
 
 distributed under the MIT license, 
  <a href =https://github.com/jcolomb/HCS_analysis/issues> report issues here</a>

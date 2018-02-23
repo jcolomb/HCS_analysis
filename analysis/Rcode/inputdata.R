@@ -46,3 +46,18 @@ lab_meta = read_csv(paste(
 metadata=left_join(left_join(animal_meta, lab_meta , by ="Lab_ID"),Projects_metadata, by ="Proj_name")
 #-- add an ID for each animal (number starting at 100)
 metadata$ID = as.character(c(100: (99+nrow(metadata))))
+
+if (Projects_metadata$video_analysis =="HCS 3.0"){
+  Behav_code <-
+    read_delim(
+      "infos/HCS_MBR_Code_Details/Short Behavior Codes-Table 1.csv",
+      ",",
+      escape_double = FALSE,
+      col_types = cols(`Behavior Code` = col_integer()),
+      trim_ws = TRUE,
+      skip = 1
+    )[, c(1, 3)]
+  names (Behav_code) = c("behavior", "beh_name")
+  
+  framepersec = 25
+}

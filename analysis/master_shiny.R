@@ -1,17 +1,4 @@
-if (Projects_metadata$video_analysis =="HCS 3.0"){
-  Behav_code <-
-  read_delim(
-    "infos/HCS_MBR_Code_Details/Short Behavior Codes-Table 1.csv",
-    ",",
-    escape_double = FALSE,
-    col_types = cols(`Behavior Code` = col_integer()),
-    trim_ws = TRUE,
-    skip = 1
-  )[, c(1, 3)]
-names (Behav_code) = c("behavior", "beh_name")
 
-framepersec = 25
-}
 source ("Rcode/get_behav_gp.r")
 #get rid of columns with NA (distance traveled if data comes from mbr)
 Multi_datainput_m=Multi_datainput_m[,!colSums(is.na(Multi_datainput_m))>0 ]
