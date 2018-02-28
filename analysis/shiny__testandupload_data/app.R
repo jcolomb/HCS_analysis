@@ -438,6 +438,7 @@ server <- function(input, output, session) {
         if (nrow (newmaster)> nrow(Projects_metadata_o)) osfr::upload_files("myxcv", 'temp.csv')
         file.remove('temp.csv')
         values$message2=newmaster
+        values$message = "The new project was integrated in database."
          }
   
     
