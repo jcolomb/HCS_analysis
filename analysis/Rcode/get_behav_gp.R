@@ -4,11 +4,12 @@ source("Rcode/inputdata.r") #output = metadata
 
 foldername= paste0("BSeqAnal_",version)
 Outputs = paste(WD,Projects_metadata$Folder_path,foldername, sep="/")
-onlinemin=Outputs 
+onlinemin=paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/") 
 #for online projects, outputs are written on disk:
 if (WD == "https:/") Outputs = paste("../data/",foldername,Projects_metadata$Folder_path, sep="/")
 
 dir.create (Outputs, recursive = TRUE)
+dir.create (onlinemin, recursive = TRUE)
 plot.path = Outputs
 
 
@@ -26,6 +27,13 @@ source ("Rcode/animal_groups.r") # output metadata$groupingvar
 
 source ("Rcode/create_minfile.r") # output MIN_data, work probably only with HCS data
 
+# save minute summary to a Routputs folder (for online pushed projects!)
+write.table(
+  MIN_data,
+  paste0(onlinemin, '/Min_', Name_project, '.csv'),
+  sep = ';',
+  row.names = FALSE
+)
 #--- filter data if data need exclusion:
 metadata$Exclude_data[is.na(
   metadata$Exclude_data)] <- 'include'
