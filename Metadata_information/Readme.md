@@ -39,6 +39,7 @@ Get a version of this software on your desktop! You may install R and Rstudio at
 - If animals were tested more than once, add a distinctive information in a new column (treatment for instance).
 - optional: Here you may merge this information with other information you got in a different format. You may look at the helper code for inspiration, but this step is much dependent on your metadata. Be patient, this step might take some time, but you will get something clean at the end.
 - Open the last file created by the helper file and the metadata template, copy-paste columns and enter any missing information (use "NA" if there is no information for that column.)
+- The lab_ID columin this file should correspond to the lab_ID information entered in the lab metadata information. 
 - Check the file for inconsistancy and other possible problems.
 
 

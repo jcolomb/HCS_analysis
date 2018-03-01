@@ -10,7 +10,7 @@
 #    http://shiny.rstudio.com/
 #
 setwd("../")
-versions =list.files("../.git/refs/tags")
+versions =print(system("git tag", intern = TRUE))
 version = versions[length(versions)]
 library(shiny)
 library(plotly)

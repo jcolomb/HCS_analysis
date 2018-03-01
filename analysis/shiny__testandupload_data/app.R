@@ -12,6 +12,8 @@ library(shiny)
 require (shinyFiles)
 
 setwd("../")
+versions =print(system("git tag", intern = TRUE))
+version = versions[length(versions)]
 ##multidimensional analysis:
 library (randomForest)
 library (ica)
