@@ -202,3 +202,25 @@ min_from_mbr <- function(rawdata,fpersec,Behav_code) {
   names(Binned_data)= c("Bin",na.omit(Behav_code$beh_name))
   return(Binned_data)
 }
+
+rawd_from_mbr <- function(rawdata,fpersec,Behav_code) {
+  #-- get rid of last row (distance traveled)
+  rawdata=rawdata [-nrow(rawdata),]
+  #-- get comon names
+  names (rawdata)= c("start", "end", "behavior")
+  
+  #-- change behavior code to 2 digit
+  rawdata= rawdata %>% mutate (behavior = behavior-round(behavior, digits = -2))
+  
+  
+  #-- pool elements with same name
+  rawdata$behavior [rawdata$behavior== 14] <- 13
+  rawdata$behavior [rawdata$behavior== 18] <- 17
+  rawdata$behavior [rawdata$behavior== 31] <- 30
+  
+  #-- add first line with no data
+  fline= c(0,rawdata$start[1], 44 )
+  rawdata =rbind(fline, rawdata)
+  
+  return(rawdata)
+}

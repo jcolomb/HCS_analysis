@@ -9,6 +9,8 @@ if (!RECREATEMINFILE) {
 #-- if not found, create it
 if (RECREATEMINFILE || class(MIN_data) == "try-error") {
   dataf = data.frame() # initialise dataf
+  dataraw = data.frame()
+  
   files = as.character(MIN_datafiles[, 1]) 
   fileshr = as.character(Hour_datafiles[, 1])
   filesmbr = as.character(MBR_datafiles[, 1])
@@ -34,6 +36,9 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
                           header = F)
       behav = min_from_mbr(rawdata, framepersec, Behav_code)
       behav$`Travel(m)`= NA
+      Bseq = rawd_from_mbr(rawdata, framepersec, Behav_code)
+      Bseq$animal_ID =MIN_datafiles[f, 2]
+      dataraw = rbind (dataraw, Bseq)
     }
 
     
@@ -79,6 +84,7 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
     df = left_join(behav, df)
     # saving this animal in main result dataframe
     dataf = rbind(dataf, df)
+
   }
   
   #export to MIN_data and remove dataf
@@ -106,3 +112,4 @@ write.table(
   sep = ';',
   row.names = FALSE
 )
+
