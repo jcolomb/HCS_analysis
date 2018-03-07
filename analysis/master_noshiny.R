@@ -20,7 +20,10 @@ library(gridExtra)
 library(RGraphics)
 source ("Rcode/functions.r")
 
-versions =print(system("git tag", intern = TRUE))
+versions =try(system("git tag", intern = TRUE))
+if (class(versions)== "try-error"){
+  versions =list.files("../.git/refs/tags")
+}
 version = versions[length(versions)]
 
 #library (tcltk2)
@@ -59,17 +62,18 @@ Name_project ="test_online" # this is a test with data in a github repo
 # Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
 Name_project = "Exampledata" # this is the example data present in this github repository
 Name_project ="Ro_testdata"
+Name_project ="Ro_testdata_mbr"
 #These files are on my USB stick, the data cannot be put on github
 #without the formal agreements of the 
 #people who did the experiments:
 
 #Name_project = "Meisel_2017"
 # Name_project ="Lehnard_2016"
- Name_project ="Schmidt2017svm"
+# Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
 # Name_project = "Rosenmund2015"
 # Name_project = "Rosenmund2015g"
- Name_project = "Pruess_2016"
+# Name_project = "Pruess_2016"
 # Name_project = "Vida_2015"
 # Name_project = "Lehnard_2016"
 # Name_project ="Tarabykin_2015" 

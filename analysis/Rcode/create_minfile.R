@@ -113,3 +113,11 @@ write.table(
   row.names = FALSE
 )
 
+if (metadata$primary_datafile[f] == "mbr"){
+  write.table(
+    dataraw,
+    paste0(Outputs, '/Bseq_', Name_project, '.csv'),
+    sep = ';',
+    row.names = FALSE
+  )
+}

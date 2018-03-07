@@ -221,6 +221,7 @@ rawd_from_mbr <- function(rawdata,fpersec,Behav_code) {
   #-- add first line with no data
   fline= c(0,rawdata$start[1], 44 )
   rawdata =rbind(fline, rawdata)
+  left_join(rawdata, Behav_code, by = "behavior")
   
   return(rawdata)
 }
