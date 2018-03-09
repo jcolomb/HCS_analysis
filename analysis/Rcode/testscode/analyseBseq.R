@@ -1,12 +1,14 @@
 #-- analyse behavior sequence.
 library (tidyverse)
 #load ("...") get other info like metadata
+load("data/Ro_testdata/BSeqAnal_v0.1.1-alpha/multidim_analysis_MITsoft.Rdata")
 
-#-- Goal compare night and day data, what happens after sleep (2 next behavior)
+
+#-- Goal compare night and day data, what happens after and before drink 
 
 dataraw_ori <-
   read_delim(
-    "~/github_repo/HCS_analysis/data/Ro_testdata/BSeqAnal_v0.1.1-alpha/Bseq_Ro_testdata_mbr.csv",
+    "data/Ro_testdata/BSeqAnal_v0.1.1-alpha/Bseq_Ro_testdata_mbr.csv",
     ";",
     escape_double = FALSE,
     col_types = cols(
@@ -56,27 +58,40 @@ Nendbin=(as.numeric(strsplit(
 
 nightend=nightstart+ Nendbin
 
+dataraw = dataraw %>% filter 
+
 #-- for each animal 
 ani = 100
-beh= 29 #sleep
+beh= c(28) ##groom
 
 #-- get next behavior for awaken
 bseq_an = dataraw %>% filter (animal_ID== ani) %>%
-  filter (behavior == beh)
+  filter (behavior_n1 %in% beh)
 
-bseq_an$behavior_n1 [bseq_an$behavior_n1 == 32] =bseq_an$behavior_n2[bseq_an$behavior_n1 == 32]
+#for sleep
+#bseq_an$behavior_n1 [bseq_an$behavior_n1 == 32] =bseq_an$behavior_n2[bseq_an$behavior_n1 == 32]
 
 
 R1=bseq_an %>%
-  group_by(behavior_n1) %>%
+  group_by(behavior) %>%
   summarise (n=n())
-names(R1)=c("behavior", "freq")
-R1 =left_join(R1,Behav_code, by= "behavior")
+names(R1)=c("behavior", "freq_before")
+#R1 =left_join(R1,Behav_code, by= "behavior")
 
 R1
 
 
+R2=bseq_an %>%
+  group_by(behavior_n2) %>%
+  summarise (n=n())
+names(R2)=c("behavior", "freq_after")
+#R2 =left_join(R2,Behav_code, by= "behavior")
 
+R2
+
+Behav_code2=left_join(Behav_code, R1, by= "behavior")
+Behav_code2=left_join(Behav_code2, R2, by= "behavior")
+Behav_code2
 
 View(dataraw)
 
