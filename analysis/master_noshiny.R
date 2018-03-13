@@ -42,7 +42,7 @@ RECREATEMINFILE= F # set to true if you want to recreate an existing min file, o
 NO_svm = TRUE
 
 # variable grouping, only working with HCS data at the moment.
-groupingby = "Jhuang" # other possibilities: "Berlin"
+groupingby =  "Jhuang" # other possibilities:"Berlin" #
 # choosing time windows for the analysis
 selct_TW = c(1:9)
 
