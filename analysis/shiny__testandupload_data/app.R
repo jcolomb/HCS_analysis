@@ -10,9 +10,12 @@
 
 library(shiny)
 require (shinyFiles)
-
 setwd("../")
-versions =print(system("git tag", intern = TRUE))
+
+versions =try(system("git tag", intern = TRUE))
+if (class(versions)== "try-error"){
+  versions =list.files("../.git/refs/tags")
+}
 version = versions[length(versions)]
 ##multidimensional analysis:
 library (randomForest)
@@ -276,7 +279,7 @@ Projects_metadata <- read_csv(PMeta)
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Prepare your home cage monitoring data for analysis. https://github.com/jcolomb/HCS_analysis"),
+  titlePanel("Data uploader for Bseq_analyser: Prepare your home cage monitoring data for analysis."),
   source ("../Softwareheader.R"),
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
@@ -290,9 +293,11 @@ ui <- fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-      selectInput('Name_project', 'choose the project to analyse:',
+      tags$h5("Step1. Choose one project from the local data/Projects_metadata.csv file")
+      ,selectInput('Name_project', 'choose the project to analyse:',
                   Projects_metadata$Proj_name ,
                   'test_online')
+      ,tags$h5("Step 2. We test that the metadata (including information in all metadata files) is conform and that the data can be reached by the software.")
       ,actionButton("goButton", "Test metadata")
       
       
@@ -304,7 +309,7 @@ ui <- fluidPage(
                     
       You might think of making the data open first:
       ")
-      ,actionButton("goButton3", "Push it")
+      ,actionButton("goButton3", "Test metadata accuracy")
       ,tableOutput("outputtable3")
       , tags$hr()
       , "this table enumerate existing files which are not accessed by the metadata:"
@@ -351,6 +356,7 @@ server <- function(input, output, session) {
   GObutton3 <- observeEvent(input$goButton3, {
     # session$sendCustomMessage(type = 'testmessage',
     #                          message = 'this may take some time, plese wait')
+    
     dataupload()
     
   })
@@ -363,6 +369,7 @@ server <- function(input, output, session) {
     
     #source <- function (x,...){source (x, local=TRUE,...)}
     source("Rcode/inputdata.r")
+    source("Rcode/checkmetadataconformity.r")
     source("Rcode/checkmetadata.r")
     if (all(all_datafiles$`file.exists(as.character(filepath))`)){
       values$message="Metadata and data is consistent"
@@ -432,7 +439,7 @@ server <- function(input, output, session) {
     if (Name_project %in% Projects_metadata_o$Proj_name){
       values$message2="This project name is already taken, you need to change it."
     }else if (!Projects_metadata$source_data %in% c("this_github","http:/", "USB_stick")){
-      values$message2="Your descritption of the source data is incorrect."
+      values$message2="Your description of the source data is incorrect."
     }else {
         newmaster= rbind (Projects_metadata_o,Projects_metadata %>% filter (Proj_name == Name_project))
         osfr::login("i3sOvWDaZD0Xz9vJudKSn4ZHIJuAIDelnOxwUhMv9mqmTOf63sKvQwy4yDISuCgObOxVzO")
