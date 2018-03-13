@@ -94,7 +94,7 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
   #export MIN_data to a csv file (which can be read)
   write.table(
     MIN_data,
-    paste0(Outputs, '/Min_', Name_project, '.csv'),
+    paste0(onlinemin, '/Min_', Name_project, '.csv'),
     sep = ';',
     row.names = FALSE
   )
@@ -108,7 +108,7 @@ MIN_data$ID = as.factor(MIN_data$ID)
 
 write.table(
   metadata,
-  paste0(Outputs, '/Metadata_', Name_project, '.csv'),
+  paste0(onlinemin, '/Metadata_', Name_project, '.csv'),
   sep = ';',
   row.names = FALSE
 )
@@ -116,7 +116,7 @@ write.table(
 if (!exists("dataraw")){
   write.table(
     dataraw,
-    paste0(Outputs, '/Bseq_', Name_project, '.csv'),
+    paste0(onlinemin, '/Bseq_', Name_project, '.csv'),
     sep = ';',
     row.names = FALSE
   )

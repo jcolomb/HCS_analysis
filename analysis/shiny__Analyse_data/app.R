@@ -278,7 +278,7 @@ NO_svm = FALSE
 ui <- fluidPage(
    
    # Application title
-   titlePanel(title=paste0("BehSeqanalyser, ",version))
+   titlePanel(title=paste0("BSeq_analyser, ",version))
    ,source ("../Softwareheader.R")
    ,     
    # Sidebar with a slider input for number of bins 
@@ -292,8 +292,8 @@ ui <- fluidPage(
          , checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
          , checkboxInput('perf_SVM', 'Perform the multidimensional analysis (takes time)', TRUE)
          , radioButtons('groupingby', 'grouping variables following which categories',
-                      c('Jhuang 10 categories'='MITsoft',
-                        'Berlin 18 categories'='AOCF'),
+                      c('Jhuang 10 categories'='Jhuang',
+                        'Berlin 18 categories'='Berlin'),
                       'MITsoft')
          , shinyUI(bootstrapPage(shinyDirButton('STICK', "Data_directory", 
                           "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")

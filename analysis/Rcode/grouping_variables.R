@@ -23,7 +23,7 @@ if (!is.null(Mins$Eat.2)){
 }
 
 
-# group behavior following AOCF rules
+# group behavior following Berlin categories
 # got arousal and urinate in Unknown (always 0)
 behav_gp <- Mins%>% transmute(ID =ID,Bin = Bin, bintodark,
                               Distance_traveled = distance.traveled,

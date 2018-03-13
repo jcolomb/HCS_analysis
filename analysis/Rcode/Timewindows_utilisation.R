@@ -24,9 +24,9 @@ minadd= Mins %>% select (ID, Bin, lightcondition)
 
 #--choose the behavior grouping used (both defined during grouping_variables.r called from Timewindows_8.r)
 
-if (groupingby == "AOCF"){
+if (groupingby == "Belin"){
   behav_gp =behav_gp
-} else if (groupingby == "MITsoft") {
+} else if (groupingby == "Jhuang") {
   behav_gp = behav_jhuang
 } 
 
@@ -58,7 +58,7 @@ for (i in c(1:nrow(Timewindows))){
 #-- save data for later use
 
 
-write.table(Multi_datainput, paste0(Outputs,'/timedwindowed_',groupingby,"_",Name_project,'.csv'), sep = ';',row.names = FALSE)
+write.table(Multi_datainput, paste0(onlinemin,'/timedwindowed_',groupingby,"_",Name_project,'.csv'), sep = ';',row.names = FALSE)
 
 #-- add groupingvar, take ID out 
 Multi_datainput_m = left_join(Multi_datainput, metadata %>% select (ID, groupingvar), by= "ID")

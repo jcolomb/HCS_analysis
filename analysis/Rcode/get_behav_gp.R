@@ -2,9 +2,9 @@ source("Rcode/inputdata.r") #output = metadata
 
 #-- create folders for outputs.
 
-foldername= paste0("BSeqAnal_",version)
+foldername= paste0("BSeq_analyser",version)
 Outputs = paste(WD,Projects_metadata$Folder_path,foldername, sep="/")
-onlinemin=paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/") 
+onlinemin=paste(WD,Projects_metadata$Folder_path,"BSeq_analyser_data", sep="/") 
 #for online projects, outputs are written on disk:
 if (WD == "https:/") Outputs = paste("../data/",foldername,Projects_metadata$Folder_path, sep="/")
 
