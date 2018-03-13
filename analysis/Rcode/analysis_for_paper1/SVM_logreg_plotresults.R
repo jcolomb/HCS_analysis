@@ -1,6 +1,26 @@
 # plot data from svm against logreg experiment
 
 load("analysis/svm_logreg_246")
+names (Acc_cumm) = c(
+  "One_window_Jhuangcat_logreg" ,
+  "One_window_Jhuangcat_svm_radial",
+  "One_window_Jhuangcat_svm_linear" ,
+  "five_window_Jhuangcat_logreg" ,
+  "five_window_Jhuangcat_svm_radial",
+  "five_window_Jhuangcat_svm_linear" 
+  , "six_window_Jhuangcat_logreg"    ,
+  "six_window_Jhuangcat_svm_radial"  
+  , "six_window_Jhuangcat_svm_linear" ,
+  "One_window_Berlincat_logreg"     
+  , "One_window_Berlincat_svm_radial" ,
+  "One_window_Berlincat_svm_linear" 
+  , "five_window_Berlincat_logreg"   ,
+  "five_window_Berlincat_svm_radial"
+  , "five_window_Berlincat_svm_linear",
+  "six_window_Berlincat_logreg"     
+  , "six_window_Berlincat_svm_radial",
+  "six_window_Berlincat__svm_linear" 
+)
 Plothist_bin <- function (Acc_cumm,i){
   dataplot = data.frame(Acc_cumm [-1,i])
   realacc=Acc_cumm [1,i]
@@ -46,3 +66,18 @@ gridExtra::marrangeGrob(pl_hist ,
 
 
 dev.off()
+
+
+ggsave(
+  "svm_logregresults2.pdf",
+  gridExtra::marrangeGrob(
+    pl_hist ,
+    ncol = 3,
+    nrow = 6,
+    top = paste0 (
+      "accuracy of grouping with ",
+      nrow(data.frame(Acc_cumm [-1, 1])),
+      " permutations performed"
+    )
+  ), width = 15, height = 20
+)
