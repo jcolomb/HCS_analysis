@@ -10,7 +10,10 @@
 #    http://shiny.rstudio.com/
 #
 setwd("../")
-versions =print(system("git tag", intern = TRUE))
+versions =try(system("git tag", intern = TRUE))
+if (class(versions)== "try-error"){
+  versions =list.files("../.git/refs/tags")
+}
 version = versions[length(versions)]
 library(shiny)
 library(plotly)
@@ -275,7 +278,7 @@ NO_svm = FALSE
 
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(
+ui <- fluidPage(theme = "bootstrapsolar.css",
    
    # Application title
    titlePanel(title=paste0("BSeq_analyser, ",version))
@@ -294,7 +297,7 @@ ui <- fluidPage(
          , radioButtons('groupingby', 'grouping variables following which categories',
                       c('Jhuang 10 categories'='Jhuang',
                         'Berlin 18 categories'='Berlin'),
-                      'MITsoft')
+                      'Berlin')
          , shinyUI(bootstrapPage(shinyDirButton('STICK', "Data_directory", 
                           "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")
          ,selectInput('Name_project', 'choose the project to analyse:',

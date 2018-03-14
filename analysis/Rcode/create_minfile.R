@@ -113,7 +113,7 @@ write.table(
   row.names = FALSE
 )
 
-if (!exists("dataraw")){
+if (exists("dataraw")){
   write.table(
     dataraw,
     paste0(onlinemin, '/Bseq_', Name_project, '.csv'),

@@ -24,7 +24,7 @@ minadd= Mins %>% select (ID, Bin, lightcondition)
 
 #--choose the behavior grouping used (both defined during grouping_variables.r called from Timewindows_8.r)
 
-if (groupingby == "Belin"){
+if (groupingby == "Berlin"){
   behav_gp =behav_gp
 } else if (groupingby == "Jhuang") {
   behav_gp = behav_jhuang

@@ -105,7 +105,7 @@ dist <- left_join(behav.dark2, metadata, by = c("meta" = "ID"))
 #dist_d = dist  %>% ungroup %>% group_by(genotype,treatment,Bin.dark) %>% summarise (avg = mean(Distance_traveled), sd = sd(Distance_traveled))
 #CD = dist  %>% ungroup %>% group_by(genotype,treatment,Bin.dark) %>% summarise (avg = mean(ComeDown), sd = sd(ComeDown))
 
-if (groupingby == "AOCF") {
+if (groupingby == "Berlin") {
   dist_sum = dist %>%
     ungroup %>%
     group_by(genotype, treatment, Bin.dark) %>%
@@ -114,7 +114,7 @@ if (groupingby == "AOCF") {
   
 }
 
-if (groupingby == "MITsoft") {
+if (groupingby == "Jhuang") {
   dist_sum = dist %>%
     ungroup %>%
     group_by(genotype, treatment, Bin.dark) %>%
