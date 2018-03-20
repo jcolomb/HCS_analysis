@@ -3,12 +3,22 @@ library (tidyverse)
 #load ("...") get other info like metadata
 load("data/Ro_testdata/BSeqAnal_v0.1.1-alpha/multidim_analysis_MITsoft.Rdata")
 
+# fonction to calculate proportion of behavior before and after:
+freq_behav <- function(bseq_an2, name) {
+  R1=bseq_an2 %>%
+    summarise (n=n())
+  names(R1)=c("behavior", "freq_before")
+  R1$freq_before =  R1$freq_before/  colSums(R1 )[2]*100
+  names(R1)=c("behavior", name)
+  return (R1)
+}
+
 
 #-- Goal compare night and day data, what happens after and before drink 
 
 dataraw_ori <-
   read_delim(
-    "data/Ro_testdata/BSeqAnal_v0.1.1-alpha/Bseq_Ro_testdata_mbr.csv",
+    "data/Ro_testdata/BSeq_analyser_data/Bseq_Ro_testdata_mbr.csv",
     ";",
     escape_double = FALSE,
     col_types = cols(
@@ -58,42 +68,67 @@ Nendbin=(as.numeric(strsplit(
 
 nightend=nightstart+ Nendbin
 
-dataraw = dataraw %>% filter 
+#dataraw = dataraw %>% filter 
 
+
+# only for groom here
+beh= c(10) ##28:groom
+title_plots = Behav_code$beh_name[Behav_code$behavior == beh]
 #-- for each animal 
-ani = 100
-beh= c(28) ##groom
+Before = Behav_code
+After= Behav_code
 
-#-- get next behavior for awaken
-bseq_an = dataraw %>% filter (animal_ID== ani) %>%
-  filter (behavior_n1 %in% beh)
+for (ani in metadata$ID) {
+  #-- choose behavior in _n1
+  bseq_an = dataraw %>% filter (animal_ID == ani) %>%
+    filter (behavior_n1 %in% beh)
+  
+  
+  #--get list of behavior before/after
+  
+  R1 = freq_behav (
+    bseq_an %>%
+      group_by(behavior),
+    paste0("before_", ani))
+  R2 = freq_behav (
+      bseq_an %>%
+        group_by(behavior_n2),
+      paste0("after_", ani))
+      # combine with all code
+      
+      
+    Before = left_join(Before, R1, by = "behavior")
+    After = left_join(After, R2, by = "behavior")
+}
 
-#for sleep
-#bseq_an$behavior_n1 [bseq_an$behavior_n1 == 32] =bseq_an$behavior_n2[bseq_an$behavior_n1 == 32]
+Before[is.na(Before)] <- 0
+After[is.na(After)] <- 0
 
 
-R1=bseq_an %>%
-  group_by(behavior) %>%
-  summarise (n=n())
-names(R1)=c("behavior", "freq_before")
-#R1 =left_join(R1,Behav_code, by= "behavior")
-
-R1
+Before$mean=rowMeans(Before[,c(-1,-2)])
+After$mean=rowMeans(After[,c(-1,-2)])
+Before$median=apply (Before[,c(-1,-2)],1, median)
+After$median=apply (After[,c(-1,-2)],1, median)
 
 
-R2=bseq_an %>%
-  group_by(behavior_n2) %>%
-  summarise (n=n())
-names(R2)=c("behavior", "freq_after")
-#R2 =left_join(R2,Behav_code, by= "behavior")
+# take best 8 and plot:
 
-R2
+Before8= (Before %>% arrange (-median)) [1:8,]
+After8= (After %>% arrange (-median)) [1:8,]
+p=ggplot ( aes( x= c(1:8)) , data=cbind(Before8, After8))+
+  geom_point(aes(size= mean, y = "before", x = beh_name), shape= 22, data=Before8)+
+  geom_point(aes(size= mean, y = "after", x = beh_name), shape= 22, data=After8)+
+  geom_text (aes(y = "before", x = beh_name, label =trunc(mean)), data=Before8)+
+  geom_text (aes(y = "after", x = beh_name, label =trunc(mean)), data=After8)+
+  scale_size(range = c(0, 25))+
+  ggtitle(title_plots)#+scale_size_area()
 
-Behav_code2=left_join(Behav_code, R1, by= "behavior")
-Behav_code2=left_join(Behav_code2, R2, by= "behavior")
-Behav_code2
+p+
+  theme (legend.position = "none", axis.text.x = element_text( angle = 45),
+         panel.background =element_rect (fill = "white"),
+         axis.title = element_blank())
+ggsave("materialforpaper/serie_landvertical.pdf")
 
-View(dataraw)
-
-#dataraw %>% filter (start >(1712669-2000) & start <(1712669+60) ) %>%
+dev.off()
+#datarboxaw %>% filter (start >(1712669-2000) & start <(1712669+60) ) %>%
 #  filter (animal_ID == 107)

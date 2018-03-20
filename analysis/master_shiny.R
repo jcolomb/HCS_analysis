@@ -39,15 +39,17 @@ if (nrow(metadata) < 20 || NO_svm) {
     source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
     rmarkdown::render ("reports/multidim_anal_variable.Rmd")
   }
-  save.image(file= "reports/results.rdata") 
-  file.copy("reports/results.rdata", paste0(Outputs,"/Bseq",Name_project,groupingby,".Rdata"), overwrite=TRUE,
-            copy.mode = TRUE, copy.date = FALSE)
+  
 }
   
 
 
 # save reports in the correct output folder.
 file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/Bseq",Name_project,groupingby,".html"), overwrite=TRUE,
+          copy.mode = TRUE, copy.date = FALSE)
+# save image in the same correct output folder.
+save.image(file= "reports/results.rdata") 
+file.copy("reports/results.rdata", paste0(Outputs,"/Bseq",Name_project,groupingby,".Rdata"), overwrite=TRUE,
           copy.mode = TRUE, copy.date = FALSE)
 
 
