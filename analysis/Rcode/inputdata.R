@@ -20,16 +20,24 @@ animal_meta = read_csv(
   col_names = TRUE,
   cols(
     animal_ID = col_character(),
+    animal_birthdate = col_date(format = ""),
     gender = col_character(),
     treatment = col_character(),
     genotype = col_character(),
-    date = col_character(),
+    other_category = col_character(),
+    date = col_date(format = ""),
     test_cage = col_character(),
     real_time_start = col_time(format = ""),
+    Lab_ID = col_character(),
+    Exclude_data = col_character(),
+    comment = col_character(),
     experiment_folder_name = col_character(),
     Behavior_sequence = col_character(),
     Onemin_summary = col_character(),
-    Lab_ID = col_character()
+    Onehour_summary = col_character(),
+    primary_behav_sequence = col_character(),
+    primary_position_time = col_character(),
+    primary_datafile = col_character()
   )
 )
 

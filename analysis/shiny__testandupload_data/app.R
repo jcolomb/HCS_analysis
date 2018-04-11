@@ -309,9 +309,11 @@ ui <- fluidPage(
                     
       You might think of making the data open first:
       ")
-      ,actionButton("goButton3", "Test metadata accuracy")
+      ,actionButton("goButton3", "Push project if it passes the tests)
       ,tableOutput("outputtable3")
       , tags$hr()
+      , "this table enumerate errors and warnings while looking at the metadata:"
+      ,tableOutput("outputtable_meta")
       , "this table enumerate existing files which are not accessed by the metadata:"
       ,tableOutput("outputtable")
       , "this table enumerate files which are mentioned in the metadata, but do not exist:"
@@ -370,6 +372,8 @@ server <- function(input, output, session) {
     #source <- function (x,...){source (x, local=TRUE,...)}
     source("Rcode/inputdata.r")
     source("Rcode/checkmetadataconformity.r")
+    values$errors = errors
+    values$errors_t = errors_t
     source("Rcode/checkmetadata.r")
     if (all(all_datafiles$`file.exists(as.character(filepath))`)){
       values$message="Metadata and data is consistent"
@@ -395,6 +399,10 @@ server <- function(input, output, session) {
   
   output$outputtable2 <- renderTable({
     values$message_t
+  })
+  
+  output$outputtable_meta<- renderTable({
+    values$errors_t
   })
   
   output$outputtable3 <- renderTable({
@@ -438,8 +446,8 @@ server <- function(input, output, session) {
     
     if (Name_project %in% Projects_metadata_o$Proj_name){
       values$message2="This project name is already taken, you need to change it."
-    }else if (!Projects_metadata$source_data %in% c("this_github","http:/", "USB_stick")){
-      values$message2="Your description of the source data is incorrect."
+    }else if (length(values$errors)>0){
+      values$message2="You first need to correct errors (warnings are ok)."
     }else {
         newmaster= rbind (Projects_metadata_o,Projects_metadata %>% filter (Proj_name == Name_project))
         osfr::login("i3sOvWDaZD0Xz9vJudKSn4ZHIJuAIDelnOxwUhMv9mqmTOf63sKvQwy4yDISuCgObOxVzO")

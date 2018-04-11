@@ -35,8 +35,8 @@ version = versions[length(versions)]
 
 ##project metadata path:
 
-#PMeta ="../data/Projects_metadata.csv"
-PMeta = osfr::path_file("myxcv")
+PMeta ="../data/Projects_metadata.csv"
+#PMeta = osfr::path_file("myxcv")
 
 RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 NO_svm = TRUE
@@ -53,7 +53,7 @@ Npermutation = 1 # number of permutation to perform. set to 1 if testing (42 s p
 
 # 1. data location if on HD
 STICK= "D:/HCSdata/sharable"
-
+STICK= "~/Desktop/HCSdata_2/Sharable"
 
 
 # 2. Choose project to analyse:
@@ -62,7 +62,7 @@ Name_project ="test_online" # this is a test with data in a github repo
 # Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
 Name_project = "Exampledata" # this is the example data present in this github repository
 Name_project ="Ro_testdata"
-Name_project ="Ro_testdata_mbr"
+#Name_project ="Ro_testdata_mbr"
 #These files are on my USB stick, the data cannot be put on github
 #without the formal agreements of the 
 #people who did the experiments:
@@ -71,7 +71,7 @@ Name_project ="Ro_testdata_mbr"
 # Name_project ="Lehnard_2016"
 # Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
-# Name_project = "Rosenmund2015"
+# Name_project = "Rosenmund_2015"
 # Name_project = "Rosenmund2015g"
 # Name_project = "Pruess_2016"
 # Name_project = "Vida_2015"
