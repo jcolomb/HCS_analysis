@@ -42,6 +42,8 @@ metadata = metadata %>% filter (Exclude_data != "exclude")
 
 MIN_data =MIN_data %>% filter(ID %in% metadata$ID)
 
+MIN_data =droplevels(MIN_data)
+metadata =droplevels(metadata)
 #tests
 #summary (as.factor(metadata$animal_ID))
 #summary (as.factor(MIN_data$animal_ID))

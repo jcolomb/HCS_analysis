@@ -42,7 +42,7 @@ if (!all (!is.na(metadata$light_off))){
   errors =c(errors, paste0( sum(is.na(metadata$real_time_start))," light_off must be indicated for each lab metadata, check format : hh:mm:ss"))
 }
 
-if (!all(metadata$group_by %in% c("genotype", "treatment", "other_category"))){
+if (!all(metadata$group_by %in% c("genotype", "treatment", "other_category", "genotype + other_category", " genotype + treatment") )){
   errors =c(errors,"How to group the variable must be indicated correctly")
 }
 

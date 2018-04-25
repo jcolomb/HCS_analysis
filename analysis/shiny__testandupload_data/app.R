@@ -309,7 +309,7 @@ ui <- fluidPage(
                     
       You might think of making the data open first:
       ")
-      ,actionButton("goButton3", "Push project if it passes the tests)
+      ,actionButton("goButton3", "Push project if it passes the tests")
       ,tableOutput("outputtable3")
       , tags$hr()
       , "this table enumerate errors and warnings while looking at the metadata:"
@@ -451,7 +451,7 @@ server <- function(input, output, session) {
     }else {
         newmaster= rbind (Projects_metadata_o,Projects_metadata %>% filter (Proj_name == Name_project))
         osfr::login("i3sOvWDaZD0Xz9vJudKSn4ZHIJuAIDelnOxwUhMv9mqmTOf63sKvQwy4yDISuCgObOxVzO")
-        write.csv(newmaster, file ='temp.csv')
+        write.csv(newmaster, file ='temp.csv', row.names = FALSE)
         if (nrow (newmaster)> nrow(Projects_metadata_o)) osfr::upload_files("myxcv", 'temp.csv')
         file.remove('temp.csv')
         values$message2=newmaster

@@ -36,7 +36,11 @@ Input = Multi_datainput_m
 
   metadata_ori= metadata
   Multi_datainput_m_ori = Multi_datainput_m
-  Multi_datainput_m2_ori = Multi_datainput_m2
+  if (!is.na(Projects_metadata$confound_by)) {
+    Multi_datainput_m2_ori = Multi_datainput_m2
+  }else {
+    Multi_datainput_m2_ori =Multi_datainput_m
+  }
   
   print("we need to choose grouping variables")
   metadata_ori$groupingvar = as.factor(metadata_ori$groupingvar)

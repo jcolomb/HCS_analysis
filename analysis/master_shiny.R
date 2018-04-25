@@ -23,10 +23,10 @@ if (nrow(metadata) < 20 || NO_svm) {
   
   source ("Rcode/ICA.R")
   rmarkdown::render ("reports/multidim_anal_variable.Rmd")
-  file.copy("reports/results.rdata", paste0(Outputs,"/multidim_analysis_",groupingby,".Rdata"), overwrite=TRUE,
-            copy.mode = TRUE, copy.date = FALSE)
-  file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
-            copy.mode = TRUE, copy.date = FALSE)
+  #file.copy("reports/results.rdata", paste0(Outputs,"/multidim_analysis_",groupingby,".Rdata"), overwrite=TRUE,
+  #          copy.mode = TRUE, copy.date = FALSE)
+  #file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
+  #          copy.mode = TRUE, copy.date = FALSE)
   
 }else{
   if (length(unique(metadata$groupingvar))==3) {

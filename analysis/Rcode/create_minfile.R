@@ -3,6 +3,7 @@
 if (!RECREATEMINFILE) {
   MIN_data = try(read.csv2(paste0(onlinemin, '/Min_', Name_project, '.csv'), dec = ".")
                  , TRUE)
+  MIN_data$date = as.Date(MIN_data$date)
   
 }
 
