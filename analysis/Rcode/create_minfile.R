@@ -3,7 +3,7 @@
 if (!RECREATEMINFILE) {
   MIN_data = try(read.csv2(paste0(onlinemin, '/Min_', Name_project, '.csv'), dec = ".")
                  , TRUE)
-  MIN_data$date = as.Date(MIN_data$date)
+  
   
 }
 
@@ -104,6 +104,7 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
 }
 
 MIN_data$ID = as.factor(MIN_data$ID)
+MIN_data$date = as.Date(MIN_data$date)
 
 # save metadata in a csv file.
 
