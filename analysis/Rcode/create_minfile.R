@@ -105,6 +105,7 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
 
 MIN_data$ID = as.factor(MIN_data$ID)
 MIN_data$date = as.Date(MIN_data$date)
+MIN_data$animal_ID= as.factor(MIN_data$animal_ID)
 
 # save metadata in a csv file.
 
