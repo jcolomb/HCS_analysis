@@ -1,5 +1,5 @@
 #------------------ choose only some time windows
-
+if (length(selct_TW) > nrow(Timewindows)) selct_TW = c(1:nrow(Timewindows))
 Timewindows = Timewindows[selct_TW,]
 
 

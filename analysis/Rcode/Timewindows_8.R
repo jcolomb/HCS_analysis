@@ -48,3 +48,5 @@ Timewindows =Timewindows %>%
   mutate (windowend = 60*as.numeric (as.character(windowend)))
 Timewindows = data.frame(rbind(Timewindows,T7,T8))
 
+Timewindows = Timewindows %>% filter ( is.na(windowend) | windowstart < windowend )
+
