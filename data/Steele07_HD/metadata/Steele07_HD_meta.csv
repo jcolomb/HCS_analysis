@@ -1,60 +1,60 @@
-animal_ID,animal_birthdate,gender,treatment,genotype,other_category,date,test_cage,real_time_start,Lab_ID,Exclude_data,comment,experiment_folder_name,Behavior_sequence,Onemin_summary,Onehour_summary,primary_behav_sequence,primary_position_time,primary_datafile
-3976,NA,female,1,WT,NA,20040905,NA,14:00,Steele_1,,,9-5-04,,,3976 9-5-6-04 bins.xls,,,hour_summary
-3977,NA,female,1,HD,NA,20040905,NA,14:00,Steele_1,,,9-5-04,,,3977 9-5-6-04 bins.xls,,,hour_summary
-3976,NA,female,1,WT,NA,20040906,NA,14:00,Steele_1,,,9-6-04,,,cage 1 3976 9-6-7-04 bins.xls,,,hour_summary
-3977,NA,female,1,HD,NA,20040906,NA,14:00,Steele_1,,,9-6-04,,,cage 3 3977 9-6-7-04 bins.xls,,,hour_summary
-3976,NA,female,2,WT,NA,20041013,NA,14:00,Steele_1,,,10-13-04,,,cage 1 3976 10-13-14-04 bins.xls,,,hour_summary
-3977,NA,female,2,HD,NA,20041013,NA,14:00,Steele_1,,,10-13-04,,,cage 3 3977 10-13-14-04 bins.xls,,,hour_summary
-3976,NA,female,2,WT,NA,20041014,NA,14:00,Steele_1,,,10-14-04,,,cage 1 3976 10-14-15-04 new set file bins.xls,,,hour_summary
-3977,NA,female,2,HD,NA,20041014,NA,14:00,Steele_1,,,10-14-04,,,cage 3 3977 10-14-15-04 new set file bins.xls,,,hour_summary
-3976,NA,female,3,WT,NA,20041026,NA,14:00,Steele_1,,,10-26-04,,,cage 1 3976 10-26-27-04 bins.xls,,,hour_summary
-3977,NA,female,3,HD,NA,20041026,NA,14:00,Steele_1,,,10-26-04,,,cage 3 3977 10-26-27-04 bins.xls,,,hour_summary
-4768,NA,female,3,WT,NA,20041026,NA,14:00,Steele_1,,,10-26-04,,,cage 2 4768 10-26-27-04 bins.xls,,,hour_summary
-4769,NA,female,3,HD,NA,20041026,NA,14:00,Steele_1,,,10-26-04,,,cage 4 4769 10-26-27-04 bins.xls,,,hour_summary
-3976,NA,female,3,WT,NA,20041027,NA,14:00,Steele_1,,,10-27-04,,,cage 1 3976 10-27-28-04 bins.xls,,,hour_summary
-3977,NA,female,3,HD,NA,20041027,NA,14:00,Steele_1,,,10-27-04,,,cage 3 3977 10-27-28-04 bins.xls,,,hour_summary
-4768,NA,female,3,WT,NA,20041027,NA,14:00,Steele_1,,,10-27-04,,,cage 2 4768 10-28-29-04 bins.xls,,,hour_summary
-4769,NA,female,3,HD,NA,20041027,NA,14:00,Steele_1,,,10-27-04,,,cage 4 4769 10-27-28-04 bins.xls,,,hour_summary
-4770,NA,female,4,WT,NA,20041101,NA,14:00,Steele_1,,,11-1-04,,,cage 1 4770 11-1-2-04 bins.xls,,,hour_summary
-4771,NA,female,4,HD,NA,20041101,NA,14:00,Steele_1,,,11-1-04,,,cage 3 4771 11-1-2-04 bins.xls,,,hour_summary
-4770,NA,female,4,WT,NA,20041102,NA,14:00,Steele_1,,,11-2-04,,,cage1 4770 11-2-3-04 bins.xls,,,hour_summary
-4771,NA,female,4,HD,NA,20041102,NA,14:00,Steele_1,,,11-2-04,,,cage3 4771 11-2-3-04 bins.xls,,,hour_summary
-4989,NA,female,4,WT,NA,20041105,NA,14:00,Steele_1,,,11-5-04,,,cage2 4989 11-5-6-04 bins.xls,,,hour_summary
-4990,NA,female,4,HD,NA,20041105,NA,14:00,Steele_1,,,11-5-04,,,cage4 4990 11-5-6-04 bins.xls,,,hour_summary
-4989,NA,female,4,WT,NA,20041106,NA,14:00,Steele_1,,,11-6-04,,,cage2 4989 11-6-7-04 26 hour bins.xls,,,hour_summary
-4992,NA,female,4,WT,NA,20041108,NA,14:00,Steele_1,,,11-8-04,,,cage2 4992 11-8-9-04 bins.xls,,,hour_summary
-4993,NA,female,4,HD,NA,20041108,NA,14:00,Steele_1,,,11-8-04,,,cage4 4993 11-8-9-04 bins.xls,,,hour_summary
-4992,NA,female,4,WT,NA,20041109,NA,14:00,Steele_1,exclude,,11-9-04,,,cage2 4992 11-9-10-04 bins.xls,,,hour_summary
-4993,NA,female,4,HD,NA,20041109,NA,14:00,Steele_1,,,11-9-04,,,cage4 4993 11-9-10-04 bins.xls,,,hour_summary
-5210,NA,female,5,HD,NA,20041123,NA,14:00,Steele_1,,,11-23-04,,,cage1 5210 11-23-24-04 bins.xls,,,hour_summary
-5211,NA,female,5,WT,NA,20041123,NA,14:00,Steele_1,,,11-23-04,,,cage3 5211 11-23-24-04 bins.xls,,,hour_summary
-5210,NA,female,5,HD,NA,20041124,NA,14:00,Steele_1,,,11-24-04,,,cage1 5210 11-24-25-04 bins.xls,,,hour_summary
-5211,NA,female,5,WT,NA,20041124,NA,14:00,Steele_1,,,11-24-04,,,cage3 5211 11-24-25-04 bins.xls,,,hour_summary
-4768,NA,female,6,WT,NA,20041130,NA,14:00,Steele_1,,,11-30-04,,,cage 2 4768 11-30-12-1-04 bins.xls,,,hour_summary
-4769,NA,female,6,HD,NA,20041130,NA,14:00,Steele_1,,,11-30-04,,,cage 4 4769 11-30-12-1-04 bins.xls,,,hour_summary
-4768,NA,female,6,WT,NA,20041201,NA,14:00,Steele_1,,,12-1-04,,,cage 2 4768 12-1-2-04 bins.xls,,,hour_summary
-4769,NA,female,6,HD,NA,20041201,NA,14:00,Steele_1,,,12-1-04,,,cage 4 4769 12-1-2-04 bins.xls,,,hour_summary
-4770,NA,female,7,WT,NA,20041205,NA,14:00,Steele_1,,,12-5-04,,,cage 1 4770 12-5-6-04 bins.xls,,,hour_summary
-4771,NA,female,7,HD,NA,20041205,NA,14:00,Steele_1,,,12-5-04,,,cage 3 4771 12-5-6-04 bins.xls,,,hour_summary
-4770,NA,female,7,WT,NA,20041206,NA,14:00,Steele_1,,,12-6-04,,,cage 1 4770 12-6-7-04 bins.xls,,,hour_summary
-4771,NA,female,7,HD,NA,20041206,NA,14:00,Steele_1,,,12-6-04,,,cage 3 4771 12-6-7-04 bins.xls,,,hour_summary
-4989,NA,female,7,WT,NA,20041209,NA,14:00,Steele_1,,,12-9-04,,,cage2 4989 12-9-10-04 bins.xls,,,hour_summary
-4990,NA,female,7,HD,NA,20041209,NA,14:00,Steele_1,,,12-9-04,,,cage4 4990 12-9-10-04 bins.xls,,,hour_summary
-4989,NA,female,7,WT,NA,20041211,NA,14:00,Steele_1,,,12-11-04,,,cage2 4989 12-11-12-04 bins.xls,,,hour_summary
-4990,NA,female,7,HD,NA,20041211,NA,14:00,Steele_1,,,12-11-04,,,cage4 4990 12-11-12-04 bins.xls,,,hour_summary
-4992,NA,female,7,WT,NA,20041213,NA,14:00,Steele_1,,,12-13-04,,,cage2 4992 12-13-14-04 bins.xls,,,hour_summary
-4993,NA,female,7,HD,NA,20041213,NA,14:00,Steele_1,,,12-13-04,,,cage4 4993 12-13-14-04 bins.xls,,,hour_summary
-4992,NA,female,7,WT,NA,20041214,NA,14:00,Steele_1,,,12-14-04,,,cage2 4992 12-14-15-04 bins.xls,,,hour_summary
-4993,NA,female,7,HD,NA,20041214,NA,14:00,Steele_1,,,12-14-04,,,cage4 4993 12-14-15-04 bins.xls,,,hour_summary
-5891,NA,female,8,HD,NA,20041223,NA,14:00,Steele_1,,,12-23-04,,,cage 4 5891 12-23-24-04 bins.xls,,,hour_summary
-5892,NA,female,8,WT,NA,20041223,NA,14:00,Steele_1,,,12-23-04,,,cage 2 5892 12-23-24-04 bins.xls,,,hour_summary
-5891,NA,female,8,HD,NA,20041224,NA,14:00,Steele_1,,,12-24-04,,,cage2 5891 12-24-25-04 bins.xls,,,hour_summary
-5892,NA,female,8,WT,NA,20041224,NA,14:00,Steele_1,,,12-24-04,,,cage4 5892 12-24-25-04 bins.xls,,,hour_summary
-5210,NA,female,8,HD,NA,20041227,NA,14:00,Steele_1,,,12-27-04,,,cage1 5210 12-27-28-04 bins.xls,,,hour_summary
-5211,NA,female,8,WT,NA,20041227,NA,14:00,Steele_1,,,12-27-04,,,cage3 5211 12-27-28-04 bins.xls,,,hour_summary
-5210,NA,female,8,HD,NA,20041228,NA,14:00,Steele_1,,,12-28-04,,,cage1 5210 12-28-29-04 bins.xls,,,hour_summary
-5211,NA,female,8,WT,NA,20041228,NA,14:00,Steele_1,,,12-28-04,,,cage3 5211 12-28-29-04 bins.xls,,,hour_summary
-5891,NA,female,9,HD,NA,20050201,NA,14:00,Steele_1,,,2-1-05,,,cage1 5891 2-1-2-05 bins.xls,,,hour_summary
-5892,NA,female,9,WT,NA,20050201,NA,14:00,Steele_1,,,2-1-05,,,cage3 5892 2-1-2-05 bins.xls,,,hour_summary
-5891,NA,female,9,HD,NA,20050202,NA,14:00,Steele_1,,,2-2-05,,,cage1 5891 2-2-3-05 bins.xls,,,hour_summary
-5892,NA,female,9,WT,NA,20050202,NA,14:00,Steele_1,,,2-2-05,,,cage3 5892 2-2-3-05 bins.xls,,,hour_summary
+"animal_ID","animal_birthdate","gender","treatment","genotype","other_category","date","test_cage","real_time_start","Lab_ID","Exclude_data","comment","experiment_folder_name","Behavior_sequence","Onemin_summary","Onehour_summary","primary_behav_sequence","primary_position_time","primary_datafile"
+3976,"NA","female","NA","WT",1,"2004-09-05","NA","14:00","Steele_1",,,"9-5-04",,,"3976 9-5-6-04 bins.xls",,,"hour_summary"
+3977,"NA","female","NA","HD",1,"2004-09-05","NA","14:00","Steele_1",,,"9-5-04",,,"3977 9-5-6-04 bins.xls",,,"hour_summary"
+3976,"NA","female","NA","WT",1,"2004-09-06","NA","14:00","Steele_1",,,"9-6-04",,,"cage 1 3976 9-6-7-04 bins.xls",,,"hour_summary"
+3977,"NA","female","NA","HD",1,"2004-09-06","NA","14:00","Steele_1",,,"9-6-04",,,"cage 3 3977 9-6-7-04 bins.xls",,,"hour_summary"
+3976,"NA","female","NA","WT",2,"2004-10-13","NA","14:00","Steele_1",,,"10-13-04",,,"cage 1 3976 10-13-14-04 bins.xls",,,"hour_summary"
+3977,"NA","female","NA","HD",2,"2004-10-13","NA","14:00","Steele_1",,,"10-13-04",,,"cage 3 3977 10-13-14-04 bins.xls",,,"hour_summary"
+3976,"NA","female","NA","WT",2,"2004-10-14","NA","14:00","Steele_1",,,"10-14-04",,,"cage 1 3976 10-14-15-04 new set file bins.xls",,,"hour_summary"
+3977,"NA","female","NA","HD",2,"2004-10-14","NA","14:00","Steele_1",,,"10-14-04",,,"cage 3 3977 10-14-15-04 new set file bins.xls",,,"hour_summary"
+3976,"NA","female","NA","WT",3,"2004-10-26","NA","14:00","Steele_1",,,"10-26-04",,,"cage 1 3976 10-26-27-04 bins.xls",,,"hour_summary"
+3977,"NA","female","NA","HD",3,"2004-10-26","NA","14:00","Steele_1",,,"10-26-04",,,"cage 3 3977 10-26-27-04 bins.xls",,,"hour_summary"
+4768,"NA","female","NA","WT",3,"2004-10-26","NA","14:00","Steele_1",,,"10-26-04",,,"cage 2 4768 10-26-27-04 bins.xls",,,"hour_summary"
+4769,"NA","female","NA","HD",3,"2004-10-26","NA","14:00","Steele_1",,,"10-26-04",,,"cage 4 4769 10-26-27-04 bins.xls",,,"hour_summary"
+3976,"NA","female","NA","WT",3,"2004-10-27","NA","14:00","Steele_1",,,"10-27-04",,,"cage 1 3976 10-27-28-04 bins.xls",,,"hour_summary"
+3977,"NA","female","NA","HD",3,"2004-10-27","NA","14:00","Steele_1",,,"10-27-04",,,"cage 3 3977 10-27-28-04 bins.xls",,,"hour_summary"
+4768,"NA","female","NA","WT",3,"2004-10-27","NA","14:00","Steele_1",,,"10-27-04",,,"cage 2 4768 10-28-29-04 bins.xls",,,"hour_summary"
+4769,"NA","female","NA","HD",3,"2004-10-27","NA","14:00","Steele_1",,,"10-27-04",,,"cage 4 4769 10-27-28-04 bins.xls",,,"hour_summary"
+4770,"NA","female","NA","WT",4,"2004-11-01","NA","14:00","Steele_1",,,"11-1-04",,,"cage 1 4770 11-1-2-04 bins.xls",,,"hour_summary"
+4771,"NA","female","NA","HD",4,"2004-11-01","NA","14:00","Steele_1",,,"11-1-04",,,"cage 3 4771 11-1-2-04 bins.xls",,,"hour_summary"
+4770,"NA","female","NA","WT",4,"2004-11-02","NA","14:00","Steele_1",,,"11-2-04",,,"cage1 4770 11-2-3-04 bins.xls",,,"hour_summary"
+4771,"NA","female","NA","HD",4,"2004-11-02","NA","14:00","Steele_1",,,"11-2-04",,,"cage3 4771 11-2-3-04 bins.xls",,,"hour_summary"
+4989,"NA","female","NA","WT",4,"2004-11-05","NA","14:00","Steele_1",,,"11-5-04",,,"cage2 4989 11-5-6-04 bins.xls",,,"hour_summary"
+4990,"NA","female","NA","HD",4,"2004-11-05","NA","14:00","Steele_1",,,"11-5-04",,,"cage4 4990 11-5-6-04 bins.xls",,,"hour_summary"
+4989,"NA","female","NA","WT",4,"2004-11-06","NA","14:00","Steele_1",,,"11-6-04",,,"cage2 4989 11-6-7-04 26 hour bins.xls",,,"hour_summary"
+4992,"NA","female","NA","WT",4,"2004-11-08","NA","14:00","Steele_1",,,"11-8-04",,,"cage2 4992 11-8-9-04 bins.xls",,,"hour_summary"
+4993,"NA","female","NA","HD",4,"2004-11-08","NA","14:00","Steele_1",,,"11-8-04",,,"cage4 4993 11-8-9-04 bins.xls",,,"hour_summary"
+4992,"NA","female","NA","WT",4,"2004-11-09","NA","14:00","Steele_1","exclude",,"11-9-04",,,"cage2 4992 11-9-10-04 bins.xls",,,"hour_summary"
+4993,"NA","female","NA","HD",4,"2004-11-09","NA","14:00","Steele_1",,,"11-9-04",,,"cage4 4993 11-9-10-04 bins.xls",,,"hour_summary"
+5210,"NA","female","NA","HD",5,"2004-11-23","NA","14:00","Steele_1",,,"11-23-04",,,"cage1 5210 11-23-24-04 bins.xls",,,"hour_summary"
+5211,"NA","female","NA","WT",5,"2004-11-23","NA","14:00","Steele_1",,,"11-23-04",,,"cage3 5211 11-23-24-04 bins.xls",,,"hour_summary"
+5210,"NA","female","NA","HD",5,"2004-11-24","NA","14:00","Steele_1",,,"11-24-04",,,"cage1 5210 11-24-25-04 bins.xls",,,"hour_summary"
+5211,"NA","female","NA","WT",5,"2004-11-24","NA","14:00","Steele_1",,,"11-24-04",,,"cage3 5211 11-24-25-04 bins.xls",,,"hour_summary"
+4768,"NA","female","NA","WT",6,"2004-11-30","NA","14:00","Steele_1",,,"11-30-04",,,"cage 2 4768 11-30-12-1-04 bins.xls",,,"hour_summary"
+4769,"NA","female","NA","HD",6,"2004-11-30","NA","14:00","Steele_1",,,"11-30-04",,,"cage 4 4769 11-30-12-1-04 bins.xls",,,"hour_summary"
+4768,"NA","female","NA","WT",6,"2004-12-01","NA","14:00","Steele_1",,,"12-1-04",,,"cage 2 4768 12-1-2-04 bins.xls",,,"hour_summary"
+4769,"NA","female","NA","HD",6,"2004-12-01","NA","14:00","Steele_1",,,"12-1-04",,,"cage 4 4769 12-1-2-04 bins.xls",,,"hour_summary"
+4770,"NA","female","NA","WT",7,"2004-12-05","NA","14:00","Steele_1",,,"12-5-04",,,"cage 1 4770 12-5-6-04 bins.xls",,,"hour_summary"
+4771,"NA","female","NA","HD",7,"2004-12-05","NA","14:00","Steele_1",,,"12-5-04",,,"cage 3 4771 12-5-6-04 bins.xls",,,"hour_summary"
+4770,"NA","female","NA","WT",7,"2004-12-06","NA","14:00","Steele_1",,,"12-6-04",,,"cage 1 4770 12-6-7-04 bins.xls",,,"hour_summary"
+4771,"NA","female","NA","HD",7,"2004-12-06","NA","14:00","Steele_1",,,"12-6-04",,,"cage 3 4771 12-6-7-04 bins.xls",,,"hour_summary"
+4989,"NA","female","NA","WT",7,"2004-12-09","NA","14:00","Steele_1",,,"12-9-04",,,"cage2 4989 12-9-10-04 bins.xls",,,"hour_summary"
+4990,"NA","female","NA","HD",7,"2004-12-09","NA","14:00","Steele_1",,,"12-9-04",,,"cage4 4990 12-9-10-04 bins.xls",,,"hour_summary"
+4989,"NA","female","NA","WT",7,"2004-12-11","NA","14:00","Steele_1",,,"12-11-04",,,"cage2 4989 12-11-12-04 bins.xls",,,"hour_summary"
+4990,"NA","female","NA","HD",7,"2004-12-11","NA","14:00","Steele_1",,,"12-11-04",,,"cage4 4990 12-11-12-04 bins.xls",,,"hour_summary"
+4992,"NA","female","NA","WT",7,"2004-12-13","NA","14:00","Steele_1",,,"12-13-04",,,"cage2 4992 12-13-14-04 bins.xls",,,"hour_summary"
+4993,"NA","female","NA","HD",7,"2004-12-13","NA","14:00","Steele_1",,,"12-13-04",,,"cage4 4993 12-13-14-04 bins.xls",,,"hour_summary"
+4992,"NA","female","NA","WT",7,"2004-12-14","NA","14:00","Steele_1",,,"12-14-04",,,"cage2 4992 12-14-15-04 bins.xls",,,"hour_summary"
+4993,"NA","female","NA","HD",7,"2004-12-14","NA","14:00","Steele_1",,,"12-14-04",,,"cage4 4993 12-14-15-04 bins.xls",,,"hour_summary"
+5891,"NA","female","NA","HD",8,"2004-12-23","NA","14:00","Steele_1",,,"12-23-04",,,"cage 4 5891 12-23-24-04 bins.xls",,,"hour_summary"
+5892,"NA","female","NA","WT",8,"2004-12-23","NA","14:00","Steele_1",,,"12-23-04",,,"cage 2 5892 12-23-24-04 bins.xls",,,"hour_summary"
+5891,"NA","female","NA","HD",8,"2004-12-24","NA","14:00","Steele_1",,,"12-24-04",,,"cage2 5891 12-24-25-04 bins.xls",,,"hour_summary"
+5892,"NA","female","NA","WT",8,"2004-12-24","NA","14:00","Steele_1",,,"12-24-04",,,"cage4 5892 12-24-25-04 bins.xls",,,"hour_summary"
+5210,"NA","female","NA","HD",8,"2004-12-27","NA","14:00","Steele_1",,,"12-27-04",,,"cage1 5210 12-27-28-04 bins.xls",,,"hour_summary"
+5211,"NA","female","NA","WT",8,"2004-12-27","NA","14:00","Steele_1",,,"12-27-04",,,"cage3 5211 12-27-28-04 bins.xls",,,"hour_summary"
+5210,"NA","female","NA","HD",8,"2004-12-28","NA","14:00","Steele_1",,,"12-28-04",,,"cage1 5210 12-28-29-04 bins.xls",,,"hour_summary"
+5211,"NA","female","NA","WT",8,"2004-12-28","NA","14:00","Steele_1",,,"12-28-04",,,"cage3 5211 12-28-29-04 bins.xls",,,"hour_summary"
+5891,"NA","female","NA","HD",9,"2005-02-01","NA","14:00","Steele_1",,,"2-1-05",,,"cage1 5891 2-1-2-05 bins.xls",,,"hour_summary"
+5892,"NA","female","NA","WT",9,"2005-02-01","NA","14:00","Steele_1",,,"2-1-05",,,"cage3 5892 2-1-2-05 bins.xls",,,"hour_summary"
+5891,"NA","female","NA","HD",9,"2005-02-02","NA","14:00","Steele_1",,,"2-2-05",,,"cage1 5891 2-2-3-05 bins.xls",,,"hour_summary"
+5892,"NA","female","NA","WT",9,"2005-02-02","NA","14:00","Steele_1",,,"2-2-05",,,"cage3 5892 2-2-3-05 bins.xls",,,"hour_summary"

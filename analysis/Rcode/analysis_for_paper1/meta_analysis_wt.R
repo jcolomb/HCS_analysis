@@ -43,7 +43,7 @@ NO_svm = TRUE
 # variable grouping, only working with HCS data at the moment.
 groupingby =  "Berlin" #"Jhuang" # other possibilities:"Berlin" #
 # choosing time windows for the analysis
-selct_TW = c(1:9)
+#selct_TW = c(1:9)
 
 Npermutation = 1 # number of permutation to perform. set to 1 if testing (42 s per run with AOCF designation,30s with MIT)
 
@@ -58,8 +58,13 @@ alldata_conc = c() # reset value
 groupingvar= "genotype"
 
 
-for (proj in Projects_metadata_aLL$Proj_name[c(2,4:7)]){
+#-- to do make it work if the number of windows is not identical
+#-- for example with:
+#proj <- Projects_metadata_aLL$Proj_name[2]
+
+for (proj in Projects_metadata_aLL$Proj_name[c(4:8)]){
 # proj<-"Rosenmund_2015"  
+  selct_TW = c(1:9)
   Name_project <- proj
   source("Rcode/inputdata.r")
   source("Rcode/checkmetadata.r")
@@ -74,15 +79,16 @@ for (proj in Projects_metadata_aLL$Proj_name[c(2,4:7)]){
   #concatenate with the previous experiments:
   alldata_conc = rbind(alldata_conc, alldata)
   alldata_conc = rbind(alldata, alldata_conc)
+  
 }
 
 unique(alldata_conc$genotype)
 unique(alldata_conc$treatment)
 
-
+unique(alldata_conc$Title)
 
 Meta_analysis_data = alldata_conc %>% filter (genotype %in% c(
-  "C57BL/6N",
+  "WT",
   "C57BL/6J",
   "C57bl/6J",
   "129/C57BL6J",
@@ -97,14 +103,18 @@ Meta_analysis_data = alldata_conc %>% filter (genotype %in% c(
 Meta_analysis_data$age = -difftime(Meta_analysis_data$animal_birthdate,Meta_analysis_data$date,
                                    units = "weeks")
 
-#Meta_analysis_data [,163]
+#Meta_analysis_data [,162]
 PCAdat=Meta_analysis_data[,2:163]
 metadata = Meta_analysis_data[,c(1,164:ncol(Meta_analysis_data))]
 
 
 
-## get all zero out
+## get all zero out, 
 out <- lapply(PCAdat, function(x) length(unique(x)))
+## get rid of columns with NA
+NAC= lapply(PCAdat, function(x) length(unique(x)))
+sapply(PCAdat, function(x) !any(is.na(x)))
+
 want <- which(!out < 2)
 PCAdat[,want]
 #-- make pca and plot

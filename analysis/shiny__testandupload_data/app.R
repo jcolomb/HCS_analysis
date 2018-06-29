@@ -439,7 +439,8 @@ server <- function(input, output, session) {
   })
   
   dataupload <- reactive({
-    PMetao = osfr::path_file("myxcv")
+    #PMetao = osfr::path_file("myxcv", private= FALSE)
+    PMetao = paste0("http://www.osf.io/download/","myxcv")
     Projects_metadata_o <- read_csv(PMetao)
     
     Name_project <- input$Name_project

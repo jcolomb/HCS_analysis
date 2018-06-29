@@ -270,7 +270,7 @@ source= function (file, local = TRUE, echo = verbose, print.eval = echo,
 }
 
 
-PMeta = osfr::path_file("myxcv")
+PMeta = paste0("http://www.osf.io/download/","myxcv")
 Projects_metadata <- read_csv(PMeta)
 NO_svm = FALSE
 #Timewindows = data.frame ("run it first")

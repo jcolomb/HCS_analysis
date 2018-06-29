@@ -36,13 +36,13 @@ version = versions[length(versions)]
 ##project metadata path:
 
 PMeta ="../data/Projects_metadata.csv"
-#PMeta = osfr::path_file("myxcv")
+PMeta = paste0("http://www.osf.io/download/","myxcv")
 
-RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
+RECREATEMINFILE= T # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
 NO_svm = TRUE
 
 # variable grouping, only working with HCS data at the moment.
-groupingby =  "Jhuang" # other possibilities:"Berlin" #
+groupingby =  "Berlin" #"Jhuang" # other possibilities:"Berlin" #
 # choosing time windows for the analysis
 selct_TW = c(1:9)
 
@@ -67,7 +67,7 @@ Name_project ="Ro_testdata"
 #without the formal agreements of the 
 #people who did the experiments:
 
-#Name_project = "Meisel_2017"
+Name_project = "Meisel_2016"
 # Name_project ="Lehnard_2016"
 # Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"
