@@ -20,17 +20,18 @@ LIGHT_ON = (as.numeric(strsplit(format(metadata$light_on,"%H:%M:%S"),split = ':'
 LIGHT_OFF = (as.numeric(strsplit(format(metadata$light_off,"%H:%M:%S"),split = ':')[[1]][1])*60)+
   as.numeric(strsplit(format(metadata$light_off,"%H:%M:%S"),split = ':')[[1]][2])
 daylenght =(LIGHT_OFF-LIGHT_ON)/60
+nightlenght = 24-daylenght
 
 #2.2 create table: single elements:
 T1 = c("Bin", 0,2,"first 2 hours of recording") # 2 first hours of recording
 T2= c("Bintodark", -2,0, "last 2h before night") # last 2h before light off
 T3 = c("Bintodark", 0,3, "first 3h of night") # early night
-T35 =c("Bintodark", 3,daylenght-3, "middle night") #middle night
-T4 = c("Bintodark", daylenght-3,min ((daylenght),MAXTIME), "late night (3h)") # late night
+T35 =c("Bintodark", 3,nightlenght-3, "middle night") #middle night
+T4 = c("Bintodark", nightlenght-3,min ((nightlenght),MAXTIME), "late night (3h)") # late night
 #T5 = c("Bintodark", 12,15) # early day 2
-T5 = c("Bintodark", daylenght,min ((daylenght+3),MAXTIME),"early day(3h)") # early day 2: 3h or maximal time with all mice included
+T5 = c("Bintodark", nightlenght,min ((nightlenght+3),MAXTIME),"early day(3h)") # early day 2: 3h or maximal time with all mice included
 
-T6= c("Bintodark", -2,min ((daylenght+3),MAXTIME), "full recording")
+T6= c("Bintodark", -2,min ((nightlenght+3),MAXTIME), "full recording")
 T7 = c("lightcondition", "DAY",NA, "daytime")
 T8 = c("lightcondition", "NIGHT", NA, "nighttime")
 
