@@ -14,7 +14,12 @@ start the apps with
     if (!require('shiny')) install.packages("shiny")
     shiny::runGitHub("HCS_analysis", "jcolomb", subdir = "analysis/shiny__Analyse_data/") 
     shiny::runGitHub("HCS_analysis", "jcolomb", subdir = "analysis/shiny__testandupload_data/")
+  
+you may need to first install the command line tools on osx, run this in the terminal
+    xcode-select --install    
     
+If this is not working, please download this repo and try to open the apps manually and debug it, leave a message in the issue section.
+
 # Data analysis overview
 
 The analysis software is automatically reading the master metadata file on OSF. When the user specify the project to analyse, the software will (1) read the metadata associated with the project and create a minute summary file from the primary data file indicated (**either minute summary, hour summary or the raw behavioral sequence can be used as primary data**, 2) behaviour categories are pooled together and the software create time windows,. calculating a value for each behaviour category for each time window. Some data might be excluded at this point of the analysis, following the label indicated in the experiment metadata. 
