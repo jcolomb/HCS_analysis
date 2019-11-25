@@ -1,4 +1,6 @@
 ##-- Acc_sampled should be set a priori to this document, since the code may be run multiple times, we do not set it back to nothing here
+## testvalidation is set in the master_shiny file (n>15 per group ?)
+
 
 if (testvalidation){
   ##inputs are trainset, testset, bestk
