@@ -9,7 +9,9 @@ library (randomForest)
 library (ica)
 library (e1071) #svm
 require(Hmisc)   #binomial confidence 
-
+require (plotly)
+library (rstatix) #effect size calculation
+library (coin) #effect size calculation
 library(osfr) ##access to osf
 
 #normal libraries:
@@ -62,12 +64,12 @@ Name_project ="test_online" # this is a test with data in a github repo
 # Name_project ="permutated_1" # this is a test with data in a github repo, using random grouping
 Name_project = "Exampledata" # this is the example data present in this github repository
 Name_project ="Ro_testdata"
-#Name_project ="Ro_testdata_mbr"
+Name_project ="Ro_testdata_mbr"
 #These files are on my USB stick, the data cannot be put on github
 #without the formal agreements of the 
 #people who did the experiments:
 
-Name_project = "Meisel_2016"
+#Name_project = "Meisel_2016"
 # Name_project ="Lehnard_2016"
 # Name_project ="Schmidt2017svm"
 # Name_project = "Meisel_2017"

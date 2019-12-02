@@ -18,7 +18,8 @@ version = versions[length(versions)]
 library(shiny)
 library(plotly)
 require (shinyFiles)
-
+library (rstatix) #effect size calculation
+library (coin) #effect size calculation
 #setwd("analysis")
 ##multidimensional analysis:
 library (randomForest)
@@ -26,7 +27,7 @@ library (ica)
 library (e1071) #svm
 require(Hmisc)   #binomial confidence 
 
-library(osfr) ##access to osf
+#library(osfr) ##access to osf
 
 #normal libraries:
 library (tidyverse)
@@ -341,7 +342,7 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
 
         
         )  
-        , "You need to indicate time indications (start of experiment, light off, light on) in the different metadata files. Work with minutes and hourly summary at the moment."
+        , "You need to indicate time indications (start of experiment, light off, light on) in the different metadata files. Work with minutes, hourly summary and raw behaviour sequence data files."
         
       )
    )

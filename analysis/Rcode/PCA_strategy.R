@@ -1,6 +1,6 @@
 #-- this codes perfomes a PCA + stat on first discriminant
-#input =Multi_datainput_m (after get_behav_gp.R)
-#ouput = plspca (plot) and PCA_pval (PCA_pval$p.value)
+#input : Multi_datainput_m (after get_behav_gp.R)
+#ouput : plspca (plot) and PCA_pval (PCA_pval$p.value)
 
 
 #---------------------1 make the pca on data
@@ -15,15 +15,26 @@ Moddata$groupingvar = as.factor(Multi_datainput_m$groupingvar)
 
 #-- Mann-Whitney test if 2 groups, Kruskal-Wallis rank sum test otherwise
 if (length(levels (Moddata$groupingvar)) == 2) {
-  PCA_pval = wilcox.test(PC1 ~ groupingvar, data = Moddata)
+  PCA_pval = wilcox_test(PC1 ~ groupingvar, data = Moddata)
+  PCA_effectsize = wilcox_effsize(data= Moddata, PC1 ~ groupingvar, comparisons = NULL, ref.group = NULL,
+                                  paired = FALSE, alternative = "two.sided", mu = 0, ci = FALSE,
+                                  conf.level = 0.95, ci.type = "perc", nboot = 1000)
+  
 } else {
-  PCA_pval = kruskal.test(PC1 ~ groupingvar, data = Moddata)
+  PCA_pval = kruskal_test(PC1 ~ groupingvar, data = Moddata)
+  PCA_effectsize = kruskal_effsize(Moddata, PC1 ~ groupingvar, ci = FALSE, conf.level = 0.95,
+                                            ci.type = "perc", nboot = 1000)
 }
+
+#-- effect size calculation
+
+
 
 #-- put stat results in a text
 PCA_res <- ifelse (
-  PCA_pval$p.value < .05,
-  paste0("p < ", signif(PCA_pval$p.value, digits = 2)),
+  PCA_pval$p < .05,
+  paste0("p < ", signif(PCA_pval$p, digits = 2), ", effect size is ", PCA_effectsize$magnitude, " (Z/square(N) = ",signif(PCA_effectsize$effsize, digits = 2),
+         ")."),
   "no statistically significant difference."
 )
 
