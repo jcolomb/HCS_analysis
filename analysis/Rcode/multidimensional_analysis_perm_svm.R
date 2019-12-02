@@ -41,12 +41,14 @@ if (testvalidation){
 }
 
 if (!testvalidation){
-  RF_selecori= RF_selec
+  #out_sel_ori is taken from the svm with real groups
   for (i in 1:Npermutation) {
-    RF_selec$groupingvar = sample (RF_selecori$groupingvar)
+    out_sel =out_sel_ori
+    out_sel$groupingvar = sample (out_sel_ori$groupingvar)
     #-- we perform the same analysis, but grouping was disturbed:
     source ("Rcode/2_out_svm.r")
     ##-- we save the result in the Acc_sampled file
     Acc_sampled = c(Acc_sampled, temp$kappa)
+    write_lines(Acc_sampled, path  = paste0(Outputs,"/Bseq",Name_project,groupingby,"_permutation.csv"))
   }
 }  

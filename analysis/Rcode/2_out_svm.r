@@ -1,17 +1,19 @@
-if (!is.na(Projects_metadata$confound_by)) {
-  RF_selec = Multi_datainput_m2[order(Multi_datainput_m2$groupingvar, Multi_datainput_m2$confoundvar),]
-  RF_selec = RF_selec %>% select (-confoundvar)
-}else {
-  RF_selec = Multi_datainput_m[order(Multi_datainput_m$groupingvar),]
-}
+# if (!is.na(Projects_metadata$confound_by)) {
+#  out_sel = Multi_datainput_m2[order(Multi_datainput_m2$groupingvar, Multi_datainput_m2$confoundvar),]
+#  out_sel =out_sel %>% select (-confoundvar)
+# }else {
+#  out_sel = Multi_datainput_m[order(Multi_datainput_m$groupingvar),]
+# }
 
-xx= as.matrix(RF_selec %>% select (-groupingvar))
-yy = as.numeric(RF_selec$groupingvar)-1
+if (kernel !="radial") message ("2_out_svm is using a radial kernel")
+
+xx= as.matrix(out_sel %>% select (-groupingvar))
+yy = as.numeric(out_sel$groupingvar)-1
 #pp  <- rep(NA, length(yy))
 ppsvm  <- rep(NA, length(yy))
 #ppsvm_L  <- rep(NA, length(yy))
 
-num_per_class <- nrow(RF_selec)/2
+num_per_class <- nrow(out_sel)/2
 
 for (k in 1:num_per_class) {
   
@@ -28,14 +30,14 @@ for (k in 1:num_per_class) {
   groupingvar=as.data.frame(yy[-hold_out])
   
   ##---linear svm
-  #objL <- tune.svm(groupingvar~., data = RF_selec[-hold_out,], gamma = 4^(-5:5), cost = 4^(-5:5),
+  #objL <- tune.svm(groupingvar~., data =out_sel[-hold_out,], gamma = 4^(-5:5), cost = 4^(-5:5),
   #                 tune.control(sampling = "cross"),kernel = "linear")
   #best.parameters_L = objL$best.parameters
   #svm.model_L <- svm(yy[-hold_out] ~ ., data = xx[-hold_out,], cost = best.parameters_L$cost, gamma = best.parameters_L$gamma, kernel = "linear")
   #ppsvm_L[hold_out] = predict(svm.model_L, xx[hold_out,])
   
   ##---radial svm
-  objR <- tune.svm(groupingvar~., data = RF_selec[-hold_out,], gamma = 4^(-5:5), cost = 4^(-5:5),
+  objR <- tune.svm(groupingvar~., data =out_sel[-hold_out,], gamma = 4^(-5:5), cost = 4^(-5:5),
                    tune.control(sampling = "cross"),kernel = "radial")
   best.parameters = objR$best.parameters
   svm.model_R <- svm(yy[-hold_out] ~ ., data = xx[-hold_out,], cost = best.parameters$cost, gamma = best.parameters$gamma, kernel = "radial")

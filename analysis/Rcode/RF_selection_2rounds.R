@@ -46,3 +46,4 @@ Input = Multi_datainput_m [, names(Multi_datainput_m) %in% as.character(R2 [1:nu
 Input$groupingvar = Multi_datainput_m$groupingvar
 RF_selec = Input
 Variables_list =as.character(R2 [1:numberofvariables, 1])
+rm (Input)

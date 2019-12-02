@@ -1,23 +1,23 @@
-#-- run ICA on "Input" and plot results
+#-- run ICA on "RF_selec" and plot results
 
 #-- run ICA taking groupingvar out (2 dimensions kept)
-p=icafast(Input%>% select (-groupingvar),2,center=T,maxit=100)
+p=icafast(RF_selec%>% select (-groupingvar),2,center=T,maxit=100)
 #-- take groupingvar back in result
-ICA= cbind(p$Y, Input   %>% select (groupingvar))
+ICA= cbind(p$Y, RF_selec   %>% select (groupingvar))
 
 #- change name for plotting and plot
 names(ICA) = c("Component_1", "Component_2",  "groupingvar")
 pls=ICA %>% ggplot (aes (x=Component_1, y=Component_2, color = groupingvar))+
   geom_point()+
-  labs (title=paste0(numberofvariables, " variables used as input to the ICA"))+ 
+  labs (title=paste0(numberofvariables, " variables used as RF_selec to the ICA"))+ 
   scale_colour_grey() + theme_bw()+
   theme(legend.position='none')
 #print(pls) 
 
 #-- run ICA taking groupingvar out (3 dimensions kept)
-p=icafast(Input%>% select (-groupingvar),3,center=T,maxit=100)
+p=icafast(RF_selec%>% select (-groupingvar),3,center=T,maxit=100)
 #- take groupingvar back in result
-ICA= cbind(p$Y, Input   %>% select (groupingvar),metadata   %>% select (animal_ID))
+ICA= cbind(p$Y, RF_selec   %>% select (groupingvar),metadata   %>% select (animal_ID))
 
 #-- plot in 3d, with ID as labels
 

@@ -91,9 +91,19 @@ if (testvalidation){
 
 #### 2-out cross-validation if sample size too low.  
 if (!testvalidation){
+  ## set data to use for the svm
+  if (!is.na(Projects_metadata$confound_by)) {
+    out_sel = Multi_datainput_m2[order(Multi_datainput_m2$groupingvar, Multi_datainput_m2$confoundvar),]
+    out_sel =out_sel %>% select (-confoundvar)
+  }else {
+    out_sel = Multi_datainput_m[order(Multi_datainput_m$groupingvar),]
+  }
+  out_sel_ori= out_sel
+  ## do the svm, with a radial kernel
+  kernel ="radial"
   source ("Rcode/2_out_svm.r")
   Accuracyreal = temp$kappa
-  kernel ="radial"
+
 
 }
 
