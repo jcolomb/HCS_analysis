@@ -11,7 +11,8 @@ packrat::restore()
 #   "e1071", #svm
 #   "Hmisc",   #binomial confidence 
 #   
-#   
+#   "rstatix"
+#   "coin"
 #   #normal libraries:
 #   "tidyverse",
 #   "stringr",
