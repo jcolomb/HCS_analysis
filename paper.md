@@ -19,7 +19,7 @@ affiliations:
    index: 1
  - name: Humboldt University of Berlin, Dept. of Biology, Virchowweg 6, Berlin, 10117 Germany
    index: 2
-date: 15 december 2019
+date: 11 december 2019
 bibliography: test.bib
 ---
 
@@ -49,11 +49,12 @@ This software  demonstrates the power of combining data management with its anal
 # Figures
 
 ![Preview of the shiny GUI](paperfigure/shinyview.png)
-![Metadata structure and links between different files](paperfigure/tree-1.pdf)
+
+![Data and metadata structure. The master project\_metadata file was linking the address of the metadata files and the data folder. The experiment metadata file was linking to each data file (for clarity, only one folder was shown here). The format of the data was either .xlsx summary files (min or hour) or the HCS output files .mbr (behavior sequence) and .tbd (position), note that the software was not reading the .tbd files. By reading the master file, the computer could determine the path to every data file. Upon analysis, the software created a new folder indicating the software name and version. Its reports were saved there, while derived data files were saved in a folder named after the software name, but not its version.](paperfigure/tree-1.png)
 
 # Acknowledgements
 
-The authors want to thank member of the lab and the AOCF team: Andrei Istudor for his suggestion to integrate all used variables in the software report, Patrick Beye for discussion on the design of the analysis, Melissa Long for performing the home cage monitoring experiment and help with the creation of the metadata, Vladislav Nachev for scientific inputs and discussion. In addition, we want to thank Prof. Steele and Prof. King for fruitful discussion and access to code and data, and Cleversys Inc for their help with the decoding of the HCS outputs.
+The authors want to thank member of the lab and the AOCF team: Andrei Istudor for his suggestion to integrate all used variables in the software report, Patrick Beye for discussion on the design of the analysis, Melissa Long for performing the home cage monitoring experiment and help with the creation of the metadata, Vladislav Nachev for scientific inputs and discussion. In addition, we want to thank Prof. Steele and Prof. King for fruitful discussion and access to code and data, and Cleversys Inc. for their help with the decoding of the HCS outputs.
 
 
 
