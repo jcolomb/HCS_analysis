@@ -13,7 +13,7 @@ authors:
     affiliation: "1, 2" # (Multiple affiliations must be quoted)
   - name: York Winter
     orcid: 0000-0002-7828-1872
-    affiliation: "2" # (Multiple affiliations must be quoted)
+    affiliation: 2 # (Multiple affiliations must be quoted)
 affiliations:
  - name: Dept. of Biology, Humboldt University, Philippstr. 13, 10099 Berlin, Germany
    index: 1
