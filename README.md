@@ -1,6 +1,11 @@
-
-
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1162739.svg)](https://doi.org/10.5281/zenodo.1162739)
+
+
+# Background
+
+This repository contains software developed to analyse behaviour sequence data obtained over 24h with the home cage scan software. It does not require the data in any specific structure, but requires the user to create additional metadata files telling data file path and animal/experiment information. Shiny application makes it easier to use the software for non-Rusers. Some of the analysis is still best run (and extended) in R.
+
+This repository was developed using Rstudio and has many dependencies. 
 
 
 # Generalities
