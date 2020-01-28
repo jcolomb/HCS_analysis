@@ -1,5 +1,7 @@
 This document aims at providing a walkthrough for users creating their metadata file. Note that you might try to fit your data gathering to the format used here to facilitate future experiments integration.
 
+So far (January 2020), we tested data from different labs, quality and formats.  The software deal only with outputs files from the Home Cage Scan system (HCS, Cleversys Inc.) software so far (the raw behaviour sequence `.mbr` file, or the minutes or hours binned data summaries). 
+
 #  Clone or download this project
 
 Get a version of this software on your desktop! You may install R and Rstudio at this stage. Fork and clone the project if you like to have your data on this github repository, you may just download it otherwise.
