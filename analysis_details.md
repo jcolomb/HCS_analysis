@@ -1,16 +1,20 @@
 # Analysis details
 
+(this text was created to report the software in a normal publication writen in latex, refer to this to get a rapid overview, but comments in the code itself should lead to a similar comprehension.)
+
 ## Overview
 
-Variables can be entered in the `master_noShiny` R file or via the Shiny application, the `master_Shiny.r` file is then processed. The second tab in the Shiny application ploted hourly summary data, by running the `plot5_hoursummaries.r` code. A brief description of the software procedure was given below.
+Variables can be entered in the `master_noShiny` R file or via the Shiny application, the `master_Shiny.r` file is then processed. The second tab in the Shiny application plot hourly summary data, by running the `plot5_hoursummaries.r` code. Note that the application does not save only the report but not the R elements themselves.
 
-The analysis software was automatically reading the master metadata file on OSF. When the user specified the project to analyse, the software did (1) read the metadata associated with the project and create a minute summary file from the primary data file indicated; (2) behaviour categories (see results) were pooled together and the software created time windows and calculated a value for each behaviour category for each time window. Some data might be excluded at this point of the analysis, following the label indicated in the experiment metadata.
+
+The Shiny application is automatically reading the master metadata file on OSF and crash if there is no internet connection. When the user specifies the project to analyse, the software do run `get_behav_gp.r`: it (1) reads the metadata associated with the project and creates a minute summary file from the primary data file indicated; (2) behaviour categories are pooled together, dataset are cut to be all identical in their time indication, and the software creates time windows available for that time span. The user is then asked to choose what time windows to incorporate in the analysis. For each chosen window,the percentage of time a behavior is performed during that time window is calculated.
+Some data might be excluded at this point of the analysis, following the label indicated in the experiment metadata.
 
 The software then performed multidimensional analyses on this latter data to plot it (3) and to tell whether the groups can be told apart (4). The user could choose which time window to incorporate on step 3. The analysis was running a random forest to report the variables which showed most difference in the different groups of mice. It was then performing an independent component analysis (ICA) on these 8 to 20 variables and plotting the first 3 components in an interactive 3D plot. Independently, the next part of the software ran a PCA and looked at the first principal component for statistically different results in the groups, using a non-parametric test. Then it ran a machine learning algorithm on the data. Validation of these latter results was done via a non-exhaustive 2 out validation technique as in \citet{Steele2007} if the sample size per group was below 15, or a validation via a test dataset otherwise.
 
 ## minute summary
 
-The first step of the analysis was to derive a minute summary sequence for the primary data indicated. It was quite straightforward when the primary data was the minute summary export from the HCS software: the software reads the data, add one  columns indicating the metadata entry (a number starting at 100 to avoid any ordering problem) and one column indicating the time to the light off event ("bintodark") and what was the light condition (DAY or NIGHT). All data and metadata was then concatenated and two files were saved in the .csv format.
+The first step of the analysis was to derive a minute summary sequence for the primary data indicated. It was quite straightforward when the primary data was the minute summary export from the HCS software: the software reads the data, add one  column indicating the metadata entry (a number starting at 100 to avoid any ordering problem) and one column indicating the time to the light off event ("bintodark") and what was the light condition (DAY or NIGHT). All data and metadata was then concatenated and two files were saved in the .csv format.
 
 If the primary data was hourly summaries, the software created minute data by dividing the hour value by 60 and repeating the data over 60 rows. If the primary data was the behavior sequence, the software calculated the amount of time spent doing each behaviour for each minute of experiment (using information about the behaviour code used in the .mbr file obtained from Cleversys). Note that in contrast to the HCS export, the distance travelled was not calculated, and that the last data of an incomplete minute was discarded.
 
@@ -41,7 +45,7 @@ For L1-regularised regression, the code used in \citet{Steele2007}, obtained fro
 
 For support vector machine methods, we used the e1071 R package \citep{svm}, with either a linear or a radial kernel and tuned its variables (gamma and cost) to choose an effective model. 
 
-## {Validation of machine learning
+## Validation of machine learning
 
 The software used two different validation technique. For dataset with less than 15 animals per group, a 2-out validation strategy was used, while the software used a completely independent test dataset, when the sample size exceeded 15.
 
