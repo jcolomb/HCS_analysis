@@ -75,6 +75,9 @@ Right: example of analysis output using a dataset of wild type mice tested twice
 
 The authors want to thank member of the lab and the AOCF team: Andrei Istudor for his suggestion to integrate all used variables in the software report, Patrick Beye for discussion on the design of the analysis, Melissa Long for performing the home cage monitoring experiment and help with the creation of the metadata, Vladislav Nachev for scientific inputs and discussion. In addition, we want to thank Prof. Steele and Prof. King for fruitful discussion and access to code and data, and Cleversys Inc. for their help with the decoding of the HCS outputs.
 
+# Funding
+
+Funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – Project number 327654276 – SFB 1315.
 
 
 
