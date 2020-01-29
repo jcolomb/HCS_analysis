@@ -84,6 +84,6 @@ Funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) 
 
 # Dependencies
 
-The software was build on R ressources [@R-base]. This work would not have been possible without the  tidyverse environment [@tidyverse; @stingr], packages for interactive processing [@shinyFiles; @Shiny; @plotly], statistical analysis [@svm; @rf; @Hmisc; @ica; @glmpath; @R-rstatix; @R-coin] and graphical interface [@RGraphics; @gridExtra; @plotly]. It also depended on the osfr package, which was still in development [@R-osfr] and loaded via the devtools package [@devtools]. We used the packrat package [@Rpackrat]  to dock the project.
+The software was build on R ressources [@R-base]. This work would not have been possible without the  tidyverse environment [@tidyverse; @stingr], packages for interactive processing [@shinyfiles; @Shiny; @plotly], statistical analysis [@svm; @rf; @Hmisc; @ica; @glmpath; @R-rstatix; @R-coin] and graphical interface [@RGraphics; @gridExtra; @plotly]. It also depended on the osfr package, which was still in development [@R-osfr] and loaded via the devtools package [@devtools]. We used the packrat package [@Rpackrat]  to dock the project.
 
 # References
