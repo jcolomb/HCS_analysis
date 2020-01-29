@@ -6,7 +6,7 @@
 behav_temp = EVENT_data %>% mutate(behav_ori = behav) %>%
       mutate(behav = as.character(behav)) %>%
       mutate (duration = seconds)  
-  )# create a temporary data.frame with all behaviour information
+  # create a temporary data.frame with all behaviour information
 
 for (i in 1:nrow(behav_temp)) { #for all rows in data frame check the following
   if (grepl('Hang',behav_temp$behav[i])) { # check if entry in given row contains the word 'Hang'

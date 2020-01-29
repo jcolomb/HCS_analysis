@@ -1,6 +1,7 @@
 #this code creates minutes file from MBR raw data, distance traveled cannot be computed from the MBR file.
 #it works for MBR entries with 2 or 4 numbers.
-setwd("analysis")
+#setwd("analysis")
+
 Behav_code <-
   read_delim(
     "infos/HCS_MBR_Code_Details/Short Behavior Codes-Table 1.csv",
@@ -100,4 +101,4 @@ fline= c(0,rawdata$start[1], 44 )
 rawdata =rbind(fline, rawdata)
 
 #-- add animal ID
-rawdata$animal_ID = 
+#rawdata$animal_ID = 

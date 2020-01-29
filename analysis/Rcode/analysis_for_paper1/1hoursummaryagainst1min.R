@@ -90,7 +90,7 @@ plotly::plot_ly(y= MIN_data$`Travel(m)` , x=MIN_data$bintodark,
                 color=MIN_data$ID)
 
 #plotly::plot_ly(y= MIN_data$`Travel(m)`+(MIN_data_min$`Travel(m)` - MIN_data_hr$`Travel(m)`) , x=MIN_data$bintodark,
-                color=MIN_data$ID)
+#                color=MIN_data$ID)
 
 #problem of bintodark fro the last elemenets, need to check why.
 # plotting
