@@ -30,8 +30,11 @@ Here we present an open source free software, actionable via a web browser, perf
 
 ## Data input
 
+
+
 In order to facilitate the analysis of data coming from different sources, we proposed here a format to organise the data (behavior sequence or binned summary data) and the metadata (information about the experiment, the lab and the animals), such that the R-Shiny applications could access the different files automatically. We  designed a metadata structure according to metadata schemes developed for research data FAIRness [@MartoneM.2014DataPrinciples.] and according to the needs of the analysis software. It is also a prerequisite to publish metadata about the experiment before running the shiny application on the data. Details about the metadata format and a walkthrough in the metadata production is given at: [Metadata_information/readme.md](Metadata_information/readme.md). We advice any user to create the metadata during or before the data acquisition.
 
+![Data and metadata structure. The master project_metadata file was linking the address of the metadata files and the data folder. The experiment metadata file was linking to each data file (for clarity, only one folder was shown here). The format of the data was either .xlsx summary files (min or hour) or the HCS output files .mbr (behavior sequence) and .tbd (position), note that the software was not reading the .tbd files. By reading the master file, the computer could determine the path to every data file. Upon analysis, the software created a new folder indicating the software name and version. Its reports were saved there, while derived data files were saved in a folder named after the software name, but not its version.](paperfigure/tree-1.png)
 
 We have been using raw time series of behavior categories produced by the (prioprietary) homecagescan software, when run on videos of mice set individually in a common lab cage for 22h. The software could be extended to work with other type of behaviour sequence data (for instance data obtained with the Jhuang software [@Jhuang2010AutomatedMice]). Interestingly, we could use datasets where the summaries created by the homecagescan software were missing or corrupted.
  
@@ -39,28 +42,33 @@ We provided and used a unpublished dataset of 11 wild type female mice tested tw
 
 ## Data analysis
 
+![Preview of the shiny GUI. On the left panel, the user had to choose variables: project to analyse, behaviour categorisation to use, whether to recreate the minute summary file from the raw data, whether a machine learning analysis should be performed, and the number of permutation to perform (if a machine learning analysis was performed). The user might then choose which time windows to incorporate in the analysis. He could then push the "Do multidimensional analysis button" and wait until the report was produced and showed.](paperfigure/shinyview.png)
+
 A more complete description is given in [analysis_details.md](analysis_details.md). Briefly, we merged the 45 categories we get from the home cage scan software into 10 [@Jhuang2010AutomatedMice] or 18 meta-categories (see analysis/Rcode/otherclasses.csv). The time series data was synchronised to the ligth on event and split in different time windows, in order to account for circadian rhythms linked effects. The square root of the amount of time spent doing each meta-behavior is calculated for each time window. We ended up with 10 to 124 variable per session.
 
 In order to tell differences in the behaviour of different group of animals, we used a non-parametric test on the first component of a PCA (a p-value and effect size is calculated). In addition, a machine learning algorithm can be used. Here we are using a support vector machine trained on one part of the data to predict the group appartenance of the other part of the data. The accuracy of this prediction is then compared to the distribution of accuracies obtained whie shuffling the groups randomly (computer intensive calculations are performed). 
 
-While the shiny app performs that primary analysis, we provide a R code to run it by hand, or step by step. On top of facilitating code debugging, this allows the users to perform the usual analysis before running additional analysis steps (paired analysis for example) or changing the apparence of the figures. We also provide some extra analysis as example of additional visualisation and more complex analysis one could perform using the raw data.
+
 
 An html report is created from the multidimensional analysis and can be visualised directly in the application. The application can be used directly while choosing the test dataset ().
 
+## Putative future development
+
+While the shiny app performs that primary analysis, we provide a R code to run it by hand, or step by step. On top of facilitating code debugging, this allows the users to perform the usual analysis before running additional analysis steps (paired analysis for example) or changing the apparence of the figures. We also provide some extra analysis as example of additional visualisation and more complex analysis one could perform using the raw data. In particular, one script is analysing the behavior sequence itself, reporting the percentage of time a behaviour was recorded just before another one. In the visual abstract figure below, you can see the output of such an anylsis with the average percent of time a behaviour appeared just before or after a "landvertical" behaviour in the test data. The eight behaviours with the highest median proportion were shown, squares and numbers represented the mean percentage (similar numbers were obtained while taking the median).
+
+If additional data would be freely available and linked to the open master metadata file, meta-analyses could be performed automatically, fetching the data where it stands. 
 
 ## Conclusion
 
-This software  demonstrates the power of combining data management with its analysis to achieve a more efficient and effective analysis of the data, avoiding most pitfalls of multivariate analysis (p-hacking and harking) as well as human errors in the data processing. By providing this software and a easy way to add re-usable (FAIR) open datasets, we hope the community will expand the software capacities and increase the amount of the available open data.
+This software demonstrates the power of combining data management with its analysis to achieve a more efficient and effective analysis of the data, avoiding most pitfalls of multivariate analysis (p-hacking and harking) as well as human errors in the data processing. By providing this software and a easy way to add re-usable (FAIR) open datasets, we hope the community will expand the software capacities and increase the amount of the available open data.
 
 
-# Figures
+![Visual abstract. Left: The HCS software analyse video data to produce a time series of behavior, as well as pre-analysed files. This data is usually poorly analysed with excel in about 15 hours of work (data files concatenated by hand, dataset of different duration pooled, often a single time window with few behavioural categories reported, no measures taken against harking and p-hacking). Our software use the raw behaviour sequence data, as well as metadata spreadsheets the user has to provide. I use R code to synchronise the time series and cut datasets to the common length to all datasets, merge categories, and produce summaries for several time windows. The summary data is then analysed and a report is saved on the disc. The process takes about 3 hours, and use state of the art multivariate analysis.
+Right: example of analysis output using a dataset of wild type mice tested twice provided with the software. A PCA analysis can tell the two groups apart, while the machine learning algorithm we used (SVM) had difficulties to do so. We can also visualise the data with hourly summaries and might do more complex analysis looking at the sequence of behaviour itself.](paperfigure/vis_abstract.png)
 
-![Visual abstract. Left: While the HCS software produce pre-analysed files that are usually poorly analysed  with excel in about 15 hours of work (concatenated by hand, often a single time window with few behavioural categories, without measures against harking and p-hacking), one can also use the raw behaviour sequence data, write some metadata spreadsheets and use this Rshiny application to publish and analyse the data in about 2 to 3 hours, using state of the art multivariate analysis (and making sure the data is comparable for each animal).
-Right: example of analysis output using a dataset of wild type mice tested twice provided with the software. A PCA analysis can tell the two groups apart, while the machine learning algorithm we used (SVM) had difficulties to do so. We can also visualise the data with hourly summaries and might do more complex analysis looking at the sequence of behaviour itself.](paperfigure/visualabstract.png)
 
-![Preview of the shiny GUI. On the left panel, the user had to choose variables: project to analyse, behaviour categorisation to use, whether to recreate the minute summary file from the raw data, whether a machine learning analysis should be performed, and the number of permutation to perform (if a machine learning analysis was performed). The user might then choose which time windows to incorporate in the analysis. He could then push the "Do multidimensional analysis button" and wait until the report was produced and showed.](paperfigure/shinyview.png)
 
-![Data and metadata structure. The master project\_metadata file was linking the address of the metadata files and the data folder. The experiment metadata file was linking to each data file (for clarity, only one folder was shown here). The format of the data was either .xlsx summary files (min or hour) or the HCS output files .mbr (behavior sequence) and .tbd (position), note that the software was not reading the .tbd files. By reading the master file, the computer could determine the path to every data file. Upon analysis, the software created a new folder indicating the software name and version. Its reports were saved there, while derived data files were saved in a folder named after the software name, but not its version.](paperfigure/tree-1.png)
+
 
 # Acknowledgements
 

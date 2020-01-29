@@ -37,7 +37,7 @@ The software then performs multidimensional analyses on this latter data to plot
 - a lab metadata: here is stocked information about the room where the experiment was performed (daily light cycle is indicated there).
 - an experiment metadata: each row represent one test. Information about the animal tested is stored there.
 
-# Adding data
+# Using your data
 
 Please refer to https://github.com/jcolomb/HCS_analysis/blob/master/Metadata_information/Readme.md to create new metadata and modify your data to obtain a usable state. Once your data is in a format accepted by the software, you might upload it on github and archive it on zenodo, or keep it locally. By indicating the folder as the raw data folder in github, the software can access the data directly on Github.
 
