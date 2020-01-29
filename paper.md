@@ -64,7 +64,9 @@ This software demonstrates the power of combining data management with its analy
 
 
 ![Visual abstract. Left: The HCS software analyse video data to produce a time series of behavior, as well as pre-analysed files. This data is usually poorly analysed with excel in about 15 hours of work (data files concatenated by hand, dataset of different duration pooled, often a single time window with few behavioural categories reported, no measures taken against harking and p-hacking). Our software use the raw behaviour sequence data, as well as metadata spreadsheets the user has to provide. I use R code to synchronise the time series and cut datasets to the common length to all datasets, merge categories, and produce summaries for several time windows. The summary data is then analysed and a report is saved on the disc. The process takes about 3 hours, and use state of the art multivariate analysis.
+
 Right: example of analysis output using a dataset of wild type mice tested twice provided with the software. A PCA analysis can tell the two groups apart, while the machine learning algorithm we used (SVM) had difficulties to do so. We can also visualise the data with hourly summaries and might do more complex analysis looking at the sequence of behaviour itself.](paperfigure/vis_abstract.png)
+
 
 
 
