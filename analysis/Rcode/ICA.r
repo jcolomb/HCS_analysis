@@ -25,8 +25,9 @@ names(ICA) = c("Component_1", "Component_2", "Component_3","groupingvar","animal
 ICA$groupingvar=as.factor(ICA$groupingvar)
 pls2= plotly::plot_ly(data = ICA, x=~Component_1, y=~Component_2,
                     z=~Component_3, color=~groupingvar,
-                    colors = c("blue", "violet"),
+                    colors = c("blue", "green", "violet"),
                     text = ~paste ("animal: ",animal_ID),
                     type ="scatter3d", mode= "markers") 
 #pls2
+
 
