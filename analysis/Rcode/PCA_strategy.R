@@ -32,8 +32,8 @@ if (length(levels (Moddata$groupingvar)) == 2) {
 
 #-- put stat results in a text
 PCA_res <- ifelse (
-  PCA_pval$p < .05,
-  paste0("p < ", signif(PCA_pval$p, digits = 2), ", effect size is ", PCA_effectsize$magnitude, " (Z/square(N) = ",signif(PCA_effectsize$effsize, digits = 2),
+  pvalue(PCA_pval) < .05,
+  paste0("p < ", signif(pvalue(PCA_pval), digits = 2), ", effect size is ", PCA_effectsize$magnitude, " (Z/square(N) = ",signif(PCA_effectsize$effsize, digits = 2),
          ")."),
   "no statistically significant difference."
 )
@@ -68,3 +68,4 @@ boxplotPCA1 = Moddata %>% ggplot (aes (x = groupingvar, y = PC1, color = groupin
             position = position_dodge(width = 0.9)) +
   theme_bw() +  theme(legend.position = 'none') +
   labs(x = metadata$group_by[1])
+
