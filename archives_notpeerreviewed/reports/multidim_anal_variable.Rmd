@@ -83,7 +83,7 @@ pls2
 
 
 ```{r, results='asis', echo=FALSE}
-if (PCA_pval$p.value< .05) {pander::pandoc.strong("The PCA strategy shows that the behavior profile of the two groups of animal are not identical.")
+if (pvalue(PCA_pval)< .05) {pander::pandoc.strong("The PCA strategy shows that the behavior profile of the two groups of animal are not identical.")
 }else {pander::pandoc.strong("The PCA strategy could not tell the two groups apart.")
   
 }
