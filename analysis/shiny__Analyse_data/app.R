@@ -270,8 +270,10 @@ source= function (file, local = TRUE, echo = verbose, print.eval = echo,
   invisible(yy)
 }
 
-
+# PMeta = "../data/Projects_metadata.csv" ## use for offline testing
 PMeta = paste0("http://www.osf.io/download/","myxcv")
+
+
 Projects_metadata <- read_csv(PMeta)
 NO_svm = FALSE
 #Timewindows = data.frame ("run it first")
@@ -494,7 +496,7 @@ dataoutput2 <- reactive({
 }) 
 
 output$plot <- renderPlotly({
-  ggplotly(values$plot[[input$obs]])
+  ggplotly(values$plot[[input$obs]], originalData= FALSE)
   
 })
 
