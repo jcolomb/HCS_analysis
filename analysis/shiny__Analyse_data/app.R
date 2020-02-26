@@ -496,7 +496,7 @@ dataoutput2 <- reactive({
 }) 
 
 output$plot <- renderPlotly({
-  ggplotly(values$plot[[input$obs]], originalData= FALSE)
+  ggplotly(values$plot[[input$obs]], originalData= FALSE) %>% layout(hovermode = "x")%>% style( hoverinfo = "none", traces = 3:4)
   
 })
 
