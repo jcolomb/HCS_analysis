@@ -308,7 +308,7 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
                                       'Ro_testdata')
          , textOutput("text_1")
          , a("Open the report in a new tab",target="_blank",href="report.html")
-         ,actionButton("debug_go", "Get back to R to debug")
+         ,actionButton("debug_go", "Go back to R to debug")
          
                           
          ))), 
@@ -322,7 +322,7 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
             ,actionButton("TWbutton", "Choose time windows")
             , tags$hr()
             ,DT::dataTableOutput('TW')  
-            ,actionButton("goButton", "Do multidimensional analysis")
+            ,actionButton("goButton", "Perform multidimensional analysis")
                  
             , htmlOutput("includeHTML", inline = TRUE)
             #, textOutput("test")
@@ -344,7 +344,7 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
 
         
         )  
-        , "You need to indicate time indications (start of experiment, light off, light on) in the different metadata files. Work with minutes, hourly summary and raw behaviour sequence data files."
+        , "Use behaviour sequence (.mdr) file, or minutes/hourly summary excel exports from the Homecagescan software. Note that the light squedules should be indicated in the lab metadata files."
         
       )
    )
