@@ -1,5 +1,5 @@
 ---
-title: 'Analysing circadian behaviour sequence data with a Rshiny application'
+title: 'Analysing 24-hour behaviour sequence data with an Rshiny application'
 tags:
   - R
   - shiny
@@ -15,34 +15,41 @@ authors:
     orcid: 0000-0002-7828-1872
     affiliation: 1 # (Multiple affiliations must be quoted)
 affiliations:
- - name: Humboldt University of Berlin, Dept. of Biology, Philippstr. 13, 10099 Berlin, Germany
+ - name: Humboldt University of Berlin, Inst. of Biology, Philippstr. 13, 10099 Berlin, Germany
    index: 1
- - name: Humboldt University of Berlin, Dept. of Biology, Virchowweg 6, Berlin, 10117 Germany
-   index: 2
+ - name: Humboldt-Universität zu Berlin, SFB1315, Institut für Biologie, Charitéplatz
+    1, 10117 Berlin: 2
 date: 29 January 2020
 bibliography: test.bib
+
+
 ---
 
 # Summary
 
-Automated mice phenotyping via high throughput behaviour analysis of home cage behaviour has brought hope for a more effective and efficient way to test rodent models of diseases. While different software track behavioural motives through time, software to analyse and archive this rich data has been lacking [@Steele2007].
-Here we present an open source free software, actionable via a web browser, performing state of the art multidimensional analysis of home cage monitoring data, and creating an open repository of the linked metadata (while the data may be published separately). Some wild type data used to test the software was provided. It will greatly facilitate the work of users of the home cage scan software and other long behavioural sequence data setups.  
+Automated mouse phenotyping via high throughput behaviour analysis of home cage behaviour has brought hope for a more effective and efficient way to test rodent models of diseases. While different software solutions track behavioural motives through time, software to analyse and archive this rich data is mostly lacking [@Steele2007].
+Here, we present an open source, free software actionable via a web browser, that can perform state of the art multidimensional analysis of home cage behavioural sequence data. We created an open repository of the linked metadata that we treat as separate from the raw data. Data from wild type strain of mice used to test the software is provided. 
+
+This software should facilitate the analysis of long behavioural sequence data such as extracted by machine learning and other algorithms from video based home cage monitoring.
 
 ## Data input
 
 
 
-In order to facilitate the analysis of data coming from different sources, we proposed here a format to organise the data (behavior sequence or binned summary data) and the metadata (information about the experiment, the lab and the animals), such that the R-Shiny applications could access the different files automatically. We designed a metadata structure according to metadata schemes developed for research data FAIRness [@2014DataPrinciples] and according to the needs of the analysis software. It was also a prerequisite to publish metadata about the experiment before running the shiny application on the data. Details about the metadata format and a walkthrough in the metadata production was given at: [Metadata_information/readme.md](https://github.com/jcolomb/HCS_analysis/Metadata_information/readme.md). We advice any user to create the metadata during or before the data acquisition and provide a folder template.
+In order to facilitate the analysis of data coming from different sources, we propose a format to organise the data (behavior sequence or binned summary data) and the metadata (information about the experiment, the lab and the animals), such that the R-Shiny applications can access the different files automatically. We designed a metadata structure according to metadata schemes developed for research data FAIRness [@2014DataPrinciples] and considering the needs of the analysis software. We also made it a prerequisite to publish metadata about the experiment before running the shiny application on the data. Details about the metadata format and a walkthrough in the metadata production was given at: [Metadata_information/readme.md](https://github.com/jcolomb/HCS_analysis/Metadata_information/readme.md). We advice any user to create the metadata during or before the data acquisition and provide a folder template.
 
-![Data and metadata structure. The master project_metadata file was linking the address of the metadata files and the data folder. The experiment metadata file was linking to each data file (for clarity, only one folder was shown here). The format of the data was either .xlsx summary files (minutes or hour) or the HCS output files .mbr (behavior sequence) and .tbd (position). Note that the software was not reading the .tbd files. By reading the master file, the computer could determine the path to every data file. Upon analysis, the software created a new folder indicating the software name and version. Its reports were saved there, while derived data files were saved in a folder named after the software name, but not its version.](paperfigure/tree-1.png)
+![Data and metadata structure. The master project_metadata file  links the address of the metadata files and the data folder. The experiment metadata file links to each data file (for clarity, only one folder is shown here). The format of the data was either .xlsx summary files (with minutes or hour time resolution) or the output files .mbr (behavior sequence) and .tbd (position) of the proprietary HomeCageScan (CleverView) software. Note that the current software did not use the .tbd files. The master file, provided path information to the analysis software. Reports are stored in a folder indicating the software name and version. Derived data files are saved in a folder named after the software name, but not its version.
+](paperfigure/tree-1.png)
 
-We have been using raw time seris of behavior categories produced by the (prioprietary) homecagescan software, when run on videos of mice set individually in a common lab cage for 22h. The software could be extended to work with other type of behaviour sequence data (for instance data obtained with the Jhuang software [@Jhuang2010AutomatedMice]). Interestingly, we could use datasets where the summaries created by the homecagescan software were missing or corrupted, which may facilitate the analysis of data obtained with that software.
+
+We have used raw time series of behavior categories produced by the (prioprietary) software HomeCageScan (CleverSys), that had been run on sideview videos of mice placed individually in common lab cages for 22h. The software could be extended to also work with behaviour sequence data from other origin (e.g.  using equivalent open source software [@Jhuang2010AutomatedMice]). Such application is facilitated since our analysis software only requires the behavioural time series data but not any data summaries.
  
-We provided and used an unpublished dataset of 11 wild type female mice tested twice (at the age of 3 and 7 month, respectively) for about a day, and a published dataset obtained from Prof. Steele [@Steele2007; @Luby2012]. Other datasets were tested but the data was not made public. For the new dataset, sample size was decided independently of this study and one animal was excluded because we could not find the data at the second time point. Mice were tested in the same order at the two time points, and were tested in different behavioural tests before and between the two home cage monitoring events.
+We provided and used an unpublished dataset based on 11 wild type female mice recorded twice (at the ages of 3 and 7 months, respectively) for about a day, and a published dataset from another study [@Steele2007; @Luby2012]. Other datasets were tested but the data was not made public here. For the new dataset, sample size was decided independently of this study and one animal was excluded for lack of data for the second time point. Mice were recorded in the same order at the two time points, and had undergone different behavioural tests before and between the two home cage monitoring events.
 
 ## Data analysis
 
-![Preview of the shiny GUI. On the left panel, the user had to choose variables: project to analyse, behaviour categorisation to use, whether to recreate the minute summary file from the raw data, whether a machine learning analysis should be performed, and the number of permutation to perform (if a machine learning analysis was performed). The user might then choose which time windows to incorporate in the analysis. He could then push the "Do multidimensional analysis button" and wait until the report was produced and showed.](paperfigure/shinyview.png)
+![Preview of the shiny GUI. On the left panel, the user chooses variables: project to analyse, behaviour categorisation to use, whether to recreate the minute summary file from the raw data, whether a machine learning analysis should be performed, and the number of permutations to perform (if a machine learning analysis is performed). The user can choose which time windows to incorporate in the analysis. Pushing the “Perform multidimensional analysis button” starts analysis and produces the report.
+](paperfigure/shinyview.png)
 
 Briefly, we merged the 45 categories we get from the home cage scan software into 10 [@Jhuang2010AutomatedMice] or 18 meta-categories (see https://github.com/jcolomb/HCS_analysis/blob/master/analysis/Rcode/grouping_variables.R). The time series data was synchronised to the ligth off event and split in different time windows, in order to account for circadian rhythms linked effects. The square root of the amount of time spent doing each meta-behavior was calculated for each time window. We ended up with 10 to 124 variable per session.
 
