@@ -17,12 +17,10 @@ authors:
 affiliations:
  - name: Humboldt University of Berlin, Inst. of Biology, Philippstr. 13, 10099 Berlin, Germany
    index: 1
- - name: Humboldt-Universität zu Berlin, SFB1315, Institut für Biologie, Charitéplatz
-    1, 10117 Berlin: 2
+ - name: Humboldt-Universität zu Berlin, SFB1315, Institut für Biologie, Charitéplatz 1, 10117 Berlin
+   index: 2
 date: 29 January 2020
 bibliography: test.bib
-
-
 ---
 
 # Summary
@@ -72,10 +70,7 @@ The software presented here demonstrates the power of combining data management 
 By making  this software available  and linking it to re-usable (FAIR) open datasets, we hope to initiate community activity for tools facilitating long-term animal behaviour sequence analysis.
 
 
-![Visual abstract. Left: The HomeCageScan software (CleverSys) analyses video data to produce a time series of behaviour categories, as well as spreadsheets with pre-analysed data. So far, this data was usually poorly analysed with excel in about 15 hours of work (data files concatenated by hand, dataset of different duration pooled, often a single time window with few behavioural categories reported, no measures taken against harking and p-hacking). Our software used the raw behaviour sequence data, as well as metadata spreadsheets the user had to provide. R code were used to synchronise the time series and cut datasets to a common length for all sessions, to merge categories, and to produce summaries for several time windows. The summary data was then analysed and a report was saved on the disc. The process took about 3 hours, and used state of the art multivariate analysis.
-Right: example of analysis output using a dataset of wild type mice tested twice provided with the software. A PCA analysis could tell the two groups apart, while the machine learning algorithm we used (SVM) had difficulties to do so. We could also visualise the data with hourly summaries and do more complex analysis looking at the sequence of behaviour itself.
-
-Left: HomeCageScan software (CleverSys) analyses video data to produce a time series of behaviour categories, as well as spreadsheets with pre-analysis data. Previous studies used the summary data to perform summary analysis.
+![Visual abstract. Left: HomeCageScan software (CleverSys) analyses video data to produce a time series of behaviour categories, as well as spreadsheets with pre-analysis data. Previous studies used the summary data to perform summary analysis.
 Our software used the raw behaviour sequence data, as well as metadata spreadsheets the user had to provide. R code was used to synchronise the time series and cut datasets to a common length for all sessions, to merge categories, and to produce summaries for several time windows of observation. The summary data was then analysed and a report was saved on disc. The process took about 3 hours (mostly used to create the metadata files), and used multivariate analysis. Right: example of analysis output using a dataset from wild type mice recorded twice. A PCA analysis could tell the two groups apart, while the machine learning algorithm we used (SVM) had difficulties to do so. Hourly summaries for each behaviour categories can also be visualised in the application. More complexe analysis might be performed from the same data (see text).](paperfigure/vis_abstract.png)
 
 
