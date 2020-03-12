@@ -84,12 +84,12 @@ The authors want to thank members of the Winter lab and the NeuroCure Animal Out
 
 # Funding
 
-Funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – Project number 327654276 – SFB 1315.
+Funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – Project number 327654276 – SFB 1315, and Project number 39052203 - EXC 257:  NeuroCure.
 
 
 
 # Dependencies
 
-The software was build on R ressources [@R-base]. This work would not have been possible without the  tidyverse environment [@tidyverse; @stingr], packages for interactive processing [@shinyfiles; @shiny; @plotly], statistical analysis [@svm; @rf; @Hmisc; @ica; @glmpath; @R-rstatix; @R-coin] and graphical interface [@RGraphics; @gridExtra; @plotly]. It also depended on the osfr package, which was still in development [@R-osfr] and loaded via the devtools package [@devtools]. We used the packrat package [@Rpackrat]  to dock the project.
+The software was buildt on R ressources [@R-base]. This work would not have been possible without the  tidyverse environment [@tidyverse; @stingr], packages for interactive processing [@shinyfiles; @shiny; @plotly], statistical analysis [@svm; @rf; @Hmisc; @ica; @glmpath; @R-rstatix; @R-coin] and graphical interface [@RGraphics; @gridExtra; @plotly]. It also depended on the osfr package, which was still in development [@R-osfr] and loaded via the devtools package [@devtools]. We used the packrat package [@Rpackrat]  to dock the project.
 
 # References
