@@ -27,4 +27,6 @@ packrat::restore()
 #   "DT",
 #   "beepr"))
 # 
-# devtools::install_github('jcolomb/osfr')
+
+### old dependencies, no need to get it anymore
+### devtools::install_github('jcolomb/osfr')
