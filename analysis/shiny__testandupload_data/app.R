@@ -451,10 +451,10 @@ server <- function(input, output, session) {
       values$message2="You first need to correct errors (warnings are ok)."
     }else {
         newmaster= rbind (Projects_metadata_o,Projects_metadata %>% filter (Proj_name == Name_project))
-        osfr::login("i3sOvWDaZD0Xz9vJudKSn4ZHIJuAIDelnOxwUhMv9mqmTOf63sKvQwy4yDISuCgObOxVzO")
-        write.csv(newmaster, file ='temp.csv', row.names = FALSE)
-        if (nrow (newmaster)> nrow(Projects_metadata_o)) osfr::upload_files("myxcv", 'temp.csv')
-        file.remove('temp.csv')
+        osfr::osf_auth("i3sOvWDaZD0Xz9vJudKSn4ZHIJuAIDelnOxwUhMv9mqmTOf63sKvQwy4yDISuCgObOxVzO")
+        write.csv(newmaster, file ='Projects_metadata.csv', row.names = FALSE)
+        if (nrow (newmaster)> nrow(Projects_metadata_o)) osfr::osf_upload(osfr::osf_retrieve_node("https://osf.io/82xw3/"), 'Projects_metadata.csv',  conflicts = "overwrite")
+        file.remove('Projects_metadata.csv')
         values$message2=newmaster
         values$message = "The new project was integrated in database."
          }
