@@ -744,13 +744,6 @@
       "Repository": "CRAN",
       "Hash": "446d64bb6df6b43f853e6e54eb740165"
     },
-    "packrat": {
-      "Package": "packrat",
-      "Version": "0.5.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "2ebd34a38f4248281096cc723535b66d"
-    },
     "pander": {
       "Package": "pander",
       "Version": "0.6.3",
