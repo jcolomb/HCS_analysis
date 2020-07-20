@@ -1,14 +1,19 @@
 write_bib("devtools")
 
 ## -- the bib was created using multiple time this and citation ("xxx") commands, adding code by hand afterwards
-sink("analysis/materialforpaper/test.bib")
-knitr::write_bib()
-knitr::write_bib("devtools")
+sink("test.bib")
+#knitr::write_bib(names(renvLock$Packages))
+#knitr::write_bib("devtools")
 
 # out <- sapply(names(sessionInfo()$otherPkgs), 
 #               function(x) print(citation(x), style = "Bibtex"))
 # print (citation(), style = "Bibtex")
 # print (citation("devtools"), style = "Bibtex")
+
+renvLock <- jsonlite::read_json("renv.lock")
+knitr::write_bib(names(renvLock$Packages))
+
+
 sink()
 
 

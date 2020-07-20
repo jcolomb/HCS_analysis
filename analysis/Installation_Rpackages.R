@@ -1,5 +1,5 @@
 #installation:
-packrat::restore()
+renv::restore()
 
 
 ## alternatively you may install all packages and hope it works without packrat:
