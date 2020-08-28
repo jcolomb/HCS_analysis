@@ -7,6 +7,8 @@ So far (January 2020), we tested data from different labs, quality and formats. 
 
 Get a version of this software on your desktop! You may install R and Rstudio at this stage. Fork and clone the project if you like to have your data on this github repository, you may just download it otherwise.
 
+Refer to the "Metadata_information/explanation_of_metadata.csv" file for a description of the metadata fields in the different metadata files.
+
 #  Project_metadata.csv file
 
 - Open the local Project_metadata.csv file (you will find it in the data folder) in excel (or similar sofware like libreoffice).
@@ -14,7 +16,7 @@ Get a version of this software on your desktop! You may install R and Rstudio at
 - take the next number available for the experiment ID
 - Keep information about metadata location empty for now, and keep the file open until further notice.
 - in the source_data column, write "this_github" for now.
-- Enter data about the experiment as requested in each cell, refer to the "explanation_of_metadata.csv" file for a desctiption. 
+- Enter data about the experiment as requested in each cell. 
 - save the file as a .csv document (separator = ",". In excel click "save as" and use the ".csv(macintosh)" option)
 
 
@@ -22,9 +24,9 @@ Get a version of this software on your desktop! You may install R and Rstudio at
 
 - copy the "Template_folder_newexp" folder you will find in the metadata_information folder.
 - rename it and enter that information in the Project_metadata.csv file under "folder_path"
-- paste it in the data folder,
-- rename the experiment metadata file to include the project name and make sure there is a lab metadata file found at the path given in the Project_metadata.csv file
--  enter the file path in the Project_metadata.csv file under "animal_metadata" and "lab_metadata". (the path relative to the folder_path information, look at previous project for an example).
+- paste it in the `data` folder.
+- rename the experiment metadata file to include the project name.
+- enter the file path in the Project_metadata.csv file under the "animal_metadata" and "lab_metadata" columns. (the path relative to the folder_path information, look at previous project for an example).
 - Optionally, put the videos in the video folders.
 - Put the data (output from the video analysis, may contain xlsx files, .MBR files or both) in one videoanalysis_output folder. If the data was analysed with different software, add one folder per software (for example HCS3_output and HCS4_output).  
 - enter the file path in the Project_metadata.csv file under "raw_data_folder". Note that only one output may be analysed at a time. If you have used different analysis software, you should create a new row in the Project_metadata.csv file for each.
@@ -37,9 +39,10 @@ Get a version of this software on your desktop! You may install R and Rstudio at
 
 # Build the experiment metadata file (animal_metadata)
 
-- Open the animal_metadata file
-- For each primary data file(s) (for each experiment session), one row should be completed, with as much information as possible. Note that you may have multiple files corresponding to one experiment (min_summary, hour_summary, mbr). Which one will be used by the software is set with the "primary_datafile" column entry. If the .mbr files are available, I would encourage you to use them as primary data file.
-- You may use the HELPER_create_metadata.R code (you need R to be installed on your machine, I would recommand using Rstudio as an interface) to create a list of files to enter in the metadata. The helper can combine the information with animal information if you have it in a different spreadsheet. You may need to copy-paste onformation from the file created with the helper into the animal_metadata file.
+- In the main folder, you may open and have a look at the animal_metadata file (that is the file you have previously renamed) and this is the file we will fill up.
+- For each primary data file(s) (for each experiment session), one row should be completed, with as much information as possible. Note that you may have multiple files corresponding to one experiment . Which one will be used by the software is set with the "primary_datafile" column entry (allowed content: min_summary, hour_summary, mbr_raw). If the .mbr files are available, I would encourage you to use them as primary data file.
+- You may use the HELPER_create_metadata.R code (you need R to be installed on your machine, I would recommand using Rstudio as an interface) to create a list of files to enter in the metadata. 
+- A second helper (HELPER_join_animal-info) can combine the information with animal information if you have it in a different spreadsheet. You may also try to sort the spreadsheet in a way to be able to copy-paste information. In the end, you should be able to copy-paste information from the eachfile2.csv files into the animal_metadata file
 - Enter missing information in the animal_metadata file.
 
 Note:
