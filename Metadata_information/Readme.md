@@ -1,3 +1,4 @@
+.
 This document aims at providing a walkthrough for users creating their metadata file. Note that you might try to fit your data gathering to the format used here to facilitate future experiments integration.
 
 So far (January 2020), we tested data from different labs, quality and formats.  The software deal only with outputs files from the Home Cage Scan system (HCS, Cleversys Inc.) software so far (the raw behaviour sequence `.mbr` file, or the minutes or hours binned data summaries). 
@@ -11,8 +12,9 @@ Get a version of this software on your desktop! You may install R and Rstudio at
 - Open the local Project_metadata.csv file (you will find it in the data folder) in excel (or similar sofware like libreoffice).
 - Select all cells and change its format to "text" to avoid any intervention of the program in what you are typing
 - take the next number available for the experiment ID
-- enter data as requested in each cell, refer to the "explanation_of_metadata.csv" file for a desctiption. Keep information about metadata location empty for now, and keep the file open.
+- Keep information about metadata location empty for now, and keep the file open until further notice.
 - in the source_data column, write "this_github" for now.
+- Enter data about the experiment as requested in each cell, refer to the "explanation_of_metadata.csv" file for a desctiption. 
 - save the file as a .csv document (separator = ",". In excel click "save as" and use the ".csv(macintosh)" option)
 
 
@@ -20,28 +22,30 @@ Get a version of this software on your desktop! You may install R and Rstudio at
 
 - copy the "Template_folder_newexp" folder you will find in the metadata_information folder.
 - rename it and enter that information in the Project_metadata.csv file under "folder_path"
+- paste it in the data folder,
 - rename the experiment metadata file to include the project name and make sure there is a lab metadata file found at the path given in the Project_metadata.csv file
-- enter the file path in the Project_metadata.csv file under "animal_metadata" and "lab_metadata". (the path relative to the folder_path information, look at previous project for an example).
-- Put the videos in the video folders (this is optional, we do not need the videos to run the analysis).
-- Put the data (output from the video analysis) in one videoanalysis_output folder. If the data was analysed with different software, add one folder per software (for example HCS3_output and HCS4_output).  
+-  enter the file path in the Project_metadata.csv file under "animal_metadata" and "lab_metadata". (the path relative to the folder_path information, look at previous project for an example).
+- Optionally, put the videos in the video folders.
+- Put the data (output from the video analysis, may contain xlsx files, .MBR files or both) in one videoanalysis_output folder. If the data was analysed with different software, add one folder per software (for example HCS3_output and HCS4_output).  
 - enter the file path in the Project_metadata.csv file under "raw_data_folder". Note that only one output may be analysed at a time. If you have used different analysis software, you should create a new row in the Project_metadata.csv file for each.
 - The data files cannot lie directly in the data folder, create an additional folder if necessary.
 
 
 # Create a lab metadata
 
-- Fill the lab metadata information. Only time of light on and light off are necessary entries.
+- Fill the lab metadata information. Only time of light on and light off are necessary entries. You can add a row with using a different name. We will use that name later in the animal_metadata file
 
 # Build the experiment metadata file (animal_metadata)
 
-- For each primary data file, one row should be completed with as much information as possible. Note that you may have multiple files corresponding to one experiment (min_summary, hour_summary, mbr). Which one will be used by the software is set with the "primary_datafile" column entry.
-- You may use the HELPER_create_metadata.R code (you need R to be installed on your machine, I would recommand using Rstudio as a interface) to create the experiment_folder_name,	Behavior_sequence,	Onemin_summary columns, and save the spreadseet in the data folder.
-- You may also do it by hand: for each experiment (one animal tested on a specific day), the path to the data file should be found by using the "experiment_folder_name"" and the data column, relative to the folder containing the data (raw_data_folder in Project_metadata.csv file).
-- Enter the animal_ID by hand in that file.
+- Open the animal_metadata file
+- For each primary data file(s) (for each experiment session), one row should be completed, with as much information as possible. Note that you may have multiple files corresponding to one experiment (min_summary, hour_summary, mbr). Which one will be used by the software is set with the "primary_datafile" column entry. If the .mbr files are available, I would encourage you to use them as primary data file.
+- You may use the HELPER_create_metadata.R code (you need R to be installed on your machine, I would recommand using Rstudio as an interface) to create a list of files to enter in the metadata. The helper can combine the information with animal information if you have it in a different spreadsheet. You may need to copy-paste onformation from the file created with the helper into the animal_metadata file.
+- Enter missing information in the animal_metadata file.
+
+Note:
 - If animals were tested more than once, add a distinctive information in a new column (treatment for instance).
-- optional: Here you may merge this information with other information you got in a different format. You may look at the helper code for inspiration, but this step is much dependent on your metadata. Be patient, this step might take some time, but you will get something clean at the end.
-- Open the last file created by the helper file and the metadata template, copy-paste columns and enter any missing information (use "NA" if there is no information for that column.)
-- The lab_ID columin this file should correspond to the lab_ID information entered in the lab metadata information. 
+- Be patient, this step might take some time, but you will get something clean at the end.
+- The lab_ID column in this file should correspond to the lab_ID information entered in the lab metadata information. 
 - Check the file for inconsistancy and other possible problems.
 
 
@@ -69,3 +73,4 @@ NB: the checker will open a window with the files that are additional to the one
 You can run the analysis now. Read warnings carefully and go back to cleaning the metadata if you get problems. Note that you can change the experiment metadata files without changing the information available on OSF.
 
 
+.
