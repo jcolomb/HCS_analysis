@@ -54,8 +54,10 @@ Note:
 
 # Check
 
-- Open the app found in "\analysis\testanduploaddata" (double click the app.r files, and push the run button in Rstudio). you may run `shiny::runApp('analysis/shiny__testandupload_data')` in the console (working directory should be the project working directory).
-- indicate in which folder is the data if it is neither online nor in the data folder of the software (If you followed this guide step by step, you can ignore this step).
+
+- If using Rstudio, open the "HCS_analysis.Rproj" file. Install the dependencies, running the "\analysis\Installation_Rpackages" file.
+- Run `shiny::runApp('analysis/shiny__testandupload_data')` in the console (or open the app found in "\analysis\testanduploaddata" (double click the app.r files, and push the run button in Rstudio).
+- indicate in which folder the data is, if it is neither online nor in the data folder of the software (if you followed this guide step by step, you can ignore this step).
 - choose your project in the selection box.
 - push the "test metadata" button.
 - if they are error messages, investigate and modify the data or metadata accordingly, repeat previous steps
