@@ -4,8 +4,8 @@
 #set directory to HCS folder with all data, typically "HCS3_output" (in Rstudio: Session- set working directory - browse)
 
 # comment or erase alternative you will not use, only one option possible
-Alternative = "work with minutes xlsx exports" # files must have 'min' in their name
-Alternative = "work with hourly xlsx exports"  # files must have 'hour' in their name
+#Alternative = "work with minutes xlsx exports" # files must have 'min' in their name
+#Alternative = "work with hourly xlsx exports"  # files must have 'hour' in their name
 Alternative = "work with mbr files" # files must have 'mbr' in their name
 
 ## Run the rest of the code, if it does not work, you may need to trick the grepl commands to filter things in or out.
@@ -68,7 +68,7 @@ if (Alternative == "work with mbr files"){
   filesf = files %>% filter (grepl('mbr',f)|grepl('MBR',f))
   ## putatively exclude some files
   
-  filesf= filesf %>% filter (!grepl('Glut1',f)) # exclude files with glut in their name
+  filesf= filesf %>% filter (grepl('HomeCageScan',f)) # exclude files with glut in their name
   filesf2 = data.frame(dir=dirname(filesf$f), basename (filesf$f))
   meta1= filesf2
   names (meta1)= c("experiment_folder_name","primary_behav_sequence")

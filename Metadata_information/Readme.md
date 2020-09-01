@@ -40,7 +40,7 @@ Refer to the "Metadata_information/explanation_of_metadata.csv" file for a descr
 # Build the experiment metadata file (animal_metadata)
 
 - In the main folder, you may open and have a look at the animal_metadata file (that is the file you have previously renamed) and this is the file we will fill up.
-- For each primary data file(s) (for each experiment session), one row should be completed, with as much information as possible. Note that you may have multiple files corresponding to one experiment . Which one will be used by the software is set with the "primary_datafile" column entry (allowed content: min_summary, hour_summary, mbr_raw). If the .mbr files are available, I would encourage you to use them as primary data file.
+- For each primary data file(s) (for each experiment session), one row should be completed, with as much information as possible. Note that you may have multiple files corresponding to one experiment . Which one will be used by the software is set with the "primary_datafile" column entry (allowed content: min_summary, hour_summary, mbr). If the .mbr files are available, I would encourage you to use them as primary data file.
 - You may use the HELPER_create_metadata.R code (you need R to be installed on your machine, I would recommand using Rstudio as an interface) to create a list of files to enter in the metadata. 
 - A second helper (HELPER_join_animal-info) can combine the information with animal information if you have it in a different spreadsheet. You may also try to sort the spreadsheet in a way to be able to copy-paste information. In the end, you should be able to copy-paste information from the eachfile2.csv files into the animal_metadata file
 - Enter missing information in the animal_metadata file.
@@ -61,14 +61,32 @@ Note:
 - choose your project in the selection box.
 - push the "test metadata" button.
 - if they are error messages, investigate and modify the data or metadata accordingly, repeat previous steps
-- if they are no error, push the next buttons
+- if they are no error, push the button: "if everything is correct, create the min file", follow the console in Rstudio to make sure it is successful.
+- **Do not click the push button yet.**
 
-# push
+# Push
 
-- Your data is ready. If you want to keep it offline, change the project_metadata file information to source_data="USB_STICK". If you like to publish it, you may either let it where it is and commit and push the changes if you cloned the project (you might think of making a pull request later), or publish it somewhere else and indicate the http address as "experiment_folder"" path and use source_data="HTTP:/".
-- Give your data a license if you published it and enter the information in the project metadata file. (If you keep it in the original folder and pushed your change to github, the data got a CC0 license attached to it).
-- Run the check again.
-- if they are no error, push the "push" button, if the final check is good, the metadata information present in the project metadata file is pushed to OSF (the data do not move).
+
+- Your data is ready, but it needs to find a home. You can either keep it offline or bring it online.
+
+## Offline data
+
+- Change the project_metadata file information to source_data="USB_STICK".
+- Run the check again. This time you will need to use the Data_directory button. You will need to browse until reaching the data folder. You may also copy the data folder on a USB-stick first and browse to there.
+- Test the metadata, create the min file. If there are still no error, now you can push the "push the project if it passes the tests."
+
+## online data
+
+- Publish the data where you want, give it a license there.
+- Indicate the license in the project_metadata file.
+- Indicate the http address in the "Folder_path" column of the project_metadata file, do not include the "https://". This should be a publicly accessible address. Note that if you are using a git-based repository like github, gitlab or gin, the address should contain the term "raw". You can get this address using the download button on the website. For example the test data of this repository could be accessed with: "github.com/jcolomb/HCS_analysis/raw/master/data/Ro_testdata"
+- Change the project_metadata file information to source_data="https:/"
+_ Run the check again. If it fails, make sure the repository is public and the data has been completely uploaded already.
+- if they are no error, push the "now you can push the "push the project if it passes the tests.
+
+## Final check
+
+button, if the final check is good, the metadata information present in the project metadata file is pushed to OSF (the data do not move).
 - Once pushed to the online master metadata file, it cannot be modified. If you made a mistake, you will have to push a new version using a different name.
 
 NB: the checker will open a window with the files that are additional to the one used in the metadata, check at that moment whether some animals were tested and not incorporated in the metadata, or if it is only files which are not necessary (for example hour summary files, text files,...).
