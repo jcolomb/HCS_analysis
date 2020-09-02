@@ -16,7 +16,10 @@
    version="1.1"
    id="svg8760"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="vis_abstract.svg">
+   sodipodi:docname="vis_abstract.svg"
+   inkscape:export-filename="/Users/colombj/github_repo/01_sfb1315/HCS_analysis_forpub/paperfigure/vis_abstract.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150">
   <defs
      id="defs8754">
     <clipPath
@@ -688,9 +691,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="801.79497"
-     inkscape:cy="622.15293"
+     inkscape:zoom="1.4"
+     inkscape:cx="1625.63"
+     inkscape:cy="476.2519"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -711,7 +714,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -3078,18 +3081,19 @@
          id="flowPara62868">Analysis of behaviour sequence</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot62878"
-       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:condensed;font-size:37.13444519px;line-height:125%;font-family:'Helvetica Neue LT Std';-inkscape-font-specification:'Helvetica Neue LT Std Light Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.22502589px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(0.2159818,0,0,0.2159818,-820.82221,-341.07358)"><flowRegion
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:condensed;font-size:37.13444519px;line-height:125%;font-family:'Helvetica Neue LT Std';-inkscape-font-specification:'Helvetica Neue LT Std Light Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.22502589px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       transform="matrix(0.2159818,0,0,0.2159818,-820.82221,-341.07358)"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><flowRegion
          id="flowRegion62874"
-         style="stroke-width:1.22502589px"><rect
+         style="stroke-width:1.22502589px;text-anchor:middle;text-align:center;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"><rect
            id="rect62872"
            width="488.91382"
            height="56.568542"
            x="3751.7065"
            y="2598.7551"
-           style="stroke-width:1.22502589px" /></flowRegion><flowPara
-         id="flowPara62876"
-         style="stroke-width:1.22502589px">actvity through time</flowPara></flowRoot>    <g
+           style="stroke-width:1.22502589px;text-anchor:middle;text-align:center;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;" /></flowRegion><flowPara
+         id="flowPara5389">Time spent walking through time</flowPara></flowRoot>    <g
        style="stroke-width:0.96667665"
        id="g71900"
        transform="matrix(1.034472,0,0,1.034472,-1000.2459,-538.29603)">
