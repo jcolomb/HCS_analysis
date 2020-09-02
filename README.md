@@ -3,7 +3,7 @@
 
 # Background
 
-This repository contains software developed to analyse behaviour sequence data obtained over 24h with the home cage scan software. It does not require the data in any specific structure, but requires the user to create additional metadata files telling data file path and animal/experiment information. Shiny application makes it easier to use the software for non-Rusers. Some of the analysis is still best run (and extended) in R. Please see [paper.md](paper.md) for a longer description.
+This repository contains software developed to analyse behaviour sequence data obtained over 24h with the home cage scan software, while avoiding harking and p-hacking. It does not require the data in any specific structure, but requires the user to create additional metadata files telling data file path and animal/experiment information. Shiny application makes it easier to use the software for non-Rusers. Some of the analysis is still best run (and extended) in R. Please see [paper.md](paper.md) for a longer description of the scientific background.
 
 This repository was developed using Rstudio and has many dependencies. 
 
@@ -29,6 +29,16 @@ The analysis software is automatically reading the master metadata file on OSF. 
 
 The software then performs multidimensional analyses on this latter data to plot it (3) and to tell whether the groups can be told apart (4). The user can choose which time window to incorporate on step 3. The analysis is running a random forest to report the variables which show most difference in the different groups of mice. It is then performing an independent component analysis (ICA) on these 8 to 20 variables and plotting the first 3 components in an interactive 3D plot. Independently, the part 5 of the software runs a PCA and look at the first principal component for statistically different results in the different groups, using a non-parametric test. Then it runs a machine learning algorithm on the data. Validation of the results is done via a non-exhaustive 2 out validation technique if the sample size per group is below 15, or a validation via a test dataset otherwise.
 
+# Using your data
+
+**You will gain a lot of time if you fill the metadata in a usable format during data acquisition**. You can use the .mbr files created automatically by the homescagescan software, there is no need for a specific export, unless you want to use the `distance travelled` data. In any cases, make sure you record information about the time at which the video has been started (it should be indicated in the video name, if you are using the HomeCageScan software.) 
+
+Please refer to https://github.com/jcolomb/HCS_analysis/blob/master/Metadata_information/Readme.md to get familiar with the metadata schemes or if you already have collected the data: you will need to create new metadata and modify your data to have it in a usable state.
+
+Once your data is in a format accepted by the software, you might upload it online, or keep it locally. By indicating the folder as the raw data folder in github or gitlab, the software can access the data directly. Once the project metadata has been pushed to osf via the app, you will be able to use the analysis application.
+
+
+
 # metadata scheme
 
  In brief, there are different metadata files:
@@ -39,19 +49,12 @@ The software then performs multidimensional analyses on this latter data to plot
 
 We are using the osf to create a "repository" for the project metadata information (the master metadata file is hosted there because we can read and update it from R). The shiny app was given access to a particular repostiory using [Token Auth](https://cran.r-project.org/web/packages/osfr/vignettes/auth.html) in the osf APIv2 (via the osfr package).
 
-# Using your data
-
-Please refer to https://github.com/jcolomb/HCS_analysis/blob/master/Metadata_information/Readme.md to create new metadata and modify your data to obtain a usable state. **You will gain a lot of time if you do this before data acquisition**. Once your data is in a format accepted by the software, you might upload it online, or keep it locally. By indicating the folder as the raw data folder in github or gitlab, the software can access the data directly on Github. Once the project metadata has been pushed to osf via the app, you will be able to use the analysis application.
-
-Please make sure you keep information about the time at which the video has been started (it should be indicated in the video name if you are using the HomeCageScan software.)
-
-
 
 # In the future
 
-We hope to make the software flexible enough to analyse data coming for other similar setups. Reach out if you get some.
+We hope to make the software flexible enough to analyse data coming for other, similar setups. Reach out if you get some.
 
-Any contribution to the code is welcome.
+[Any contribution to the code is welcome](https://github.com/jcolomb/HCS_analysis/blob/joss_reviewanswers/.github/CONTRIBUTING.md).
 
 # License
 This work is distributed under a MIT license, apart from the files present in the data folder.
