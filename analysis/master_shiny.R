@@ -23,9 +23,9 @@ Validation_type = ifelse(testvalidation, "independent test dataset", "2-out")
 ## put this to FALSE if you want to get more tests and not overwrite Acc_sampled
 if (TRUE)
   Acc_sampled = c()
-
+if (length(unique(metadata$groupingvar)) > 3) {NO_svm = TRUE}
 if (nrow(metadata) < 20 || NO_svm) { ## sample size too low, no SVM done
-  print("not enough data for svm")
+  print("not enough data or too many groups for svm")
   Accuracyreal = NA
   NO_svm = TRUE
   #calcul_text =NA
@@ -39,6 +39,7 @@ if (nrow(metadata) < 20 || NO_svm) { ## sample size too low, no SVM done
   
 } else{
   if (length(unique(metadata$groupingvar)) == 3) { # case of 3 groups
+    source ("Rcode/ICA.R") 
     source ("Rcode/morethan2groups.R")
     rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
   } else{ # case of 2 groups

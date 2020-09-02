@@ -1,33 +1,8 @@
 #-- this code is used if there is more than two groups 
-#-- it does the ICA and the svm analysis
+#-- it does the svm analysis
 #-- probably needs to be modified
+
 Input = Multi_datainput_m
-#plot with color
-
-p = icafast(Input %>% select (-groupingvar),
-            2,
-            center = TRUE,
-            maxit = 100)
-R = cbind(p$Y, Input   %>% select (groupingvar))
-names(R) = c("D1", "D2",  "groupingvar")
-pls = R %>% ggplot (aes (x = D1, y = D2, color = groupingvar)) +
-  geom_point() +
-  labs (title = numberofvariables) #+
-#scale_colour_grey() + theme_bw() +
-#theme(legend.position = 'none')
-print(pls)
-
-p=icafast(Input%>% select (-groupingvar),3,center=TRUE,maxit=100)
-
-ICA= cbind(p$Y, Input   %>% select (groupingvar),metadata   %>% select (animal_ID))
-names(ICA) = c("Component_1", "Component_2", "Component_3","groupingvar","animal_ID")
-ICA$groupingvar=as.factor(ICA$groupingvar)
-pls2= plotly::plot_ly(data = ICA, x=~Component_1, y=~Component_2,
-                      z=~Component_3, color=~groupingvar,
-                      colors = c("blue", "violet", "green"),
-                      text = ~paste ("animal: ",animal_ID),
-                      type ="scatter3d", mode= "markers") 
-
 
 
 ##data splitting

@@ -64,10 +64,8 @@ First, lets plot the 2 most discriminative variables following the random forest
   names (Plot) = c("groupingvar","disciminant1", "discriminant2")
   p=ggplot (Plot, aes (y= disciminant1, x=discriminant2, color= groupingvar))+
     geom_point()+
-    labs(title = Title_plot)+
-    #scale_x_log10() + scale_y_log10()+
-    scale_colour_grey() + theme_bw()+
-      theme(legend.position='none')
+    labs(title = Title_plot)
+  
 print(p)  
 ```
 

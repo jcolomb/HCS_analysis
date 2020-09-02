@@ -9,9 +9,10 @@ ICA= cbind(p$Y, RF_selec   %>% select (groupingvar))
 names(ICA) = c("Component_1", "Component_2",  "groupingvar")
 pls=ICA %>% ggplot (aes (x=Component_1, y=Component_2, color = groupingvar))+
   geom_point()+
-  labs (title=paste0(numberofvariables, " variables used as RF_selec to the ICA"))+ 
-  scale_colour_grey() + theme_bw()+
-  theme(legend.position='none')
+  labs (title=paste0(numberofvariables, " variables used as RF_selec to the ICA"))
+
+
+
 #print(pls) 
 
 #-- run ICA taking groupingvar out (3 dimensions kept)
@@ -25,7 +26,7 @@ names(ICA) = c("Component_1", "Component_2", "Component_3","groupingvar","animal
 ICA$groupingvar=as.factor(ICA$groupingvar)
 pls2= plotly::plot_ly(data = ICA, x=~Component_1, y=~Component_2,
                     z=~Component_3, color=~groupingvar,
-                    colors = c("blue", "green", "violet"),
+                    #colors = c("blue", "green", "violet"),
                     text = ~paste ("animal: ",animal_ID),
                     type ="scatter3d", mode= "markers") 
 #pls2
