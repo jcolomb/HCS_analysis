@@ -1,7 +1,7 @@
 #----------------- create minute and metadata csv files (and corresponding values MIN_data and metadata)
 #-- if file exists, just read it again (unless RECREATEMINFILE is true)
 if (!RECREATEMINFILE) {
-  MIN_data = try(read.csv2(paste0(onlinemin, '/Min_', Name_project, '.csv'), dec = ".")
+  MIN_data = try(read.csv2(paste0(paste(WD,Projects_metadata$Folder_path,"BSeq_analyser_data", sep="/"), '/Min_', Name_project, '.csv'), dec = ".")
                  , TRUE)
   
   
@@ -18,12 +18,16 @@ if (RECREATEMINFILE || class(MIN_data) == "try-error") {
   for (f in 1:length(files)) {
     #specific code if data needs to be downloaded first
     if (WD == "https:/") {
-      download.file(files[f], "tempor.xlsx",  mode = "wb")
-      files[f] = "tempor.xlsx"
-      download.file(fileshr[f], "temporhr.xlsx",  mode = "wb")
-      fileshr[f] = "temporhr.xlsx"
-      download.file(filesmbr[f], "tempor.mbr",  mode = "wb")
-      fileshr[f] = "tempor.mbr"
+      if (metadata$primary_datafile[f] == "min_summary"){
+        download.file(files[f], "tempor.xlsx",  mode = "wb")
+        files[f] = "tempor.xlsx"
+      }
+      if (metadata$primary_datafile[f] == "hour_summary"){
+        download.file(fileshr[f], "temporhr.xlsx",  mode = "wb")
+        fileshr[f] = "temporhr.xlsx"
+      }
+      #download.file(filesmbr[f], "tempor.mbr",  mode = "wb")
+      #filesmbr[f] = "tempor.mbr"
     }
     # read primary data
     if (metadata$primary_datafile[f] == "min_summary")

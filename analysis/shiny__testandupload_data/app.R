@@ -388,7 +388,7 @@ server <- function(input, output, session) {
     
       Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
       #for online projects, outputs are written on disk:
-      if (WD == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
+      if (Projects_metadata$sourcce_data == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
 
       values$dir = Outputs
   })
