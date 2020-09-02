@@ -98,7 +98,19 @@ if (!testvalidation){
   }else {
     out_sel = Multi_datainput_m[order(Multi_datainput_m$groupingvar),]
   }
+  
+  ## make same number of animal in each group
   out_sel_ori= out_sel
+  GP= out_sel$groupingvar
+  L =levels(GP)
+  out_sel1= out_sel [GP == L[1],]
+  out_sel2= out_sel [GP == L[2],]
+  NG = min (nrow (out_sel1),nrow (out_sel2))
+  out_sel =rbind (out_sel1[1:NG,],out_sel2[1:NG,])
+  
+  ## get rid of NAs
+  all_na <- function(x) any(!is.na(x))
+  out_sel = out_sel %>% select_if(all_na)
   ## do the svm, with a radial kernel
   kernel ="radial"
   source ("Rcode/2_out_svm.r")

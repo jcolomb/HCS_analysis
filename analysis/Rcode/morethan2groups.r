@@ -1,7 +1,7 @@
 #-- this code is used if there is more than two groups 
 #-- it does the ICA and the svm analysis
 #-- probably needs to be modified
-
+Input = Multi_datainput_m
 #plot with color
 
 p = icafast(Input %>% select (-groupingvar),
@@ -29,7 +29,7 @@ pls2= plotly::plot_ly(data = ICA, x=~Component_1, y=~Component_2,
                       type ="scatter3d", mode= "markers") 
 
 
-Input = Multi_datainput_m
+
 ##data splitting
 #split by variable
 
