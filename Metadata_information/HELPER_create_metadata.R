@@ -1,5 +1,5 @@
 #---------helpfiles to create metadata.csv without missing files
-
+library (dplyr)
 
 #set directory to HCS folder with all data, typically "HCS3_output" (in Rstudio: Session- set working directory - browse)
 
@@ -72,8 +72,16 @@ if (Alternative == "work with mbr files"){
   filesf2 = data.frame(dir=dirname(filesf$f), basename (filesf$f))
   meta1= filesf2
   names (meta1)= c("experiment_folder_name","primary_behav_sequence")
-  meta1$primary_datafile = "mbr_raw"
-  
+  meta1$primary_datafile = "mbr"
+  meta1 <- meta1 %>% mutate (date = paste0(
+    "20",
+    substr(primary_behav_sequence, 13, 14),
+    "-",
+    substr(primary_behav_sequence, 15, 16),
+    "-",
+    substr(primary_behav_sequence, 17, 18)
+    )
+  ) 
   
   }
 
