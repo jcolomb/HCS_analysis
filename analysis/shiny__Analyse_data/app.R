@@ -296,7 +296,7 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
                      max = 600,
                      value = 1)
          , checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
-         , checkboxInput('perf_SVM', 'Perform the multidimensional analysis (takes time)', TRUE)
+         , checkboxInput('perf_SVM', 'Perform the svm analysis (takes time, not always working)', FALSE)
          , radioButtons('groupingby', 'grouping variables following which categories',
                       c('Jhuang 10 categories'='Jhuang',
                         'Berlin 18 categories'='Berlin'),
