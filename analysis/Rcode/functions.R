@@ -188,7 +188,10 @@ min_from_mbr <- function(rawdata,fpersec,Behav_code) {
     subset_data$end [length(subset_data$end)]=endtime
     
     temp=subset_data %>% transmute (duration = end-start, behavior = behavior)
-    temp=  temp %>% group_by(behavior) %>%summarize (sum(duration))
+    temp=  temp %>% 
+      group_by(behavior) %>% 
+      dplyr::summarize (sum(duration), .groups = "keep")
+    
     temp2 =left_join(Behav_code, temp, by = "behavior")
     #replace NA with 0
     temp2$`sum(duration)` = replace(temp2$`sum(duration)`,is.na(temp2$`sum(duration)`), 0)
