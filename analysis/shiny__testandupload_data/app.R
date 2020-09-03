@@ -314,10 +314,11 @@ ui <- fluidPage(
       , tags$hr()
       , "this table enumerate errors and warnings while looking at the metadata:"
       ,tableOutput("outputtable_meta")
-      , "this table enumerate existing files which are not accessed by the metadata:"
-      ,tableOutput("outputtable")
-      , "this table enumerate files which are mentioned in the metadata, but do not exist:"
+      , "!! this table enumerate files which are mentioned in the metadata, but do not exist, it should be empty or contain only NA files:"
       ,tableOutput("outputtable2")
+      , "this table enumerate existing files which are not accessed by the metadata, this is probably not a problem:"
+      ,tableOutput("outputtable")
+      
       #, textOutput("dir")
       , tags$hr()
     )
