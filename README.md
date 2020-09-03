@@ -7,6 +7,11 @@ This repository contains software developed to analyse behaviour sequence data o
 
 This repository was developed using Rstudio and has many dependencies. 
 
+---
+
+![Preview of the shiny GUI. On the left panel, the user chooses variables: project to analyse, behaviour categorisation to use, whether to recreate the minute summary file from the raw data, whether a machine learning analysis should be performed, and the number of permutations to perform (if a machine learning analysis is performed). The user can choose which time windows to incorporate in the analysis. Pushing the “Perform multidimensional analysis button” starts analysis and produces the report. By switching to the summary_reports tab, one can also produce a time series representation of each behaviour category. 
+](paperfigure/shinyview.png)
+
 # Installation
 
 Clone or download this repository. Run `source(analysis/Installation_Rpackages.R)` to install dependencies.
@@ -47,7 +52,14 @@ Once your data is in a format accepted by the software, you might upload it onli
 - a lab metadata: here is stocked information about the room where the experiment was performed (daily light cycle is indicated there).
 - an experiment metadata: each row represent one test session. Information about the animal tested is stored there.
 
+
+
 We are using the osf to create a "repository" for the project metadata information (the master metadata file is hosted there because we can read and update it from R). The shiny app was given access to a particular repostiory using [Token Auth](https://cran.r-project.org/web/packages/osfr/vignettes/auth.html) in the osf APIv2 (via the osfr package).
+
+---
+
+![Data and metadata structure. The master project_metadata file available online links the address of the metadata files and the data folder (blue arrows). The experiment metadata file links to each data file (for clarity, only one folder is shown here). The format of the data was either .xlsx summary files (with minutes or hour time resolution) or the output files .mbr (behavior sequence) and .tbd (position) of the proprietary HomeCageScan (CleverView) software. Note that the current software did not use the .tbd files. The master file, provided path information to the analysis software. Reports are stored in a folder indicating the software name and version. Derived data files are saved in a folder named after the software name, but not its version.
+](paperfigure/tree-1.png)
 
 
 # In the future
