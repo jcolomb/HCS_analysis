@@ -1,11 +1,11 @@
-.
-This document aims at providing a walkthrough for users creating their metadata file. Note that you might try to fit your data gathering to the format used here to facilitate future experiments integration.
+
+This document aims at providing a walkthrough for users creating their metadata file. If you read this, you may be able to fill the metadata during data acquisition and save time. Use the proposed spreadsheet to document your analysis and use the yyyy-mm-dd format for dates.
 
 So far (January 2020), we tested data from different labs, quality and formats.  The software deal only with outputs files from the Home Cage Scan system (HCS, Cleversys Inc.) software so far (the raw behaviour sequence `.mbr` file, or the minutes or hours binned data summaries). 
 
 #  Clone or download this project
 
-Get a version of this software on your desktop! You may install R and Rstudio at this stage. Fork and clone the project if you like to have your data on this github repository, you may just download it otherwise.
+Get a version of this software on your desktop! You may install R and Rstudio at this stage. Fork and clone the project if you like to have your data on this github repository, you may just download it otherwise. Please install it as explained in the [main readme files](../README.md)
 
 Refer to the [Metadata_information/explanation_of_metadata.csv](explanation_of_metadata.csv) file for a description of the metadata fields in the different metadata files.
 
@@ -82,7 +82,7 @@ Notes:
 |Check and upload|
 |:---|
 | ![](figures/checker.png) |
-| Caption: The application test that the metadata is in a good format (for instance dates are in the ISO yyyy-mm-dd format), and that every file indicated exists. It also show files existing, but not referenced in the metadata, check at that moment whether some animals were tested and not incorporated in the metadata. The list is also opened in a csv file on Rstudio.  |
+| Caption: The application test that the metadata is in a good format (for instance dates are in the ISO yyyy-mm-dd format), and that every file indicated exists. It also show files existing, but not referenced in the metadata, check at that moment whether some animals were tested and not incorporated in the metadata. The list is also opened in a csv file on Rstudio. In this example, there were no error, but one file could not be accessed, its name was wrongly entered or the xlsx export failed ? |
 |---|
 
 # Push the data to osf
@@ -118,7 +118,7 @@ NB:
 
 
 
-# You are done
+# You are done ! Congratulation !
 
 You can run the analysis now. Read warnings carefully and go back to cleaning the metadata if you get problems. Note that you can change the experiment metadata files without changing the information available on OSF.
 
