@@ -40,13 +40,14 @@ version = versions[length(versions)]
 PMeta ="../data/Projects_metadata.csv"
 PMeta = paste0("http://www.osf.io/download/","myxcv")
 
-RECREATEMINFILE= T # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
-NO_svm = TRUE
+RECREATEMINFILE= F # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
+NO_svm = FALSE
 
 # variable grouping, only working with HCS data at the moment.
 groupingby =  "Berlin" #"Jhuang" # other possibilities:"Berlin" #
 # choosing time windows for the analysis
 selct_TW = c(1:9)
+selct_TW = c(8:9)
 
 Npermutation = 1 # number of permutation to perform. set to 1 if testing (42 s per run with AOCF designation,30s with MIT)
 
@@ -56,6 +57,8 @@ Npermutation = 1 # number of permutation to perform. set to 1 if testing (42 s p
 # 1. data location if on HD
 STICK= "D:/HCSdata/sharable"
 STICK= "~/Desktop/HCSdata_2/Sharable"
+STICK= "~/HCS_analysis-master/data"
+STICK= "~/github_repo/01_sfb1315/01_Rosenmund_HCS"
 
 
 # 2. Choose project to analyse:
@@ -80,6 +83,8 @@ Name_project ="Ro_testdata_mbr"
 # Name_project = "Lehnard_2016"
 # Name_project ="Tarabykin_2015" 
 #Name_project ="Steele07_HD"
+Name_project = "Rosenmund_2015_2"
+Name_project = "Rosenmund_2015_online"
 
 #-------------------compute metadata and MIN_data----------------------------
 
