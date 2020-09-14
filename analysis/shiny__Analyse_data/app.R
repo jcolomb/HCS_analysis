@@ -497,6 +497,13 @@ dataoutput2 <- reactive({
 }) 
 
 output$plot <- renderPlotly({
+  text = paste("\n   Nothing will show here.\n",
+                  "       before you push the button above")
+  a= ggplot() + 
+    annotate("text", x = 4, y = 25, size=8, label = text) + 
+    theme_void()
+  
+  if (is.null(values$plot) ) return (a)
   ggplotly(values$plot[[input$obs]], originalData= FALSE) %>% layout(hovermode = "x")%>% style( hoverinfo = "none", traces = 3:4)
   
 })
