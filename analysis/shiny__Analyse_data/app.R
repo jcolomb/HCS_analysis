@@ -10,11 +10,9 @@
 #    http://shiny.rstudio.com/
 #
 setwd("../")
-versions =try(system("git tag", intern = TRUE))
-if (class(versions)== "try-error"){
-  versions =list.files("../.git/refs/tags")
-}
-if (length(versions) == 0) {versions = "X.x"}
+
+versions =list.files("../.git/refs/tags")
+if (length(versions) == 0) {versions =list.files("../tags")}
 version = versions[length(versions)]
 library(shiny)
 library(plotly)
