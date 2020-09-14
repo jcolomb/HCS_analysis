@@ -14,6 +14,7 @@ versions =try(system("git tag", intern = TRUE))
 if (class(versions)== "try-error"){
   versions =list.files("../.git/refs/tags")
 }
+if (length(versions) == 0) {versions = "X.x"}
 version = versions[length(versions)]
 library(shiny)
 library(plotly)
