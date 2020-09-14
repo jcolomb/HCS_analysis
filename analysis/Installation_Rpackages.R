@@ -1,4 +1,9 @@
 #installation, running this code will use renv if you are using R 3.6.1 (i.e download the dependencies as they were during software testing) or install packages in your normal environment if using a new version of R.
+
+### old dependencies, no need to get it anymore, kept here for putative debug.
+### devtools::install_github('jcolomb/osfr')
+
+
 vers=R.Version()
 if (vers$major =="3"){
   renv::restore()
@@ -29,12 +34,5 @@ if (vers$major =="3"){
 
 
 
-## alternatively you may install all packages and hope it works without packrat:
-#
 
 
-
-
-
-### old dependencies, no need to get it anymore
-### devtools::install_github('jcolomb/osfr')
