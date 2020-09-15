@@ -36,7 +36,8 @@ library(gridExtra)
 library(RGraphics)
 source ("Rcode/functions.r")
 source ("../Softwareheader.R")
-source= function (file, local = TRUE, echo = verbose, print.eval = echo, 
+
+source <- function (file, local = TRUE, echo = verbose, print.eval = echo, 
           exprs, spaced = use_file, verbose = getOption("verbose"), 
           prompt.echo = getOption("prompt"), max.deparse.length = 150, 
           width.cutoff = 60L, deparseCtrl = "showAttributes", chdir = FALSE, 
@@ -305,6 +306,8 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
          ,selectInput('Name_project', 'choose the project to analyse:',
                                       Projects_metadata$Proj_name ,
                                       'Ro_testdata')
+        , textOutput("analysemessage")  
+        , tags$hr()
          , textOutput("text_1")
          , a("Open the report in a new tab",target="_blank",href="report.html")
          ,actionButton("debug_go", "Go back to R to debug")
@@ -464,7 +467,16 @@ server <- function(input, output, session) {
     output$text_1 <- renderText({
      values$message
     })
-  })
+    onlinedata = Projects_metadata %>% 
+      filter (Proj_name == input$Name_project) %>%
+      select (source_data)
+    analysemessage <- ifelse (onlinedata == "USB_stick",
+                                     "Set directory where the software will find the data ",
+                                     "This dataset is available online and can be analysed")
+    output$analysemessage <- renderText({
+      analysemessage
+    })
+     })
 
    
 
