@@ -297,6 +297,7 @@ ui <- fluidPage(
       ,selectInput('Name_project', 'choose the project to analyse:',
                   Projects_metadata$Proj_name ,
                   'test_online')
+      ,tags$h6("NB: If the data is not in this repository, nor online, you need to give its location with the Data_directory button on the left columb")
       ,tags$h5("Step 2. We test that the metadata (including information in all metadata files) is conform and that the data can be reached by the software.")
       ,actionButton("goButton", "Test metadata")
       
