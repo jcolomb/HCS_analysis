@@ -275,13 +275,15 @@ Projects_metadata <- read_csv(PMeta)
 
 
 
-# Define UI for application that draws a histogram
+
 ui <- fluidPage(
   
   # Application title
   titlePanel("Data uploader for Bseq_analyser: Prepare your home cage monitoring data for analysis."),
   source ("../Softwareheader.R"),
-  # Sidebar with a slider input for number of bins 
+  # Sidebar 
+  ".
+  This app may quit abruptly in some cases, for instance if it tries to read data that it does not have access to. Check the message in the R console if it happens. ",
   sidebarLayout(
     sidebarPanel(
       checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
@@ -291,7 +293,7 @@ ui <- fluidPage(
       , textOutput("test")                        
       ))),
     
-    # Show a plot of the generated distribution
+    # main panel
     mainPanel(
       tags$h5("Step1. Choose one project from the local data/Projects_metadata.csv file")
       ,selectInput('Name_project', 'choose the project to analyse:',
@@ -326,7 +328,7 @@ ui <- fluidPage(
   )
 )
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output, session) {
   volumes= getVolumes(c("(C:)"))
   values <- reactiveValues()
