@@ -1,4 +1,6 @@
-#Test and upload metadata
+#ANALYSING DATA
+
+
 
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -7,23 +9,24 @@
 #
 #    http://shiny.rstudio.com/
 #
-
-library(shiny)
-require (shinyFiles)
 setwd("../")
 
-versions =try(system("git tag", intern = TRUE))
-if (class(versions)== "try-error"){
-  versions =list.files("../.git/refs/tags")
-}
+versions =list.files("../.git/refs/tags")
+if (length(versions) == 0) {versions =list.files("../tags")}
 version = versions[length(versions)]
+library(shiny)
+library(plotly)
+require (shinyFiles)
+library (rstatix) #effect size calculation
+library (coin) #effect size calculation
+#setwd("analysis")
 ##multidimensional analysis:
 library (randomForest)
 library (ica)
 library (e1071) #svm
 require(Hmisc)   #binomial confidence 
 
-library(osfr) ##access to osf
+#library(osfr) ##access to osf
 
 #normal libraries:
 library (tidyverse)
@@ -31,15 +34,14 @@ library (stringr)
 #for plotting
 library(gridExtra)
 library(RGraphics)
+source ("Rcode/functions.r")
 
-
-
-source= function (file, local = TRUE, echo = verbose, print.eval = echo, 
-                  exprs, spaced = use_file, verbose = getOption("verbose"), 
-                  prompt.echo = getOption("prompt"), max.deparse.length = 150, 
-                  width.cutoff = 60L, deparseCtrl = "showAttributes", chdir = FALSE, 
-                  encoding = getOption("encoding"), continue.echo = getOption("continue"), 
-                  skip.echo = 0, keep.source = getOption("keep.source")) 
+source <- function (file, local = TRUE, echo = verbose, print.eval = echo, 
+          exprs, spaced = use_file, verbose = getOption("verbose"), 
+          prompt.echo = getOption("prompt"), max.deparse.length = 150, 
+          width.cutoff = 60L, deparseCtrl = "showAttributes", chdir = FALSE, 
+          encoding = getOption("encoding"), continue.echo = getOption("continue"), 
+          skip.echo = 0, keep.source = getOption("keep.source")) 
 {
   envir <- if (isTRUE(local)) 
     parent.frame()
@@ -267,209 +269,260 @@ source= function (file, local = TRUE, echo = verbose, print.eval = echo,
   invisible(yy)
 }
 
+# PMeta = "../data/Projects_metadata.csv" ## use for offline testing
+PMeta = paste0("http://www.osf.io/download/","myxcv")
 
-source ("Rcode/functions.r")
-PMeta ="../data/Projects_metadata.csv"
+
 Projects_metadata <- read_csv(PMeta)
+NO_svm = FALSE
+#Timewindows = data.frame ("run it first")
 
 
 
-
-
-ui <- fluidPage(
-  
-  # Application title
-  titlePanel("Data uploader for Bseq_analyser: Prepare your home cage monitoring data for analysis."),
-  source ("../Softwareheader.R"),
-  # Sidebar 
-  ".
-  This app may quit abruptly in some cases, for instance if it tries to read data that it does not have access to. Check the message in the R console if it happens. ",
-  sidebarLayout(
-    sidebarPanel(
-      checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
-      , shinyUI(bootstrapPage(shinyDirButton('STICK', "Data_directory", 
-                                             "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")
+# Define UI for application that draws a histogram
+ui <- fluidPage(theme = "bootstrapsolar.css",
+   
+   # Application title
+   titlePanel(title=paste0("BSeq_analyser, ",version))
+   ,source ("../Softwareheader.r")
+   ,     
+   # Sidebar with a slider input for number of bins 
+   sidebarLayout(
+      sidebarPanel(
+         sliderInput("Npermutation",
+                     "Number of permutations to perform for the statistics:",
+                     min = 1,
+                     max = 600,
+                     value = 1)
+         , checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
+         , checkboxInput('perf_SVM', 'Perform the svm analysis (takes time, not always working)', FALSE)
+         , radioButtons('groupingby', 'grouping variables following which categories',
+                      c('Jhuang 10 categories'='Jhuang',
+                        'Berlin 18 categories'='Berlin'),
+                      'Berlin')
+         , shinyUI(bootstrapPage(shinyDirButton('STICK', "Data_directory", 
+                          "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")
+         ,selectInput('Name_project', 'choose the project to analyse:',
+                                      Projects_metadata$Proj_name ,
+                                      'Ro_testdata')
+        , textOutput("analysemessage")  
+        , tags$hr()
+         , textOutput("text_1")
+         , a("Open the report in a new tab",target="_blank",href="report.html")
+         ,actionButton("debug_go", "Go back to R to debug")
+         
+                          
+         ))), 
       
-      , textOutput("test")                        
-      ))),
-    
-    # main panel
-    mainPanel(
-      tags$h5("Step1. Choose one project from the local data/Projects_metadata.csv file")
-      ,selectInput('Name_project', 'choose the project to analyse:',
-                  Projects_metadata$Proj_name ,
-                  'test_online')
-      ,tags$h6("NB: If the data is not in this repository, nor online, you need to give its location with the Data_directory button on the left columb")
-      ,tags$h5("Step 2. We test that the metadata (including information in all metadata files) is conform and that the data can be reached by the software.")
-      ,actionButton("goButton", "Test metadata")
-      
-      
-      , tags$hr()
-      
-      ,actionButton("goButton2", "If everything is correct, click here to create the min file.")
-      , tags$hr()
-      ,tags$p( "Push the project into the master metadata file (on osf) for analysis.
+      # Show a plot of the generated distribution
+      mainPanel(
+        tabsetPanel(
+          tabPanel("multidim_results",
+            "If you do not choose the time windows to incorporate in the analysis, all time windows will be used.
+            "       
+            ,actionButton("TWbutton", "Choose time windows")
+            , tags$hr()
+            ,DT::dataTableOutput('TW')  
+            ,actionButton("goButton", "Perform multidimensional analysis")
+                 
+            , htmlOutput("includeHTML", inline = TRUE)
+            #, textOutput("test")
+          )
+          ,tabPanel("summary reports",
+                   "Note that a pdf file with all figures is also produced and saved in the Routputs folder."
+                   ,actionButton("plot_data", "Plotting hourly summary data")
+                   ,numericInput("obs", "plot number:", 1, min = 1, max = 20)
+                   ,plotlyOutput("plot") 
+                   
+          )
+          #,tabPanel("Interaction graphs",
                     
-      You might think of making the data open first:
-      ")
-      ,actionButton("goButton3", "Push project if it passes the tests")
-      ,tableOutput("outputtable3")
-      , tags$hr()
-      , "this table enumerate errors and warnings while looking at the metadata:"
-      ,tableOutput("outputtable_meta")
-      , "!! this table enumerate files which are mentioned in the metadata, but do not exist, it should be empty or contain only NA files:"
-      ,tableOutput("outputtable2")
-      , "this table enumerate existing files which are not accessed by the metadata, this is probably not a problem:"
-      ,tableOutput("outputtable")
-      
-      #, textOutput("dir")
-      , tags$hr()
-    )
-  )
+                    #,actionButton("plot_data", "Plotting hourly summary data")
+                    #,numericInput("obs", "plot number:", 1, min = 1, max = 20)
+                    #,plotlyOutput("plot") 
+                    
+          #)
+
+        
+        )  
+        , "Use behaviour sequence (.mdr) file, or minutes/hourly summary excel exports from the Homecagescan software. Note that the light squedules should be indicated in the lab metadata files."
+        
+      )
+   )
 )
 
-# Define server logic
+# Define server logic required to draw a histogram
 server <- function(input, output, session) {
   volumes= getVolumes(c("(C:)"))
   values <- reactiveValues()
-  values$outputtable <- NULL
-  values$message_t<- NULL
-  values$message <- "push button to test your metadata structure."
-  
+  values$Outputshtml <- "reports/empty.html"
+  values$message = "analyis not started (link will not work or show the report for a different analysis)"
   
   shinyDirChoose(input, 'STICK', roots=volumes, session = session,restrictions=system.file(package='base'))
-  
-  #
+ 
+   #
   fileInput <- reactive({
     filepath= (parseDirPath(volumes, input$STICK))
     filepath
   })
+
+
+  
+  # GObuttonbis <- observeEvent(input$goButton, {
+  #   # session$sendCustomMessage(type = 'testmessage',
+  #   #                          message = 'this may take some time, plese wait')
+  #   values$message <- "analyis started"
+  # 
+  # })
+  
+  GObutton <- observeEvent(input$debug_go, {
+    browser()
+  })
+  
+  
   
   GObutton <- observeEvent(input$goButton, {
     # session$sendCustomMessage(type = 'testmessage',
     #                          message = 'this may take some time, plese wait')
-    dataoutput()
+    withProgress({
+      setProgress(message = "analysis started")
+      dataoutput()
+      setProgress(message = "analysis done")
+    
+      includeHTML1()
+      setProgress(message = "you should see the report soon")
+      values$message <- "Click the link to see the whole report. NB the report was also saved in the analysis output folder"
+      
+    })
+  })
+
+
+  
+  TWbutton <- observeEvent(input$TWbutton, {
+    # session$sendCustomMessage(type = 'testmessage',
+    #                          message = 'this may take some time, plese wait')
+    dataoutputTW()
     
   })
   
-  GObutton2 <- observeEvent(input$goButton2, {
-    # session$sendCustomMessage(type = 'testmessage',
-    #                          message = 'this may take some time, plese wait')
-    datamin()
-    
-  })
-  
-  GObutton3 <- observeEvent(input$goButton3, {
-    # session$sendCustomMessage(type = 'testmessage',
-    #                          message = 'this may take some time, plese wait')
-    
-    dataupload()
-    
+  startmessage<- reactive({
+    values$message <- "analyis started"
   })
   
   dataoutput <- reactive({
-    
+    RECREATEMINFILE <- input$RECREATEMINFILE
+    NO_svm <- !input$perf_SVM
+    groupingby<- input$groupingby
+    Npermutation<- input$Npermutation
     STICK<- fileInput()
     Name_project <- input$Name_project
+    selct_TW =  input$TW_rows_selected
+   
+    if (!length(selct_TW)) {selct_TW = c(1:9)}
+      
     
+    values$message <- "analysis finished"
+    values$Outputshtml="reports/multidim_anal_variable.html"
     
+    source("master_shiny.r")
+    file.copy("reports/multidim_anal_variable.html", paste0("shiny__Analyse_data/www/report.html"), overwrite=TRUE,
+              copy.mode = TRUE, copy.date = FALSE)
+   # browser()
+  })
+  
+  dataoutputTW <- reactive({
+    RECREATEMINFILE <- input$RECREATEMINFILE
+    NO_svm <- !input$perf_SVM
+    groupingby<- input$groupingby
+    Npermutation<- input$Npermutation
+    STICK<- fileInput()
+    Name_project <- input$Name_project
+    selct_TW <- c(1:9)
+      
+      
+    
+    values$message <- "analyis started"
     #source <- function (x,...){source (x, local=TRUE,...)}
-    source("Rcode/inputdata.r")
-    source("Rcode/checkmetadataconformity.r")
-    values$errors = errors
-    values$errors_t = errors_t
-    source("Rcode/checkmetadata.r")
-    if (all(all_datafiles$`file.exists(as.character(filepath))`)){
-      values$message="Metadata and data is consistent"
-    }else {
-      values$message="There are problems ! Please check the tables to see whether the problems are real or if we can ignore the warnings."
-      values$message_t= all_datafiles %>% filter (`file.exists(as.character(filepath))` == FALSE) %>% select (filepath)
-    }
+    source ("Rcode/get_behav_gp.r")
+    values$Timewindows =Timewindows
     
     
-      values$outputtable <- anti_join( data.frame(filepath=basename(files)), all_datafiles %>% transmute (filepath = basename(filepath)))
-     if (nrow(values$outputtable)>0) values$message="There are problems ! Please check the tables to see whether the problems are real or if we can ignore the warnings."
-    
-      Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
-      #for online projects, outputs are written on disk:
-      if (Projects_metadata$source_data == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
+  })
+  observe(
+    output$outputshtml <- renderUI({
+      values$Outputshtml
+    })    
+  )
+  
 
-      values$dir = Outputs
-  })
-  
-  output$outputtable <- renderTable({
-    values$outputtable
-  })
-  
-  output$outputtable2 <- renderTable({
-    values$message_t
-  })
-  
-  output$outputtable_meta<- renderTable({
-    values$errors_t
-  })
-  
-  output$outputtable3 <- renderTable({
-    values$message2
-  })
-  
-  output$test <- renderPrint({
-    values$message
-  })
-  
-  output$dir <- renderPrint({
-    paste0("You need to create this folder first: ",values$dir)
-  })
-  
-  
-  datamin <- reactive({
-    
-    STICK<- fileInput()
-    Name_project <- input$Name_project
-    RECREATEMINFILE <-input$RECREATEMINFILE
+  includeHTML1<- reactive({
 
-    source("Rcode/inputdata.r") #output = metadata, WD
-    source("Rcode/checkmetadata.r") #output BEH_datafiles and MIN_datafiles: list of path
-    Outputs = paste(WD,Projects_metadata$Folder_path,"Routputs", sep="/")
-    onlinemin=Outputs 
-    #for online projects, outputs are written on disk:
-    if (WD == "https:/") Outputs = paste("../Routputs",Projects_metadata$Folder_path, sep="/")
-    
-    dir.create (Outputs, recursive = TRUE)
-    plot.path = Outputs
-    source ("Rcode/animal_groups.r")
-    source ("Rcode/create_minfile.r")
-    values$message="Min file has been created."
+    paste(readLines(values$Outputshtml), collapse="\n") 
   })
   
-  dataupload <- reactive({
-    #PMetao = osfr::path_file("myxcv", private= FALSE)
-    PMetao = paste0("http://www.osf.io/download/","myxcv")
-    Projects_metadata_o <- read_csv(PMetao)
+  output$includeHTML<-renderText(includeHTML1())
+
+  observe({
+    output$text_1 <- renderText({
+     values$message
+    })
+    onlinedata = Projects_metadata %>% 
+      filter (Proj_name == input$Name_project) %>%
+      select (source_data)
+    analysemessage <- ifelse (onlinedata == "USB_stick",
+                                     "Set directory where the software will find the data ",
+                                     "This dataset is available online and can be analysed")
+    output$analysemessage <- renderText({
+      analysemessage
+    })
+     })
+
+   
+
+   GObuttonplot <- observeEvent(input$plot_data, {
     
-    Name_project <- input$Name_project
-    
-    if (Name_project %in% Projects_metadata_o$Proj_name){
-      values$message2="This project name is already taken, you need to change it."
-    }else if (length(values$errors)>0){
-      values$message2="You first need to correct errors (warnings are ok)."
-    }else {
-        newmaster= rbind (Projects_metadata_o,Projects_metadata %>% filter (Proj_name == Name_project))
-        osfr::osf_auth("i3sOvWDaZD0Xz9vJudKSn4ZHIJuAIDelnOxwUhMv9mqmTOf63sKvQwy4yDISuCgObOxVzO")
-        write.csv(newmaster, file ='Projects_metadata.csv', row.names = FALSE)
-        if (nrow (newmaster)> nrow(Projects_metadata_o)) osfr::osf_upload(osfr::osf_retrieve_node("https://osf.io/82xw3/"), 'Projects_metadata.csv',  conflicts = "overwrite")
-        file.remove('Projects_metadata.csv')
-        values$message2=newmaster
-        values$message = "The new project was integrated in database."
-         }
+      dataoutput2()
+     
+   })
   
-    
-    
-    
-  })
+
+
+dataoutput2 <- reactive({
+  RECREATEMINFILE <- input$RECREATEMINFILE
+  NO_svm <- !input$perf_SVM
+  groupingby<- input$groupingby
   
+  STICK<- fileInput()
+  Name_project <- input$Name_project
   
+  selct_TW =  input$TW_rows_selected
+  if (!length(selct_TW)) selct_TW = c(1:9)
+  values$message <- "analyis started"
+  #source <- function (x,...){source (x, local=TRUE,...)}
+  source("Rcode/get_behav_gp.r")
+  source("Rcode/plot5_hoursummaries.r")
+  values$Outputspdf=paste0(plot.path,"/14_Minutes_Behaviours_timedtolightoff.pdf")
+  values$plot = pl
+}) 
+
+output$plot <- renderPlotly({
+  text = paste("\n   Nothing will show here.\n",
+                  "       before you push the button above")
+  a= ggplot() + 
+    annotate("text", x = 4, y = 25, size=8, label = text) + 
+    theme_void()
+  
+  if (is.null(values$plot) ) return (a)
+  ggplotly(values$plot[[input$obs]], originalData= FALSE) %>% layout(hovermode = "x")%>% style( hoverinfo = "none", traces = 3:4)
+  
+})
+
+output$TW <- DT::renderDataTable(values$Timewindows, server = TRUE)
+
+
 }
+
+
 
 # Run the application 
 shinyApp(ui = ui, server = server)
