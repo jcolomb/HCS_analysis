@@ -280,7 +280,7 @@ ui <- fluidPage(
   
   # Application title
   titlePanel("Data uploader for Bseq_analyser: Prepare your home cage monitoring data for analysis."),
-  source ("../Softwareheader.R"),
+  source ("../Softwareheader.r"),
   # Sidebar 
   ".
   This app may quit abruptly in some cases, for instance if it tries to read data that it does not have access to. Check the message in the R console if it happens. ",
