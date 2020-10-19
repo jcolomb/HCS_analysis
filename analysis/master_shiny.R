@@ -7,10 +7,10 @@ Multi_datainput_m = Multi_datainput_m[, !colSums(is.na(Multi_datainput_m)) >
                                         0]
 
 #multidimensional analysis, Random forest in 2 rounds result will be used for ICA code below
-source ("Rcode/RF_selection_2rounds.R")# returns RF_selec = Input
+source ("Rcode/RF_selection_2rounds.r")# returns RF_selec = Input
 
 #multidimensional analysis, PCA followed by wilocoxon test on 1st component, and effect size calculation
-source ("Rcode/PCA_strategy.R")
+source ("Rcode/PCA_strategy.r")
 
 ## start svm procedure
 set.seed(74)
@@ -30,7 +30,7 @@ if (nrow(metadata) < 20 || NO_svm) { ## sample size too low, no SVM done
   NO_svm = TRUE
   #calcul_text =NA
   
-  source ("Rcode/ICA.R")
+  source ("Rcode/ICA.r")
   rmarkdown::render ("reports/multidim_anal_variable.Rmd")
   #file.copy("reports/results.rdata", paste0(Outputs,"/multidim_analysis_",groupingby,".Rdata"), overwrite=TRUE,
   #          copy.mode = TRUE, copy.date = FALSE)
@@ -39,14 +39,14 @@ if (nrow(metadata) < 20 || NO_svm) { ## sample size too low, no SVM done
   
 } else{
   if (length(unique(metadata$groupingvar)) == 3) { # case of 3 groups
-    source ("Rcode/ICA.R") 
-    source ("Rcode/morethan2groups.R")
+    source ("Rcode/ICA.r") 
+    source ("Rcode/morethan2groups.r")
     rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
   } else{ # case of 2 groups
-    source ("Rcode/ICA.R") # return plot called pls
-    source ("Rcode/multidimensional_analysis_svm.R") # returns Accuracy (text), Accuracyreal = kappa of result of svm prediction on the test data
+    source ("Rcode/ICA.r") # return plot called pls
+    source ("Rcode/multidimensional_analysis_svm.r") # returns Accuracy (text), Accuracyreal = kappa of result of svm prediction on the test data
     # set
-    source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
+    source ("Rcode/multidimensional_analysis_perm_svm.r") # returns Acc_sampled
     rmarkdown::render ("reports/multidim_anal_variable.Rmd")
   }
   

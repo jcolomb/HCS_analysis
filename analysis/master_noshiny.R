@@ -90,4 +90,4 @@ Name_project = "Rosenmund_2015_online"
 
 
 # read metadata from the project metadata file
-source("master_shiny.R")
+source("master_shiny.r")

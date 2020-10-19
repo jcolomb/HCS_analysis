@@ -1,5 +1,5 @@
 #-- this codes perfomes a PCA + stat on first discriminant
-#input : Multi_datainput_m (after get_behav_gp.R)
+#input : Multi_datainput_m (after get_behav_gp.r)
 #ouput : plspca (plot) and PCA_pval (PCA_pval$p.value)
 
 

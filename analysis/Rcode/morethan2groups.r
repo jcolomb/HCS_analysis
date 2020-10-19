@@ -28,9 +28,9 @@ Input = Multi_datainput_m
   Multi_datainput_m2REST = Multi_datainput_m2_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[1:2],]
   Multi_datainput_m2= droplevels(Multi_datainput_m2REST)
   # make svm!
-  source ("Rcode/multidimensional_analysis_svm.R")
+  source ("Rcode/multidimensional_analysis_svm.r")
   Acc_sampled= c() # set 
-  source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
+  source ("Rcode/multidimensional_analysis_perm_svm.r") # returns Acc_sampled
   k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
   R=binconf(k, length(Acc_sampled), method='exact')
   p1=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy,
@@ -42,9 +42,9 @@ Input = Multi_datainput_m
   Multi_datainput_mREST = Multi_datainput_m_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[2:3],]
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
   # make svm!
-  source ("Rcode/multidimensional_analysis_svm.R")
+  source ("Rcode/multidimensional_analysis_svm.r")
   Acc_sampled= c() # set 
-  source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
+  source ("Rcode/multidimensional_analysis_perm_svm.r") # returns Acc_sampled
   k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
   R=binconf(k, length(Acc_sampled), method='exact')
    p2=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy,
@@ -55,9 +55,9 @@ Input = Multi_datainput_m
   Multi_datainput_mREST = Multi_datainput_m_ori [metadata_ori$groupingvar %in% levels(metadata_ori$groupingvar)[c(1,3)],]
   Multi_datainput_m= droplevels(Multi_datainput_mREST)
   # make svm!
-  source ("Rcode/multidimensional_analysis_svm.R")
+  source ("Rcode/multidimensional_analysis_svm.r")
   Acc_sampled= c() # set 
-  source ("Rcode/multidimensional_analysis_perm_svm.R") # returns Acc_sampled
+  source ("Rcode/multidimensional_analysis_perm_svm.r") # returns Acc_sampled
   k <- sum(abs(Acc_sampled) >= abs(Accuracyreal))   # Two-tailed test
   R=binconf(k, length(Acc_sampled), method='exact')
   p3=print(paste0 ("For the groups ", paste (unique(metadata$groupingvar), collapse= " "),": ", Accuracy,
