@@ -35,7 +35,6 @@ library (stringr)
 library(gridExtra)
 library(RGraphics)
 source ("Rcode/functions.r")
-source ("../Softwareheader.R")
 
 source <- function (file, local = TRUE, echo = verbose, print.eval = echo, 
           exprs, spaced = use_file, verbose = getOption("verbose"), 
@@ -285,7 +284,7 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
    
    # Application title
    titlePanel(title=paste0("BSeq_analyser, ",version))
-   ,source ("../Softwareheader.R")
+   ,source ("../Softwareheader.r")
    ,     
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
@@ -425,7 +424,7 @@ server <- function(input, output, session) {
     values$message <- "analysis finished"
     values$Outputshtml="reports/multidim_anal_variable.html"
     
-    source("master_shiny.R")
+    source("master_shiny.r")
     file.copy("reports/multidim_anal_variable.html", paste0("shiny__Analyse_data/www/report.html"), overwrite=TRUE,
               copy.mode = TRUE, copy.date = FALSE)
    # browser()
@@ -500,8 +499,8 @@ dataoutput2 <- reactive({
   if (!length(selct_TW)) selct_TW = c(1:9)
   values$message <- "analyis started"
   #source <- function (x,...){source (x, local=TRUE,...)}
-  source("Rcode/get_behav_gp.R")
-  source("Rcode/plot5_hoursummaries.R")
+  source("Rcode/get_behav_gp.r")
+  source("Rcode/plot5_hoursummaries.r")
   values$Outputspdf=paste0(plot.path,"/14_Minutes_Behaviours_timedtolightoff.pdf")
   values$plot = pl
 }) 
