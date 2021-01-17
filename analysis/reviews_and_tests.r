@@ -58,7 +58,7 @@ metadata$primary_behav_sequence
 metadata$groupingvar
 metadata$confoundvar # confounding variables not interesting to test, but grouping may help statistics 
 
-## The data(saved as  Min_Ro_testdata_mbr.csv
+## The data (MIN_data, written to  Min_Ro_testdata_mbr.csv)
 ## ----------------------------------------------
 
 
@@ -74,11 +74,9 @@ View(MIN_data %>% filter (ID =="100"))
 
 
 
-## the time-windowed summary data (saved in timedwindowed_Ro_testdata_mbr.csv)
+## the time-windowed summary data (Multi_datainput, written to timedwindowed_Ro_testdata_mbr.csv)
 ## this will become the input for the analysis (PCR, random forest, svm)
 ## ----------------------------------------------
-
-Multi_datainput
 
 ## timewindows are created, only non-empty ones are displayed (depends on the length of the experiment)
 Timewindows
@@ -91,15 +89,21 @@ names(behav_gp)
 ## its output is Multi_datainput, (metadata is not included, only animal ID is present)
 unique(Multi_datainput$ID)
 
+# one number (representing the time window) is added to each metabehavior name in the header
+names(Multi_datainput)
+
+
+
+
 ## Analysis
 ## ID is replaced by groupingvar (and confoundvar if exists) in Multi_datainput_m (or Multi_datainput_m2)
 Multi_datainput_m$groupingvar 
 
 ## random forest + ICA: RF_selection_2rounds.r, ICA.r
 
-RF_selec # subset of Multi_datainput_m with a minimum of 8 variables
+RF_selec # selection of Multi_datainput_m, with a minimum of 8 variables
 # all variables having a MeanDecreaseGini > 0.95,
-# theoretical maximum is 20, because 20 are chosen after a first random forest.
+# theoretical maximum of variables is 20, because 20 are chosen after a first random forest.
 
 pls2 # 3d plot of the results of the ICA done over RF_select, groups as color
 

@@ -1,5 +1,10 @@
 # #-------------------------SVM analysis
 
+## the code perform a svm analysis with 2 groups,
+## inputs: Multi_datainput_m2, Multi_datainput_m (chosen via Projects_metadata$confound_by)
+## 2 types of strategy depending on testvalidation, that depends on sample size.
+
+
 ##---testset validation if enough data
 if (testvalidation){
   #---- Determine the trainset and testset of data, more complex if there is a confounding factor.

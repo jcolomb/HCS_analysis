@@ -13,45 +13,18 @@ source ("Rcode/ICA.r") # return plot called pls
 #multidimensional analysis, PCA followed by wilocoxon test on 1st component, and effect size calculation
 source ("Rcode/PCA_strategy.r")
 
-## start svm procedure
+## SVM procedure
 set.seed(74)
-# choose the type of validation depending on the sample size
-testvalidation = ifelse((min(summary(
-  metadata$groupingvar
-)) > 15), TRUE, FALSE)
-Validation_type = ifelse(testvalidation, "independent test dataset", "2-out")
+## put this to FALSE if you want to get more tests and not overwrite Acc_sampled, only works if not using the shiny app.
+if (TRUE) Acc_sampled = c()
 
-## put this to FALSE if you want to get more tests and not overwrite Acc_sampled
-if (TRUE)
-  Acc_sampled = c()
-if (length(unique(metadata$groupingvar)) > 3) {NO_svm = TRUE}
+source ("Rcode/svmtest.r")
+if (!NO_svm){ source ("Rcode/svmperf.r") } # SVM done only if asked in app, and there is enough data.
 
-if (nrow(metadata) < 20 || NO_svm) { ## sample size too low, no SVM done
-  print("not enough data or too many groups for svm")
-  Accuracyreal = NA
-  NO_svm = TRUE
-  #calcul_text =NA
 
-  rmarkdown::render ("reports/multidim_anal_variable.Rmd")
-  #file.copy("reports/results.rdata", paste0(Outputs,"/multidim_analysis_",groupingby,".Rdata"), overwrite=TRUE,
-  #          copy.mode = TRUE, copy.date = FALSE)
-  #file.copy("reports/multidim_anal_variable.html", paste0(Outputs,"/multidim_analysis_",groupingby,".html"), overwrite=TRUE,
-  #          copy.mode = TRUE, copy.date = FALSE)
-  
-} else{
-  if (length(unique(metadata$groupingvar)) == 3) { # case of 3 groups
-
-    source ("Rcode/morethan2groups.r")
-    rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
-  } else{ # case of 2 groups
-    source ("Rcode/multidimensional_analysis_svm.r") # returns Accuracy (text), Accuracyreal = kappa of result of svm prediction on the test data
-    # set
-    source ("Rcode/multidimensional_analysis_perm_svm.r") # returns Acc_sampled
-    rmarkdown::render ("reports/multidim_anal_variable.Rmd")
-  }
-  
-}
-
+if (length(unique(metadata$groupingvar)) == 3) {
+  rmarkdown::render ("reports/multidim_anal_variable2.Rmd", output_file = "multidim_anal_variable.html")
+} else {rmarkdown::render ("reports/multidim_anal_variable.Rmd")}
 
 
 # save reports in the correct output folder.
@@ -62,6 +35,7 @@ file.copy(
   copy.mode = TRUE,
   copy.date = FALSE
 )
+
 # save image in the same correct output folder, do not work if shiny app is used.
 save.image(file = "reports/results.rdata")
 file.copy(
