@@ -23,7 +23,7 @@ version = "noused"
 PMeta ="../data/Projects_metadata.csv"
 
 RECREATEMINFILE= T # set to true if you want to recreate an existing min file, otherwise the code will create one only if it cannot find an exisiting one.
-NO_svm = FALSE
+NO_svm = TRUE
 
 # variable grouping, only working with HCS data at the moment.
 groupingby =  "Berlin" #"Jhuang" # other possibilities:"Berlin" #
