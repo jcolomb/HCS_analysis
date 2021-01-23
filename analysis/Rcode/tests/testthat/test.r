@@ -60,4 +60,7 @@ test_that("error in timewindows table",
           expect_true(all(Timewindows$time_reference %in% c("Bin", "Bintodark","lightcondition")))
 )
 
-                        
+#
+
+ICA$groupingvar = as.character(ICA$groupingvar)
+ICA$groupingvar[1]="test"

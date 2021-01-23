@@ -1,5 +1,7 @@
 # Review code, this should help reviewers to validate the code, note that tests were also added in the Rcode/tests folder.
 # We first run the code for the Ro_testdata_mbr project, and then come back step by step. 
+# in the second part, we use the dataset created to test that the SVM analysis runs.
+
 
 
 ## input variables, similar as in master_noshiny.r
@@ -114,5 +116,111 @@ Moddata #output with each principal components
 Moddata$PC1 # first principal components where statistics is done
 
 
+###------------------#####
+###------------------#####
+###------------------#####
+
+###  SVM tests
+## Multi_datainput_m is the only input of the svm analysis
+
+Npermutation = 1 # make sure only one permutation is done.
+
+## data input:
+#source ("analysis/reviews_and_tests.r") # set working directory to project first.
+
+#seed was set to 74 in master_shiny.r
+
+# prepare extra data to test multiple groups groups:
+Multi_datainput_moriginal = Multi_datainput_m
+
+Multi_datainput_mplus = Multi_datainput_moriginal
+Multi_datainput_mplus$groupingvar = "third"
+
+
+# test 1: do not run if groups are not equal
+
+Multi_datainput_m= rbind(Multi_datainput_moriginal, Multi_datainput_mplus
+)
+
+source ("Rcode/svmtest.r")
+if (!NO_svm){ source ("Rcode/svmperf.r") } # will not run
+
+# put same number of data per group
+Multi_datainput_m = Multi_datainput_m [1:30,]
+
+# test 2: run with 3 groups of 10
+NO_svm = FALSE
+source ("Rcode/svmtest.r")
+if (!NO_svm){ source ("Rcode/svmperf.r") } # not run
+# run the code for 3 groups, get 3 text outputs (takes time, as 3x one permutation is done)
+p1
+p2
+p3
+
+# test 3: with more than 15 animals per group: run testset and trainset (2 groups)
+
+Multi_datainput_mplus = Multi_datainput_moriginal
+Multi_datainput_m= rbind(Multi_datainput_moriginal, Multi_datainput_mplus
+)
+
+NO_svm = FALSE
+source ("Rcode/svmtest.r")
+if (!NO_svm){ source ("Rcode/svmperf.r") }
+
+trainset$groupingvar
+testset$groupingvar
+Accuracy
+
+# Accuracy very good:
+# trying more permutation to see whether there is a chance problem:
+
+Npermutation = 30
+if (!NO_svm){ source ("Rcode/svmperf.r") }
+hist(Acc_sampled, breaks=c(0:15)/15*2-1)
+abline(v = Accuracyreal, col="Red")
+beepr::beep()
+Npermutation = 10
+Acc_sampled = c()
+
+
+# High Accuracyreal indeed due to chance, of course when test data are part of train data, it does not work !
+
+
+# test 4: 2-out validation with 2 groups, with original data
+Multi_datainput_m = Multi_datainput_moriginal
+
+NO_svm = FALSE
+source ("Rcode/svmtest.r")
+if (!NO_svm){ source ("Rcode/svmperf.r") }
+Accuracyreal
+
+# Accuracyreal is very low, but it does not seem to be a bug:
+# if we change data to make difference between groups bigger, and run it again:
+Multi_datainput_m = Multi_datainput_moriginal 
+Multi_datainput_m [11:20, 3] = 3*Multi_datainput_m [11:20, 3]
+Multi_datainput_m [11:20, 4] = Multi_datainput_m [11:20, 4]- 2*Multi_datainput_m [11:20, 3] # total will still 1
+
+Multi_datainput_m [1:20, 3]
+Multi_datainput_m [1:20, 4] 
+
+# PCA strategy leads to huge difference:
+source ("Rcode/PCA_strategy.r")
+boxplotPCA1
+
+# run svm
+NO_svm = FALSE
+source ("Rcode/svmtest.r")
+if (!NO_svm){ source ("Rcode/svmperf.r") }
+
+
+Accuracyreal
+
+# Accuracyreal is still very low, probably a issue with svm not being good in 2-out validation, or a specific issue with this kind of data ?
+# indeed, when looking into it, the svm tuning does not find any good parameter for the svm even for the training data, so no  surprise it can not predict the test data.
+objR$best.performance # the lower this score, the better the performance.
+
+# get original dataset for further use:
+
+Multi_datainput_moriginal -> Multi_datainput_m
 
 
