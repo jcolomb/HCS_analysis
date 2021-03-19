@@ -14,7 +14,7 @@ This repository was developed using Rstudio and has many dependencies.
 
 # Installation
 
-Clone or download this repository. Run `source(analysis/Installation_Rpackages.r)` to install dependencies.
+Clone or download this repository. Run `source('analysis/Installation_Rpackages.r')` to install dependencies.
 
 Now open the shiny apps in Rstudio and click the run button or type `shiny::runApp('analysis/shiny__Analyse_data')`. You will open the data analysis software to analyse predetermined datasets.
 
