@@ -1,0 +1,47 @@
+authors:
+  name:
+    given-names: Julien
+    surname: Colomb
+  contrib-id: 0000-0002-3127-5520
+  github-handle: https://github.com/jcolomb
+  twitter-handle: https://twitter.com/j_colomb
+  author-notes:
+    email: julien.colomb@fu-berlin.de
+  affiliation: Humboldt-Universität zu Berlin, SFB1315, Institut für Biologie, Charitéplatz
+    1, 10117 Berlin
+  role:
+  - Conceptualization
+  - Data curation
+  - Formal analysis
+  - Investigation
+  - Methodology
+  - Project administration
+  - Software
+  - Validation
+  - Visualization
+  - Writing – original draft
+  - Writing – review & editing
+  funders: 'funded by the German Research Foundation, grant_number 327654276: SFB
+    1315:             Mechanisms and disturbances in memory consolidation: From synapses
+    to systems'
+  .attrs:
+    contrib-type: author
+    corresponding-author: 'TRUE'
+  name:
+    given-names: York
+    surname: Winter
+  contrib-id: 0000-0002-7828-1872
+  github-handle: ~
+  twitter-handle: ~
+  author-notes:
+    email: ~
+  affiliation: no affiliation entered at this number, please update the orcid record.
+  role:
+  - Conceptualization
+  - Funding acquisition
+  - Supervision
+  - Writing – review & editing
+  funders: no funding entered at this number, please update the orcid record.
+  .attrs:
+    contrib-type: author
+    corresponding-author: 'FALSE'

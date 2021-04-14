@@ -37,7 +37,7 @@ for (k in 1:num_per_class) {
   #ppsvm_L[hold_out] = predict(svm.model_L, xx[hold_out,])
   
   ##---radial svm
-  objR <- tune.svm(groupingvar~., data =out_sel[-hold_out,], gamma = 2^(-19:0), cost = 2^(1:8),
+  objR <- tune.svm(groupingvar~., data =out_sel[-hold_out,], gamma = 4^(-5:5), cost = 4^(-5:5),
                    tune.control(sampling = "fix"),kernel = "radial")
   plot(objR)
   best.parameters = objR$best.parameters

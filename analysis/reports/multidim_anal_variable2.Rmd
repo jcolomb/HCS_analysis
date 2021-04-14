@@ -151,6 +151,7 @@ We splitted the data in binomes, train a svm with 10 data points per group and t
 
 
 ```{r, echo=FALSE}
+print (svmMessage)
 p1
 p2
 p3

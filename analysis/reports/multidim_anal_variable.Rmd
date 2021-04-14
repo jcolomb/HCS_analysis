@@ -64,17 +64,15 @@ First, lets plot the 2 most discriminative variables following the random forest
   names (Plot) = c("groupingvar","disciminant1", "discriminant2")
   p=ggplot (Plot, aes (y= disciminant1, x=discriminant2, color= groupingvar))+
     geom_point()+
-    labs(title = Title_plot)+
-    #scale_x_log10() + scale_y_log10()+
-    scale_colour_grey() + theme_bw()+
-      theme(legend.position='none')
+    labs(title = Title_plot)
+  
 print(p)  
 ```
 
 
 Here, we plot the first two or threecomponents obtained after a ICA performed on the reduced data:
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 print(pls)  
 pls2
 ```
@@ -151,7 +149,7 @@ lengthMenu = c( 5,20, -1)))
 
 ```{r, echo=FALSE}
 if (NO_svm) {print("No machine learning attempt made.")
-  
+  print (svmMessage)
   knitr::knit_exit()
 }
 ```
