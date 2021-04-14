@@ -1,5 +1,10 @@
 # #-------------------------SVM analysis
 
+## the code perform a svm analysis with 2 groups,
+## inputs: Multi_datainput_m2, Multi_datainput_m (chosen via Projects_metadata$confound_by)
+## 2 types of strategy depending on testvalidation, which depends on sample size.
+
+
 ##---testset validation if enough data
 if (testvalidation){
   #---- Determine the trainset and testset of data, more complex if there is a confounding factor.
@@ -99,18 +104,19 @@ if (!testvalidation){
     out_sel = Multi_datainput_m[order(Multi_datainput_m$groupingvar),]
   }
   
-  ## make same number of animal in each group
-  out_sel_ori= out_sel
-  GP= out_sel$groupingvar
-  L =levels(GP)
-  out_sel1= out_sel [GP == L[1],]
-  out_sel2= out_sel [GP == L[2],]
-  NG = min (nrow (out_sel1),nrow (out_sel2))
-  out_sel =rbind (out_sel1[1:NG,],out_sel2[1:NG,])
+  # ## make same number of animal in each group, deprecated as svm is not running if this is the case.
+  # out_sel_ori= out_sel
+  # GP= out_sel$groupingvar
+  # L =levels(GP)
+  # out_sel1= out_sel [GP == L[1],]
+  # out_sel2= out_sel [GP == L[2],]
+  # NG = min (nrow (out_sel1),nrow (out_sel2))
+  # out_sel =rbind (out_sel1[1:NG,],out_sel2[1:NG,])
   
-  ## get rid of NAs
+  ## get rid of columns with NAs
   all_na <- function(x) any(!is.na(x))
   out_sel = out_sel %>% select_if(all_na)
+  
   ## do the svm, with a radial kernel
   kernel ="radial"
   source ("Rcode/2_out_svm.r")
@@ -120,7 +126,7 @@ if (!testvalidation){
 }
 
 Accuracy = paste0(
-  ncol(Multi_datainput_m) - 1,
+  ncol(out_sel) - 1,
   " variables: Accuracy of the prediction with ",
   kernel,
   " kernel (Kappa index: 0 denotes chance level, maximum is 1):",

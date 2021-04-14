@@ -14,7 +14,7 @@ This repository was developed using Rstudio and has many dependencies.
 
 # Installation
 
-Clone or download this repository. Run `source(analysis/Installation_Rpackages.r)` to install dependencies.
+Clone or download this repository. Run `source('analysis/Installation_Rpackages.r')` to install dependencies.
 
 Now open the shiny apps in Rstudio and click the run button or type `shiny::runApp('analysis/shiny__Analyse_data')`. You will open the data analysis software to analyse predetermined datasets.
 
@@ -33,6 +33,8 @@ The repository also contains data to test new functions, information about how t
 The analysis software is automatically reading the master metadata file on OSF. When the user specify the project to analyse, the software will (1) read the metadata associated with the project and create a minute summary file from the primary data file indicated (**either minute summary, hour summary or the raw behavioral sequence can be used as primary data**, 2) behaviour categories are pooled together and the software create time windows, calculating a value for each behaviour category for each time window. Some data might be excluded at this point of the analysis, following the label indicated in the experiment metadata. 
 
 The software then performs multidimensional analyses on this latter data to plot it (3) and to tell whether the groups can be told apart (4). The user can choose which time window to incorporate on step 3. The analysis is running a random forest to report the variables which show most difference in the different groups of mice. It is then performing an independent component analysis (ICA) on these 8 to 20 variables and plotting the first 3 components in an interactive 3D plot. Independently, the part 5 of the software runs a PCA and look at the first principal component for statistically different results in the different groups, using a non-parametric test. Then it runs a machine learning algorithm on the data. Validation of the results is done via a non-exhaustive 2 out validation technique if the sample size per group is below 15, or a validation via a test dataset otherwise.
+
+You may want to look at the [code for reviewers](analysis/reviews_and_tests.r) to get a detailed view of what the code is performing and what additional tests you can do to check the code with your data. You may want to run [tests](analysis/Rcode/tests/testthat/test.r) if your data does not seem to be analyzed correctly.
 
 # Using your data
 
