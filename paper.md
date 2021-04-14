@@ -25,10 +25,11 @@ bibliography: test.bib
 
 # Summary
 
-Automated mouse phenotyping via high throughput behaviour analysis of home cage behaviour has brought hope for a more effective and efficient way to test rodent models of diseases. While different software solutions track behavioural motives through time, software to analyse and archive this rich data is mostly lacking [@Steele2007].
-Here, we present an open source, free software actionable via a web browser, that can perform state of the art multidimensional analysis of home cage behavioural sequence data. We created an open repository of the linked metadata that we treat as separate from the raw data. Data from a wild type strain of mice used to test the software is provided. 
+Automated mouse phenotyping via high-throughput behavior analysis of home cage behavior has brought hope for a more effective and efficient way to test rodent models of diseases. Very rich datasets are produced by advanced video analysis software. However, there is no dedicated mechanism to share or analyze this kind of data, such that it is common practice to reduce the analysis to a couple of variables summarized over the whole recording period.  
 
-This software should facilitate the analysis of long behavioural sequence data such as extracted by machine learning and other algorithms from video based home cage monitoring.
+Here, we present an open source, free software actionable via a web browser (a R-shiny application), that can perform state of the art multidimensional analysis of home cage behavioral sequence data. By aligning time series data to the light cycle, it can use different time windows to produce up to 128 behavior variables per animal. It provides a p-hacking free analysis using a PCA strategy, while providing graphical representation of the behavior for further explorative analysis. A machine learning approach was implemented but had been proven ineffective at separating groups of animals.
+
+With this work, we hope to engage researchers in data management practices by showing that it allows for better and more efficient analyses of the data. 
 
 ## Data input
 
