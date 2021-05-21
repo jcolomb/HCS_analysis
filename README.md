@@ -63,7 +63,18 @@ We are using the osf to create a "repository" for the project metadata informati
 ![Data and metadata structure. The master project_metadata file available online links the address of the metadata files and the data folder (blue arrows). The experiment metadata file links to each data file (for clarity, only one folder is shown here). The format of the data was either .xlsx summary files (with minutes or hour time resolution) or the output files .mbr (behavior sequence) and .tbd (position) of the proprietary HomeCageScan (CleverView) software. Note that the current software did not use the .tbd files. The master file, provided path information to the analysis software. Reports are stored in a folder indicating the software name and version. Derived data files are saved in a folder named after the software name, but not its version.
 ](paperfigure/tree-1.png)
 
+# The shiny application
 
+## analysis/Shiny/testanduploaddata/
+
+The local project metadata file was read and the user could select the project to test (and upload). By pressing the "test metadata" button, the users could start a first check of the metadata (date formats are correct, sex was reported correctly, essential metadata entries are present) that reported warnings and errors. This check also makes sure the experiment metadata file could be read and that each file path indicated was directing toward an existing file. It also flagged every file which was not indicated in the metadata, as they might be forgotten tests.
+In absence of errors, the user could create a minute summary file by pressing the next button. If this worked, it meant the metadata was sufficient to perform the analysis. When the last button was pushed, the software would enter the project into the master file present on OSF (note that the project name needs to be new).
+ Only then could the data be analysed by the second application.
+ 
+## analysis/shiny__Analyse_data
+
+---
+ 
 # In the future
 
 We hope to make the software flexible enough to analyse data coming for other, similar setups. Reach out if you get some.
