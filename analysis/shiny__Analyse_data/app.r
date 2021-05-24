@@ -284,29 +284,39 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
    
    # Application title
    titlePanel(title=paste0("BSeq_analyser, ",version))
-   ,source ("../Softwareheader.r")
-   ,     
+   ,
+   "The software analyse behaviour sequence data, obtained via the Homecage Scan software (Cleversys; .mdr raw data or minutes/hourly summary excel exports).
+   Note that the light schedule should be indicated in the lab metadata files."
+   ,source ("../Softwareheader.r"),     
+   
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(
-         sliderInput("Npermutation",
-                     "Number of permutations to perform for the statistics:",
-                     min = 1,
-                     max = 600,
-                     value = 1)
+         shinyUI(bootstrapPage(selectInput('Name_project', 'choose the project to analyse:',
+                                            Projects_metadata$Proj_name ,
+                                            'Ro_testdata'),
+                                textOutput("analysemessage") ,
+                               shinyDirButton('STICK', "Data_directory", 
+                                               "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")
+                                
+         
+                                                    
+         ,tags$hr(),"Set variables"
+         , radioButtons('groupingby', 'grouping variables following which categories',
+                        c('Jhuang 10 categories'='Jhuang',
+                          'Berlin 18 categories'='Berlin'),
+                        'Berlin')
+         
          , checkboxInput('RECREATEMINFILE', 'recreate the min_file even if one exists', FALSE)
          , checkboxInput('perf_SVM', 'Perform the svm analysis (takes time, not always working)', FALSE)
-         , radioButtons('groupingby', 'grouping variables following which categories',
-                      c('Jhuang 10 categories'='Jhuang',
-                        'Berlin 18 categories'='Berlin'),
-                      'Berlin')
-         , shinyUI(bootstrapPage(shinyDirButton('STICK', "Data_directory", 
-                          "Choose the directory containing all your HCS data (works only while running the app via Rstudio on your computer):")
-         ,selectInput('Name_project', 'choose the project to analyse:',
-                                      Projects_metadata$Proj_name ,
-                                      'Ro_testdata')
-        , textOutput("analysemessage")  
-        , tags$hr()
+         , sliderInput("Npermutation",
+                      "Number of permutations to perform for the SVM statistics:",
+                      min = 1,
+                      max = 600,
+                      value = 1)
+         
+          
+        , tags$hr(), "Messages: "
          , textOutput("text_1")
          , a("Open the report in a new tab",target="_blank",href="report.html")
          ,actionButton("debug_go", "Go back to R to debug")
@@ -317,13 +327,17 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
       # Show a plot of the generated distribution
       mainPanel(
         tabsetPanel(
-          tabPanel("multidim_results",
-            "If you do not choose the time windows to incorporate in the analysis, all time windows will be used.
-            "       
+          tabPanel("multidimensional analysis",
+                   actionButton("goButton", "Perform multidimensional analysis")       
+                   , tags$hr()
+                   ,"
+            You can also previously choose the time windows to incorporate in the analysis, if you do not all time windows will be used.
+            "   
+                   , tags$br()
             ,actionButton("TWbutton", "Choose time windows")
             , tags$hr()
             ,DT::dataTableOutput('TW')  
-            ,actionButton("goButton", "Perform multidimensional analysis")
+            
                  
             , htmlOutput("includeHTML", inline = TRUE)
             #, textOutput("test")
@@ -345,7 +359,7 @@ ui <- fluidPage(theme = "bootstrapsolar.css",
 
         
         )  
-        , "Use behaviour sequence (.mdr) file, or minutes/hourly summary excel exports from the Homecagescan software. Note that the light squedules should be indicated in the lab metadata files."
+        , ""
         
       )
    )

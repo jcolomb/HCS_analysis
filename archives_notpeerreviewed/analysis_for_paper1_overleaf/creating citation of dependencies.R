@@ -1,4 +1,4 @@
-write_bib("devtools")
+
 
 ## -- the bib was created using multiple time this and citation ("xxx") commands, adding code by hand afterwards
 sink("test.bib")
@@ -12,6 +12,7 @@ sink("test.bib")
 
 renvLock <- jsonlite::read_json("renv.lock")
 knitr::write_bib(names(renvLock$Packages))
+knitr::write_bib("devtools")
 
 
 sink()
