@@ -25,4 +25,5 @@ Please check github help center to learn how to create pull requests: https://he
 
 ### Code of Conduct
 
-We do not have a code of conduct (see why here, https://openscholarship.co.uk/renew-your-coc/), but please be nice, and welcome any contribution.
+Please be nice, and welcome any contribution.
+We do not have a proper code of conduct, because we do not have the manpower to implement it (see also https://openscholarship.co.uk/renew-your-coc/). 

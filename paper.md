@@ -23,6 +23,9 @@ date: 05 April 2020
 bibliography: test.bib
 ---
 
+Deprecated document: this was written for JOSS submission. After the paper was rejected, information stated here was moved to a new paper and to the readme file.
+
+
 # Summary
 
 Automated mouse phenotyping via high-throughput behavior analysis of home cage behavior has brought hope for a more effective and efficient way to test rodent models of diseases. Very rich datasets are produced by advanced video analysis software. However, there is no dedicated mechanism to share or analyze this kind of data, such that it is common practice to reduce the analysis to a couple of variables summarized over the whole recording period.  
