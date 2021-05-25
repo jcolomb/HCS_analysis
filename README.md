@@ -18,6 +18,15 @@ Two Shiny apps are present in this repository. You will find them in the analysi
 One can also use the `master_noshiny.r` script to run the analysis, but one has to set varaiables manually.
 You can also find information about how to add data and metadata from you project (see below).  Additional information and code which were used to write a paper (not published yet) are also present.
 
+
+
+# Generalities
+
+Two Shiny apps are present in this repository. You will find them in the analysis folder. One does read and check your metadata before pushing the project metadata on osf, the second one is analysing data (master project metadata have no be made public first). The repository also contains data to test new functions. Dependencies have been taken cared of using the renv package.
+
+One can also use the `master_noshiny.r` script to run the analysis, but one has to set varaiables manually.
+You can also find information about how to add data and metadata from you project (see below).  Additional information and code which were used to write a paper (not published yet) are also present.
+
 ---
 
 
