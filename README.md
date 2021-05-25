@@ -38,30 +38,33 @@ You may want to look at the [code for reviewers](analysis/reviews_and_tests.r) t
 
 # Using your data
 
-**You will gain a lot of time if you fill the metadata in a usable format during data acquisition**. You can use the .mbr files created automatically by the homescagescan software, there is no need for a specific export, unless you want to use the `distance travelled` data. In any cases, make sure you record information about the time at which the video has been started (it should be indicated in the video name, if you are using the HomeCageScan software.) 
+**You will gain a lot of time if you fill the metadata in a usable format during data acquisition**. 
 
-Please refer to https://github.com/jcolomb/HCS_analysis/blob/master/Metadata_information/Readme.md to get familiar with the metadata schemes or if you already have collected the data: you will need to create new metadata and modify your data to have it in a usable state.
+You can use the .mbr files as raw data input (it is created automatically by the homescagescan software, without a saving step is needed). There is no need for a specific export, unless you want to use the `distance travelled` data. In any cases, make sure you record information about the time at which the video has been started (it should be indicated in the video name, if you are using the HomeCageScan software.) 
+
+
+Please refer to https://github.com/jcolomb/HCS_analysis/blob/master/Metadata_information/Readme.md (and below) to create new metadata and modify your data to obtain a usable state. Once your data is in a format accepted by the software, you might upload it on github and archive it on zenodo, or keep it locally. By indicating the folder as the raw data folder in github, the software can access the data directly on Github.
+
 
 Once your data is in a format accepted by the software, you might upload it online, or keep it locally. By indicating the folder as the raw data folder in github or gitlab, the software can access the data directly. Once the project metadata has been pushed to osf via the app, you will be able to use the analysis application.
-
-
 
 # metadata scheme
 
  In brief, there are different metadata files:
 
-- a project metadata: each project is listed in one spreadseets (saved on osf, see below), path toward other metadata file is indicated there.
+- a project metadata: each project is listed in one spreadseets, path toward other metadata file is indicated there.
 - a lab metadata: here is stocked information about the room where the experiment was performed (daily light cycle is indicated there).
 - an experiment metadata: each row represent one test session. Information about the animal tested is stored there.
 
 
+![Data and metadata structure. The master project_metadata file available online links the address of the metadata files and the data folder (blue arrows). The experiment metadata file links to each data file (for clarity, only one folder is shown here). The format of the data was either .xlsx summary files (with minutes or hour time resolution) or the output files .mbr (behavior sequence) and .tbd (position) of the proprietary HomeCageScan (CleverView) software. Note that the current software did not use the .tbd files. The master file, provided path information to the analysis software. Reports are stored in a folder indicating the software name and version. Derived data files are saved in a folder named after the software name, but not its version.
+](paperfigure/tree-1.png)
 
 We are using the osf to create a "repository" for the project metadata information (the master metadata file is hosted there because we can read and update it from R). The shiny app was given access to a particular repostiory using [Token Auth](https://cran.r-project.org/web/packages/osfr/vignettes/auth.html) in the osf APIv2 (via the osfr package).
 
 ---
 
-![Data and metadata structure. The master project_metadata file available online links the address of the metadata files and the data folder (blue arrows). The experiment metadata file links to each data file (for clarity, only one folder is shown here). The format of the data was either .xlsx summary files (with minutes or hour time resolution) or the output files .mbr (behavior sequence) and .tbd (position) of the proprietary HomeCageScan (CleverView) software. Note that the current software did not use the .tbd files. The master file, provided path information to the analysis software. Reports are stored in a folder indicating the software name and version. Derived data files are saved in a folder named after the software name, but not its version.
-](paperfigure/tree-1.png)
+
 
 # The shiny application
 
