@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: 'Bseq_analyser:  R Shiny Analysis of Rodent Behavior Sequence Data'
+message: >-
+  Please cite both the software and the paper if you
+  are using this tool for your publication.
+type: software
+authors:
+  - given-names: Julien
+    family-names: Colomb
+    orcid: 'https://orcid.org/0000-0002-3127-5520'
+  - family-names: "Winter"
+    given-names: "York"
+    orcid: "https://orcid.org/0000-0002-7828-1872"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.1162721
+    
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Colomb"
+    given-names: "Julien"
+    orcid: "https://orcid.org/0000-0002-3127-5520"
+  - family-names: "Winter"
+    given-names: "York"
+    orcid: "https://orcid.org/0000-0002-7828-1872"
+  doi: "10.3389/fnins.2021.742652"
+  journal: "Frontiers in Neuroscience "
+  month: 9
+  start: 1565  # First page number
+
+  title: "Creating Detailed Metadata for an R Shiny Analysis of Rodent Behavior Sequence Data Detected Along One Light-Dark Cycle"
+  volume: 15
+  year: 2021
+  
