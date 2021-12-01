@@ -24,12 +24,17 @@ preferred-citation:
   - family-names: "Winter"
     given-names: "York"
     orcid: "https://orcid.org/0000-0002-7828-1872"
-  doi: "10.3389/fnins.2021.742652"
-  journal: "Frontiers in Neuroscience "
-  month: 9
-  start: 1565  # First page number
-
-  title: "Creating Detailed Metadata for an R Shiny Analysis of Rodent Behavior Sequence Data Detected Along One Light-Dark Cycle"
+  title: "Creating Detailed Metadata for an R Shiny Analysis of Rodent Behavior Sequence Data Detected Along One Light-Dark Cycle"  
+  journal: "Frontiers in Neuroscience"
   volume: 15
+  start: 1565  # First page number
   year: 2021
+  doi: "10.3389/fnins.2021.742652"
+  issn: "1662-453X"
+  abstract: "Automated mouse phenotyping through the high-throughput analysis of home cage behavior has brought hope of a more effective and efficient method for testing rodent models of diseases. Advanced video analysis software is able to derive behavioral sequence data sets from multiple-day recordings. However, no dedicated mechanisms exist for sharing or analyzing these types of data. In this article, we present a free, open-source software actionable through a web browser (an R Shiny application), which performs an analysis of home cage behavioral sequence data, which is designed to spot differences in circadian activity while preventing p-hacking. The software aligns time-series data to the light/dark cycle, and then uses different time windows to produce up to 162 behavior variables per animal. A principal component analysis strategy detected differences between groups. The behavior activity is represented graphically for further explorative analysis. A machine-learning approach was implemented, but it proved ineffective at separating the experimental groups. The software requires spreadsheets that provide information about the experiment (i.e., metadata), thus promoting a data management strategy that leads to FAIR data production. This encourages the publication of some metadata even when the data are kept private. We tested our software by comparing the behavior of female mice in videos recorded twice at 3 and 7 months in a home cage monitoring system. This study demonstrated that combining data management with data analysis leads to a more efficient and effective research process."
+ 
+
+  
+  
+  
   
