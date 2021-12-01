@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 title: 'Bseq_analyser:  R Shiny Analysis of Rodent Behavior Sequence Data'
 message: >-
-  Please cite both the software and the paper if you
-  are using this tool for your publication.
+  Please cite our paper if you
+  are using this tool for your publication. You may additionally cite the zenodo archive of the software.
 type: software
 authors:
   - given-names: Julien
